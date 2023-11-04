@@ -1,0 +1,13 @@
+diff --git a/cmd/serv.go b/cmd/serv.go
+index 484e3bf40..5a220020c 100644
+--- a/cmd/serv.go
++++ b/cmd/serv.go
+@@ -90,7 +90,7 @@ var (
+ 		"git-receive-pack":   perm.AccessModeWrite,
+ 		lfsAuthenticateVerb:  perm.AccessModeNone,
+ 	}
+-	alphaDashDotPattern = regexp.MustCompile(`[^\w-\.]`)
++	alphaDashDotPattern = regexp.MustCompile(`[^\wäöüÄÖÜ-\.]`)
+ )
+ 
+ // fail prints message to stdout, it's mainly used for git serv and git hook commands.
