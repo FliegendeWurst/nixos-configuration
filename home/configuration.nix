@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  gaming = false;
   linuxPackages = pkgs.linuxPackages_5_10;
   mpvPlus = with pkgs; mpv.override {
     scripts = [ mpvScripts.mpris ];
@@ -301,7 +302,7 @@ rec {
     ];
     overlays = [ nur.overlay ];
   };
-  programs.steam.enable = true;
+  programs.steam.enable = gaming;
   programs.zsh.enable = true;
   programs.zsh.enableGlobalCompInit = false;
   programs.zsh.interactiveShellInit = ''
