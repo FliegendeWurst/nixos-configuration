@@ -477,12 +477,13 @@ rec {
     update-resolv-conf # for OpenVPN configs
 
     # List of packages to get on demand
-    wineWowPackages.full
+    #wineWowPackages.full
     #winetricks
     #texlive.combined.scheme-full
 
     prusa-slicer
     blender
+    xml2rfc
   ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
