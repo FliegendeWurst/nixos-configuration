@@ -213,8 +213,8 @@ rec {
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
 
-  fonts.enableDefaultFonts = true;
-  fonts.fonts = with pkgs; [
+  fonts.enableDefaultPackages = true;
+  fonts.packages = with pkgs; [
     noto-fonts-emoji
     liberation_ttf
     cozette
@@ -364,7 +364,7 @@ rec {
     iotop
     img2pdf
     pdftk
-    exa
+    eza
     fd
     zoxide
     fzf
