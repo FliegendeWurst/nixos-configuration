@@ -200,8 +200,10 @@ rec {
       description = "Dvorak customized";
       languages = [ "eng" ];
       symbolsFile = pkgs.fetchurl {
-        url = "https://gist.githubusercontent.com/FliegendeWurst/856bd34536028b5579bdb102f324325a/raw/bfd0675b51bc2a1379877d9006eb0e0c7f84328d/dvorak-custom";
-        hash = "sha256-FMeKP8PdLjR/eHkkgTlIjEJ9rHsygXOVBE6OTfEbjOo=";
+        #url = "https://gist.githubusercontent.com/FliegendeWurst/856bd34536028b5579bdb102f324325a/raw/bfd0675b51bc2a1379877d9006eb0e0c7f84328d/dvorak-custom";
+        url = "https://gist.github.com/FliegendeWurst/856bd34536028b5579bdb102f324325a/raw/caa2a2c52c3450b5fb27212d43f5624586dcbee8/dvorak-custom";
+        #hash = "sha256-FMeKP8PdLjR/eHkkgTlIjEJ9rHsygXOVBE6OTfEbjOo=";
+        hash = "sha256-/SWLa/OefNNmBmXLP7bhD0g1bc5VpmPXNkU+Qunouok=";
       };
     };
   };
@@ -340,7 +342,7 @@ rec {
     PAPERLESS_TRAIN_TASK_CRON = "5 16 * * *";
     PAPERLESS_EMAIL_TASK_CRON = "disable";
     # https://github.com/NixOS/nixpkgs/issues/240591
-    PAPERLESS_WORKER_TIMEOUT = "900";
+    PAPERLESS_WORKER_TIMEOUT = "90";
   };
 
   environment.variables.EDITOR = "vim";
