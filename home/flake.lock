@@ -2,11 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1703068421,
-        "narHash": "sha256-WSw5Faqlw75McIflnl5v7qVD/B3S2sLh+968bpOGrWA=",
+        "lastModified": 1704532030,
+        "narHash": "sha256-mVj1tRpk5NSfeQVnW8NfVEwMP5JeQow37pqDKFSP2ns=",
         "owner": "FliegendeWurst",
         "repo": "nixpkgs",
-        "rev": "d65bceaee0fb1e64363f7871bc43dc1c6ecad99f",
+        "rev": "36bf589f0653c69f70bdf6d7f8648bfd1e6a305a",
         "type": "github"
       },
       "original": {
@@ -18,11 +18,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1703425305,
-        "narHash": "sha256-WOdiADpQdqWB9LYdj+8GLV6k/VtobkhjzS4GGBctlag=",
+        "lastModified": 1704530682,
+        "narHash": "sha256-hjfKj0Zt6ZpDYBorM2NJ5M2HMnuAZyfCiidZqc2IG08=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "1b23cd590af6fea03dae2872153236ac928967a8",
+        "rev": "414962ddd2edeeaad1a63a4149061454479eb3c1",
         "type": "github"
       },
       "original": {
