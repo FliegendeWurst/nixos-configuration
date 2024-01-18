@@ -37,6 +37,7 @@
 
   boot.loader.systemd-boot.configurationLimit = 5;
   nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 14d";
 
   virtualisation.docker.enable = true;
 
