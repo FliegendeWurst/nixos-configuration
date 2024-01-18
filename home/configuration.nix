@@ -165,10 +165,6 @@ rec {
     _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
     GTK_USE_PORTAL = "1";
   };
-  environment.extraInit = ''
-    export XAUTHORITY=/tmp/Xauthority
-    [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY" && ~/src/clean_dots.sh
-  '';
   environment.etc = {
     "resolv.conf".text = ''
       domain fritz.box
