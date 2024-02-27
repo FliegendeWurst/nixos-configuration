@@ -162,6 +162,7 @@
 
     certificateScheme = "acme";
   };
+  services.dovecot2.sieve.extensions = [ "fileinto" ];
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "2012gdwu@posteo.de";
