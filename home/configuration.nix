@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  gaming = false;
+  gaming = true;
   linuxPackages = pkgs.linuxPackages_5_10;
   mpvPlus = with pkgs; mpv.override {
     scripts = [ mpvScripts.mpris ];
