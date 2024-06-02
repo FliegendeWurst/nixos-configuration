@@ -2,7 +2,7 @@
 
 let
   gaming = false;
-  linuxPackages = pkgs.linuxPackages_5_10;
+  linuxPackages = pkgs.linuxPackages_6_6;
   mpvPlus = with pkgs; mpv.override {
     scripts = [ mpvScripts.mpris ];
   };
@@ -134,7 +134,7 @@ rec {
   };
   security.sudo.extraConfig = ''
     Defaults insults
-    Defaults timestamp_timeout=10
+    Defaults timestamp_timeout=-1
   '';
 
   time.timeZone = "Europe/Berlin";
@@ -185,13 +185,12 @@ rec {
 
   services.xserver.excludePackages = [ pkgs.xterm ];
   services.xserver.desktopManager.xterm.enable = false;
-  services.xserver.displayManager.sddm.theme = "${nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
   services.xserver.enable = true;
   services.xserver.enableCtrlAltBackspace = true;
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
   #services.xserver.libinput.accelProfile = "flat";
-  services.xserver.layout = "dvorak-custom";
-  services.xserver.extraLayouts = {
+  services.xserver.xkb.layout = "dvorak-custom";
+  services.xserver.xkb.extraLayouts = {
     dvorak-custom = {
       description = "Dvorak customized";
       languages = [ "eng" ];
@@ -205,9 +204,10 @@ rec {
   };
   services.xserver.autoRepeatDelay = 183;
   services.xserver.autoRepeatInterval = 33;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.job.logToJournal = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.theme = "${nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
+  services.displayManager.logToJournal = true;
+  services.desktopManager.plasma6.enable = true;
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
 
@@ -327,14 +327,14 @@ rec {
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = false;
-    pinentryFlavor = "qt";
+    pinentryPackage = pkgs.pinentry-qt;
   };
   # do not show unlock prompt on login
   security.pam.services.sddm.enableKwallet = lib.mkOverride 0 false;
 
   services.paperless.enable = true;
   services.paperless.consumptionDirIsPublic = true;
-  services.paperless.extraConfig = {
+  services.paperless.settings = {
     PAPERLESS_TRAIN_TASK_CRON = "5 16 * * *";
     PAPERLESS_EMAIL_TASK_CRON = "disable";
     # https://github.com/NixOS/nixpkgs/issues/240591
@@ -381,7 +381,8 @@ rec {
     nur.repos.fliegendewurst.map
     nur.repos.fliegendewurst.diskgraph
     nur.repos.fliegendewurst.freqtop
-    nur.repos.fliegendewurst.openscad-snapshot
+    # broken at the moment
+    # nur.repos.fliegendewurst.openscad-snapshot
 
     # programming environments
     python3

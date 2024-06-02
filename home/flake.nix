@@ -2,7 +2,7 @@
   description = "FliegendeWurst's NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "github:FliegendeWurst/nixpkgs/nixos-23.11-patched";
+    nixpkgs.url = "github:FliegendeWurst/nixpkgs/nixos-24.05-patched";
     nur.url = "github:nix-community/NUR";
   };
 
