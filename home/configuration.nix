@@ -208,6 +208,8 @@ rec {
   services.displayManager.sddm.theme = "${nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
   services.displayManager.logToJournal = true;
   services.desktopManager.plasma6.enable = true;
+  services.displayManager.defaultSession = "plasmax11";
+  services.displayManager.sddm.wayland.enable = false;
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
 
