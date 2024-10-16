@@ -472,7 +472,7 @@ rec {
     #afl
 
     # Games
-    prismlauncher
+    (prismlauncher.override { jdks = [ jdk8 jdk22 ]; })
     #minecraft
     #logmein-hamachi
 
