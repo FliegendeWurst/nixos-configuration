@@ -61,6 +61,7 @@ rec {
   systemd.coredump.extraConfig = ''
     Storage=none
   '';
+  systemd.enableUnifiedCgroupHierarchy = lib.mkForce true;
   security.pam.loginLimits = [
     { domain = "*"; item = "core"; type = "hard"; value = "0"; }
   ];
