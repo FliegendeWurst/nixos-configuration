@@ -379,7 +379,7 @@ rec {
     nvme-cli
     zola
 
-    nur.repos.fliegendewurst.ripgrep-all
+    #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
     nur.repos.fliegendewurst.diskgraph
     nur.repos.fliegendewurst.freqtop
