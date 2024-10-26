@@ -282,7 +282,7 @@ rec {
 
   users.users.arne = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "adbusers" "wireshark" "audio" "cdrom" "dialout" "scanner" ];
+    extraGroups = [ "wheel" "docker" "adbusers" "wireshark" "audio" "cdrom" "dialout" "scanner" "kvm" ];
     shell = pkgs.zsh;
   };
 
@@ -383,8 +383,7 @@ rec {
     nur.repos.fliegendewurst.map
     nur.repos.fliegendewurst.diskgraph
     nur.repos.fliegendewurst.freqtop
-    # broken at the moment
-    # nur.repos.fliegendewurst.openscad-snapshot
+    openscad-unstable
 
     # programming environments
     python3
@@ -404,7 +403,7 @@ rec {
 
     #cplex
     #key
-    cvc5
+    #cvc5
     #zotero
 
     # CLI applications
