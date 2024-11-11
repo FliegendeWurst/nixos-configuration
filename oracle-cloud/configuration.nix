@@ -83,6 +83,11 @@
     requires = [ "network-online.target" ];
   };
 
+  services.hedgedoc.enable = true;
+  services.hedgedoc.settings.domain = "hedgedoc.fliegendewurst.eu";
+  services.hedgedoc.settings.host = "127.0.0.1";
+  services.hedgedoc.settings.protocolUseSSL = true;
+
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
@@ -106,6 +111,14 @@
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:26599";
+        };
+      };
+      "hedgedoc.fliegendewurst.eu" = {
+        forceSSL = true;
+        enableACME = true;
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:3000";
         };
       };
       "rsshub.fliegendewurst.eu" = {
