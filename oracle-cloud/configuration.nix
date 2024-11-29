@@ -27,6 +27,16 @@
       });
     }
   ) ];
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/NUR/archive/2aa5561c152be2739638891a0fe6e158b51ea8ae.tar.gz";
+      # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
+      sha256 = "17mxvzn3sin0v4qnzh5305bpgval7k6rkb6i7cvrzz7ba6z4fxvk";
+    }) {
+      inherit pkgs;
+    };
+  };
+
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -88,6 +98,28 @@
   services.hedgedoc.settings.host = "127.0.0.1";
   services.hedgedoc.settings.protocolUseSSL = true;
 
+  users.users.pr-dashboard = {
+    home = "/home/pr-dashboard";
+    isSystemUser = true;
+    group = "pr-dashboard";
+  };
+  users.groups.pr-dashboard = {};
+  systemd.services.pr-dashboard = {
+    description = "PR dashboard";
+    environment = {
+      "GITHUB_PAT_FILE" = "/home/pr-dashboard/github-pat";
+      "PR_DASHBOARD_DATABASE" = "/home/pr-dashboard/pr-dashboard.db";
+      "PORT" = "18120";
+    };
+    serviceConfig = {
+      ExecStart = "${lib.getExe pkgs.nur.repos.fliegendewurst.pr-dashboard}";
+      User = "pr-dashboard";
+    };
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    requires = [ "network-online.target" ];
+  };
+
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
@@ -119,6 +151,14 @@
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:3000";
+        };
+      };
+      "nixpkgs-prs.fliegendewurst.eu" = {
+        forceSSL = true;
+        enableACME = true;
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:18120";
         };
       };
       "rsshub.fliegendewurst.eu" = {
