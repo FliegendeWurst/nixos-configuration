@@ -29,9 +29,9 @@
   ) ];
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/NUR/archive/2aa5561c152be2739638891a0fe6e158b51ea8ae.tar.gz";
+      url = "https://github.com/nix-community/NUR/archive/3bf72a07ced4187061498ef42dc6cfa901e80194.tar.gz";
       # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
-      sha256 = "17mxvzn3sin0v4qnzh5305bpgval7k6rkb6i7cvrzz7ba6z4fxvk";
+      sha256 = "1bdxd3f0fqw89l73y9k881qgn8waiqxwy0zm4ga9si8xadw56y34";
     }) {
       inherit pkgs;
     };
