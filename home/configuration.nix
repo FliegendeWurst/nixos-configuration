@@ -29,12 +29,15 @@ rec {
       ./hardware-configuration.nix
     ];
 
+  nix.nrBuildUsers = 64;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
 
   documentation.nixos.enable = false;
 
+  boot.initrd.systemd.enable = true;
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.memtest86.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = linuxPackages;
   boot.blacklistedKernelModules = [ "sp5100_tco" ];
@@ -43,12 +46,15 @@ rec {
   )];
   boot.kernelModules = [ "v4l2loopback" "nct6775" "hid_microsoft_ergonomic" ];
   boot.kernelParams = [
+    # bad bit in 0x193e4e5540
+    "memmap=0x1000$0x193e4e5000"
     "mitigations=off"
     "amdgpu.noretry=0"
     # this system has 128GB of RAM, I'm not writing that to disk
     "nohibernate"
   ];
   boot.kernel.sysctl = {
+    "kernel.dmesg_restrict" = false;
     # enable Alt+SysRq commands
     "kernel.sysrq" = 1;
     "vm.swappiness" = 1;
@@ -61,25 +67,41 @@ rec {
   systemd.coredump.extraConfig = ''
     Storage=none
   '';
-  systemd.enableUnifiedCgroupHierarchy = lib.mkForce true;
   security.pam.loginLimits = [
     { domain = "*"; item = "core"; type = "hard"; value = "0"; }
   ];
   # /tmp should be a tmpfs
   boot.tmp.useTmpfs = true;
   # disable CPU boost by default
-  systemd.services.disableCPUBoost = {
-    description = "Disable CPU Boost";
+  boot.initrd.systemd.services.disableCPUBoost = {
+    description = "Disable CPU Boost and configure fan";
     script = ''
       echo 0 > /sys/devices/system/cpu/cpufreq/boost
+      # auxiliary fan
+      echo 1 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1_enable
+      echo 65 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
     '';
     serviceConfig = {
       Type = "oneshot";
     };
-    wantedBy = [ "basic.target" ];
+    wantedBy = [ "sysinit.target" ];
+  };
+  systemd.services.configureAuxFan = {
+    description = "Configure fan";
+    script = ''
+      # auxiliary fan
+      echo 1 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1_enable
+      echo 65 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+    };
+    wantedBy = [ "suspend.target" ];
+    after = [ "suspend.target" ];
   };
 
   hardware.cpu.amd.updateMicrocode = true;
+  hardware.amdgpu.initrd.enable = true;
   hardware.mcelog.enable = true;
   services.fstrim.enable = true;
   # the journal tends to fill up with junk
@@ -211,6 +233,7 @@ rec {
   services.displayManager.sddm.wayland.enable = false;
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
+  systemd.services."drkonqi-coredump-processor@".enable = false;
 
   fonts.enableDefaultPackages = true;
   fonts.packages = with pkgs; [
@@ -224,7 +247,6 @@ rec {
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
   virtualisation.docker.logDriver = "journald";
-  #virtualisation.anbox.enable = true;
 
   # services.printing.enable = true;
   services.trilium-server.enable = true;
@@ -260,22 +282,17 @@ rec {
   };
   # services.logmein-hamachi.enable = true;
 
-  sound.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # this does not exist (yet?)
-    #pulse.support32Bit = true;
   };
 
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages = with pkgs; [ amdvlk vaapiVdpau libvdpau-va-gl ];
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [ amdvlk vaapiVdpau libvdpau-va-gl ];
+  hardware.graphics.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
 
   hardware.sane.enable = true;
 
@@ -292,11 +309,13 @@ rec {
       "steam-original"
       "steam-runtime"
       "steam-run"
+      "steam-unwrapped"
       "mathematica"
       "idea-ultimate"
       "android-studio-stable"
       "sddm-theme-utah"
     ];
+    strictDepsByDefault = config.system.nixos.release == "25.05";
     permittedInsecurePackages = [
       "qbittorrent-4.6.4"
     ];
@@ -319,8 +338,8 @@ rec {
 
   programs.command-not-found.enable = false;
   programs.adb.enable = true;
-  programs.k3b.enable = true;
   programs.firefox.enable = true;
+  programs.firefox.wrapperConfig.speechSynthesisSupport = false;
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark;
   programs.ssh.startAgent = true;
@@ -343,6 +362,10 @@ rec {
     PAPERLESS_WORKER_TIMEOUT = "90";
   };
 
+  # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    baloo-widgets
+  ];
   environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; [
     # standard utilities
@@ -392,7 +415,7 @@ rec {
     jdk17
     #visualvm
     rustup
-    cargo-outdated cargo-edit cargo-feature
+    cargo-outdated
     #jupyter
     vscodium
     jetbrains.idea-ultimate
@@ -425,7 +448,9 @@ rec {
     sqlitebrowser
     #(gimp-with-plugins.override { plugins = [ gimpPlugins.gmic ]; })
     gimp
-    thunderbird
+    (thunderbird.override {
+      cfg.speechSynthesisSupport = false;
+    })
     #ungoogled-chromium
     keepassxc
     josm
@@ -441,16 +466,27 @@ rec {
     tdesktop
     signal-desktop
     alacritty
-    kwalletmanager
-    okular akregator gwenview ark kcalc kcolorchooser kompare kcharselect kmag
-    plasma5Packages.kruler
-    kdeconnect
-    plasma-vault
+    kdePackages.kwalletmanager
+    kdePackages.okular
+    kdePackages.akregator
+    kdePackages.gwenview
+    kdePackages.ark
+    kdePackages.kate
+    kdePackages.kcalc
+    kdePackages.kcolorchooser
+    kdePackages.kompare
+    kdePackages.kcharselect
+    kdePackages.kmag
+    kdePackages.k3b
+    kdePackages.kruler
+    kdePackages.kdeconnect-kde
+    kdePackages.plasma-vault
     #ksshaskpass
-    notepadqq kate
+    notepadqq
     skrooge
     mpvPlus
     inkscape
+    element-desktop
 
     #xorg.xkbcomp
     xorg.xrandr
@@ -471,7 +507,7 @@ rec {
     #afl
 
     # Games
-    (prismlauncher.override { jdks = [ jdk8 jdk22 ]; })
+    (prismlauncher.override { jdks = [ jdk8 jdk21 ]; })
     #minecraft
     #logmein-hamachi
 
@@ -484,7 +520,6 @@ rec {
 
     prusa-slicer
     blender
-    xml2rfc
   ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
