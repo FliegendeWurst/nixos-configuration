@@ -73,7 +73,7 @@ rec {
   # /tmp should be a tmpfs
   boot.tmp.useTmpfs = true;
   # disable CPU boost by default
-  boot.initrd.systemd.services.disableCPUBoost = {
+  systemd.services.disableCPUBoost = {
     description = "Disable CPU Boost and configure fan";
     script = ''
       echo 0 > /sys/devices/system/cpu/cpufreq/boost
@@ -84,7 +84,7 @@ rec {
     serviceConfig = {
       Type = "oneshot";
     };
-    wantedBy = [ "sysinit.target" ];
+    wantedBy = [ "basic.target" ];
   };
   systemd.services.configureAuxFan = {
     description = "Configure fan";
@@ -101,7 +101,6 @@ rec {
   };
 
   hardware.cpu.amd.updateMicrocode = true;
-  hardware.amdgpu.initrd.enable = true;
   hardware.mcelog.enable = true;
   services.fstrim.enable = true;
   # the journal tends to fill up with junk
@@ -317,7 +316,6 @@ rec {
     ];
     strictDepsByDefault = config.system.nixos.release == "25.05";
     permittedInsecurePackages = [
-      "qbittorrent-4.6.4"
     ];
     overlays = [ nur.overlay ];
   };
