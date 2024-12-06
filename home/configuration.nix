@@ -57,7 +57,6 @@ rec {
     "kernel.dmesg_restrict" = false;
     # enable Alt+SysRq commands
     "kernel.sysrq" = 1;
-    "vm.swappiness" = 1;
     # for funky network experiments
     #"net.ipv4.ip_forward" = 1;
     # silence kernel warning
@@ -72,6 +71,15 @@ rec {
   ];
   # /tmp should be a tmpfs
   boot.tmp.useTmpfs = true;
+  zramSwap.enable = true;
+  zramSwap.memoryPercent = 80;
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 150;
+    "vm.watermark_boost_factor" = 0;
+    "vm.watermark_scale_factor" = 125;
+    "vm.page-cluster" = 0;
+  };
+
   # disable CPU boost by default
   systemd.services.disableCPUBoost = {
     description = "Disable CPU Boost and configure fan";
@@ -82,6 +90,7 @@ rec {
       echo 65 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
     '';
     serviceConfig = {
+      User = "root";
       Type = "oneshot";
     };
     wantedBy = [ "basic.target" ];
@@ -94,6 +103,7 @@ rec {
       echo 65 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
     '';
     serviceConfig = {
+      User = "root";
       Type = "oneshot";
     };
     wantedBy = [ "suspend.target" ];
@@ -399,6 +409,8 @@ rec {
     ddrescue
     nvme-cli
     zola
+    colorized-logs
+    nix-index
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
