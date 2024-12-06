@@ -29,9 +29,9 @@
   ) ];
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/NUR/archive/9a26641139d1b8f59059fad2500fbf06ca5918ab.tar.gz";
+      url = "https://github.com/nix-community/NUR/archive/8e6e9b8e2d04f0eea11dfa701f790bee797295b1.tar.gz";
       # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
-      sha256 = "1q48l5fvr0fyavvikmw9r6bn8dypxxvxh2phb8asyzwjl46f4i0z";
+      sha256 = "1bs4wdiq1b665n606sqff7ny2bdj6sjy9i5q9s9w9wkmwfyqfd57";
     }) {
       inherit pkgs;
     };
@@ -48,6 +48,11 @@
   boot.loader.systemd-boot.configurationLimit = 5;
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 14d";
+  nix.gc.dates = "monthly";
+  nix.extraOptions = ''
+    min-free = ${toString (5 * 1024 * 1024 * 1024)}
+    max-free = ${toString (10 * 1024 * 1024 * 1024)}
+  '';
 
   virtualisation.docker.enable = true;
 
@@ -64,6 +69,16 @@
       allowedTCPPorts = [ 22 80 443 25 993 587 465 ];
       logRefusedConnections = false;
       rejectPackets = true;
+    };
+  };
+
+  services.journald.extraConfig = "SystemMaxUse=1G";
+
+  services.logrotate.enable = true;
+  services.logrotate.settings = {
+    "/var/log/nginx/access*.log*" = {
+      frequency = "monthly";
+      rotate = "3";
     };
   };
 
