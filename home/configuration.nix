@@ -87,7 +87,7 @@ rec {
       echo 0 > /sys/devices/system/cpu/cpufreq/boost
       # auxiliary fan
       echo 1 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1_enable
-      echo 65 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
+      echo 115 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
     '';
     serviceConfig = {
       User = "root";
@@ -100,7 +100,7 @@ rec {
     script = ''
       # auxiliary fan
       echo 1 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1_enable
-      echo 65 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
+      echo 115 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
     '';
     serviceConfig = {
       User = "root";
@@ -416,6 +416,7 @@ rec {
     nur.repos.fliegendewurst.map
     nur.repos.fliegendewurst.diskgraph
     nur.repos.fliegendewurst.freqtop
+    nur.repos.xeals.cura5
     openscad-unstable
 
     # programming environments
@@ -445,6 +446,7 @@ rec {
     sqlite
     borgbackup
     nix-tree rnix-hashes nixpkgs-review
+    nixfmt-rfc-style
     #gallery-dl
     yt-dlp
     #plantuml
