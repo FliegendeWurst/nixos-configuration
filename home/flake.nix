@@ -3,7 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nur, ... }@inputs: {
@@ -13,7 +16,7 @@
 
         #specialArgs = inputs;
         modules = [
-          nur.nixosModules.nur
+          nur.modules.nixos.default
 
           ./configuration.nix
         ];

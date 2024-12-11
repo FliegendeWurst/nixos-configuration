@@ -21,7 +21,6 @@ let
     #pillow
   ];
   python3-with-pkgs = pkgs.python3.withPackages python3-pkgs;
-  nur = config.nur;
 in
 rec {
   imports =
@@ -42,7 +41,7 @@ rec {
   boot.kernelPackages = linuxPackages;
   boot.blacklistedKernelModules = [ "sp5100_tco" ];
   boot.extraModulePackages = [ linuxPackages.v4l2loopback (
-    nur.repos.fliegendewurst.microsoft-ergonomic-keyboard.override { kernel = linuxPackages.kernel; }
+    pkgs.nur.repos.fliegendewurst.microsoft-ergonomic-keyboard.override { kernel = linuxPackages.kernel; }
   )];
   boot.kernelModules = [ "v4l2loopback" "nct6775" "hid_microsoft_ergonomic" ];
   boot.kernelParams = [
@@ -235,7 +234,7 @@ rec {
   services.xserver.autoRepeatDelay = 183;
   services.xserver.autoRepeatInterval = 33;
   services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.theme = "${nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
+  services.displayManager.sddm.theme = "${pkgs.nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
   services.displayManager.logToJournal = true;
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "plasmax11";
@@ -327,7 +326,6 @@ rec {
     strictDepsByDefault = config.system.nixos.release == "25.05";
     permittedInsecurePackages = [
     ];
-    overlays = [ nur.overlay ];
   };
   programs.steam.enable = gaming;
   programs.zsh.enable = true;
@@ -342,7 +340,7 @@ rec {
   programs.tmux.escapeTime = 0;
   programs.tmux.historyLimit = 10000;
   programs.tmux.terminal = "tmux-256color";
-  programs.tmux.plugins = with pkgs.tmuxPlugins; [ nur.repos.fliegendewurst.tmux-thumbs ];
+  programs.tmux.plugins = with pkgs.tmuxPlugins; [ pkgs.nur.repos.fliegendewurst.tmux-thumbs ];
 
   programs.command-not-found.enable = false;
   programs.adb.enable = true;
