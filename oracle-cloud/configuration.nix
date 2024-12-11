@@ -29,9 +29,9 @@
   ) ];
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/NUR/archive/8e6e9b8e2d04f0eea11dfa701f790bee797295b1.tar.gz";
+      url = "https://github.com/nix-community/NUR/archive/7093ba2ffda3283744417f72e1ad6462f748da4d.tar.gz";
       # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
-      sha256 = "1bs4wdiq1b665n606sqff7ny2bdj6sjy9i5q9s9w9wkmwfyqfd57";
+      sha256 = "1qvvynbgj3q7bjpmpnzp65cks2jvpr7vnkm2kc7f9wg6l8x01wjg";
     }) {
       inherit pkgs;
     };
@@ -81,6 +81,7 @@
       rotate = "3";
     };
   };
+  services.logrotate.settings.nginx = lib.mkForce { };
 
   services.cron.enable = true;
 
