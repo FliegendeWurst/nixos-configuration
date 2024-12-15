@@ -409,6 +409,7 @@ rec {
     zola
     colorized-logs
     nix-index
+    nav
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
