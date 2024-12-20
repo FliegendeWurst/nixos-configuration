@@ -195,6 +195,8 @@ rec {
     XCOMPOSECACHE = "$HOME/.cache/X11/xcompose";
     _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
     GTK_USE_PORTAL = "1";
+
+    LIBCLANG_PATH = "${lib.getLib pkgs.llvmPackages.libclang}/lib";
   };
   environment.etc = {
     "resolv.conf".text = ''
@@ -409,7 +411,7 @@ rec {
     zola
     colorized-logs
     nix-index
-    nav
+    jujutsu
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
