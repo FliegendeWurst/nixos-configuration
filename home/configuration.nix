@@ -30,7 +30,7 @@ rec {
 
   nix.nrBuildUsers = 64;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.settings.auto-optimise-store = true;
+  nix.settings.auto-optimise-store = false;
 
   documentation.nixos.enable = false;
 
@@ -77,6 +77,12 @@ rec {
     "vm.watermark_boost_factor" = 0;
     "vm.watermark_scale_factor" = 125;
     "vm.page-cluster" = 0;
+  };
+
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    fileSystems = [ "/" ];
   };
 
   # disable CPU boost by default
