@@ -1,11 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nixpkgs',
+  ...
+}:
 
 let
   gaming = true;
   linuxPackages = pkgs.linuxPackages_6_6;
-  mpvPlus = with pkgs; mpv.override {
-    scripts = [ mpvScripts.mpris ];
-  };
+  mpvPlus =
+    with pkgs;
+    mpv.override {
+      scripts = [ mpvScripts.mpris ];
+    };
   python3-pkgs = with pkgs.python3-packages; [
     z3
     #requests
@@ -23,13 +31,16 @@ let
   python3-with-pkgs = pkgs.python3.withPackages python3-pkgs;
 in
 rec {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nix.nrBuildUsers = 64;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.settings.auto-optimise-store = false;
 
   documentation.nixos.enable = false;
@@ -40,10 +51,17 @@ rec {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = linuxPackages;
   boot.blacklistedKernelModules = [ "sp5100_tco" ];
-  boot.extraModulePackages = [ linuxPackages.v4l2loopback (
-    pkgs.nur.repos.fliegendewurst.microsoft-ergonomic-keyboard.override { kernel = linuxPackages.kernel; }
-  )];
-  boot.kernelModules = [ "v4l2loopback" "nct6775" "hid_microsoft_ergonomic" ];
+  boot.extraModulePackages = [
+    linuxPackages.v4l2loopback
+    (pkgs.nur.repos.fliegendewurst.microsoft-ergonomic-keyboard.override {
+      kernel = linuxPackages.kernel;
+    })
+  ];
+  boot.kernelModules = [
+    "v4l2loopback"
+    "nct6775"
+    "hid_microsoft_ergonomic"
+  ];
   boot.kernelParams = [
     # bad bit in 0x193e4e5540
     "memmap=0x1000$0x193e4e5000"
@@ -66,7 +84,12 @@ rec {
     Storage=none
   '';
   security.pam.loginLimits = [
-    { domain = "*"; item = "core"; type = "hard"; value = "0"; }
+    {
+      domain = "*";
+      item = "core";
+      type = "hard";
+      value = "0";
+    }
   ];
   # /tmp should be a tmpfs
   boot.tmp.useTmpfs = true;
@@ -120,7 +143,7 @@ rec {
   services.fstrim.enable = true;
   # the journal tends to fill up with junk
   services.journald.extraConfig = "SystemMaxUse=100M";
-  
+
   #services.triggerhappy.enable = true;
   #services.triggerhappy.user = "root";
   #services.triggerhappy.bindings = [
@@ -149,19 +172,28 @@ rec {
   #    prefixLength = 24;
   #  }
   #];
-  # 
   networking.hostName = "nixOS";
   networking.firewall.logRefusedConnections = false;
   networking.firewall.rejectPackets = true;
-  networking.firewall.allowedTCPPorts = [ 12783 12975 25565 ];
+  networking.firewall.allowedTCPPorts = [
+    12783
+    12975
+    25565
+  ];
   networking.firewall.allowedTCPPortRanges = [
     # KDE Connect
-    { from = 1714; to = 1764; }
+    {
+      from = 1714;
+      to = 1764;
+    }
   ];
   networking.firewall.allowedUDPPorts = [ 12975 ];
   networking.firewall.allowedUDPPortRanges = [
     # KDE Connect
-    { from = 1714; to = 1764; }
+    {
+      from = 1714;
+      to = 1764;
+    }
   ];
   # Or disable the firewall altogether.
   #networking.firewall.enable = false;
@@ -284,17 +316,17 @@ rec {
   };
   services.openvpn.servers = {
     kit-split = {
-     config = ''
-       config /home/arne/Documents/KIT/kit-split.ovpn
-     '';
-     autoStart = false;
-     };
+      config = ''
+        config /home/arne/Documents/KIT/kit-split.ovpn
+      '';
+      autoStart = false;
+    };
     kit = {
       config = ''
         config /home/arne/Documents/KIT/kit.ovpn
       '';
       autoStart = false;
-      };
+    };
   };
   # services.logmein-hamachi.enable = true;
 
@@ -307,30 +339,46 @@ rec {
   };
 
   hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [ amdvlk vaapiVdpau libvdpau-va-gl ];
+  hardware.graphics.extraPackages = with pkgs; [
+    amdvlk
+    vaapiVdpau
+    libvdpau-va-gl
+  ];
   hardware.graphics.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
 
   hardware.sane.enable = true;
 
   users.users.arne = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "adbusers" "wireshark" "audio" "cdrom" "dialout" "scanner" "kvm" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "adbusers"
+      "wireshark"
+      "audio"
+      "cdrom"
+      "dialout"
+      "scanner"
+      "kvm"
+    ];
     shell = pkgs.zsh;
   };
 
   nixpkgs.config = {
-    allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-      "minecraft-launcher"
-      "steam"
-      "steam-original"
-      "steam-runtime"
-      "steam-run"
-      "steam-unwrapped"
-      "mathematica"
-      "idea-ultimate"
-      "android-studio-stable"
-      "sddm-theme-utah"
-    ];
+    allowUnfreePredicate =
+      pkg:
+      builtins.elem (pkgs.lib.getName pkg) [
+        "minecraft-launcher"
+        "steam"
+        "steam-original"
+        "steam-runtime"
+        "steam-run"
+        "steam-unwrapped"
+        "mathematica"
+        "idea-ultimate"
+        "android-studio-stable"
+        "sddm-theme-utah"
+      ];
     strictDepsByDefault = config.system.nixos.release == "25.05";
     permittedInsecurePackages = [
     ];
@@ -390,8 +438,17 @@ rec {
     gzip
     man-pages
     dnsutils
-    vim htop radeontop curl wget file zsh git git-branchless
-    tree killall
+    vim
+    htop
+    radeontop
+    curl
+    wget
+    file
+    zsh
+    git
+    git-branchless
+    tree
+    killall
     # premium utilities
     duf
     delta
@@ -418,6 +475,11 @@ rec {
     colorized-logs
     nix-index
     jujutsu
+    bees
+    schedtool
+    compsize
+    # TODO(25.05): use regular version
+    nixpkgs'.pkgs.hydra-check
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
@@ -452,7 +514,9 @@ rec {
     droidcam
     sqlite
     borgbackup
-    nix-tree rnix-hashes nixpkgs-review
+    nix-tree
+    rnix-hashes
+    nixpkgs-review
     nixfmt-rfc-style
     #gallery-dl
     yt-dlp
@@ -514,7 +578,8 @@ rec {
 
     xclip
     ntfs3g
-    cryptsetup pinentry-qt
+    cryptsetup
+    pinentry-qt
     cdrkit
     vnstat
     aspellDicts.de
@@ -526,7 +591,12 @@ rec {
     #afl
 
     # Games
-    (prismlauncher.override { jdks = [ jdk8 jdk21 ]; })
+    (prismlauncher.override {
+      jdks = [
+        jdk8
+        jdk21
+      ];
+    })
     #minecraft
     #logmein-hamachi
 
