@@ -48,10 +48,10 @@
   boot.loader.systemd-boot.configurationLimit = 5;
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 14d";
-  nix.gc.dates = "monthly";
+  nix.gc.dates = "weekly";
   nix.extraOptions = ''
-    min-free = ${toString (5 * 1024 * 1024 * 1024)}
-    max-free = ${toString (10 * 1024 * 1024 * 1024)}
+    min-free = ${toString (10 * 1024 * 1024 * 1024)}
+    max-free = ${toString (20 * 1024 * 1024 * 1024)}
   '';
 
   virtualisation.docker.enable = true;
