@@ -7,10 +7,10 @@
 
     (builtins.fetchTarball {
       # Pick a release version you are interested in and set its hash, e.g.
-      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-23.11/nixos-mailserver-nixos-23.11.tar.gz";
+      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/nixos-24.11/nixos-mailserver-nixos-24.11.tar.gz";
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
       # release="nixos-23.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
-      sha256 = "122vm4n3gkvlkqmlskiq749bhwfd0r71v6vcmg1bbyg4998brvx8";
+      sha256 = "05k4nj2cqz1c5zgqa0c6b8sp3807ps385qca74fgs6cdc415y3qw";
     })
   ];
 
@@ -77,7 +77,7 @@
   services.logrotate.enable = true;
   services.logrotate.settings = {
     "/var/log/nginx/access*.log*" = {
-      frequency = "monthly";
+      frequency = "weekly";
       rotate = "3";
     };
   };
@@ -113,6 +113,18 @@
   services.hedgedoc.settings.domain = "hedgedoc.fliegendewurst.eu";
   services.hedgedoc.settings.host = "127.0.0.1";
   services.hedgedoc.settings.protocolUseSSL = true;
+
+  services.wastebin = {
+    enable = true;
+    settings = {
+      WASTEBIN_BASE_URL = "https://paste.fliegendewurst.eu";
+      WASTEBIN_ADDRESS_PORT = "127.0.0.1:26247";
+      WASTEBIN_MAX_BODY_SIZE = 5 * 1000 * 1000;
+      WASTEBIN_MAX_PASTE_EXPIRATION = 14 * 24 * 60 * 60;
+      WASTEBIN_HTTP_TIMEOUT = 30;
+      WASTEBIN_TITLE = "pastebin of eternal failure";
+    };
+  };
 
   users.users.pr-dashboard = {
     home = "/home/pr-dashboard";
@@ -175,6 +187,14 @@
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:18120";
+        };
+      };
+      "paste.fliegendewurst.eu" = {
+        forceSSL = true;
+        enableACME = true;
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:26247";
         };
       };
       "rsshub.fliegendewurst.eu" = {
