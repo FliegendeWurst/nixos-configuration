@@ -424,6 +424,20 @@ rec {
     PAPERLESS_WORKER_TIMEOUT = "90";
   };
 
+  systemd.services.defragStuff = {
+    script = ''
+      for f in /home/*/.mozilla/firefox/*.default/{favicons,places}.sqlite /home/*/.local/share/trilium-data/document.db /var/log/journal/*/*; do
+        ${lib.getExe' pkgs.btrfs-progs "btrfs"} fi defrag -czstd $f
+      done
+      rm /home/*/.cache/gradle/daemon/*/daemon-*.out.log
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+    startAt = "*-*-* 16:10:00";
+  };
+
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     baloo-widgets
@@ -474,12 +488,14 @@ rec {
     zola
     colorized-logs
     nix-index
-    jujutsu
+    # TODO(25.05): use regular version
+    nixpkgs'.pkgs.jujutsu
     bees
     schedtool
     compsize
     # TODO(25.05): use regular version
     nixpkgs'.pkgs.hydra-check
+    e2fsprogs # filefrag
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
