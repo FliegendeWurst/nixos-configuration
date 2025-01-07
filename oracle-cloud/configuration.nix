@@ -25,6 +25,20 @@
         ];
         doCheck = false;
       });
+      wastebin = prev.wastebin.override (old: {
+        rustPlatform = old.rustPlatform // {
+          buildRustPackage = args: old.rustPlatform.buildRustPackage (args // {
+            src = pkgs.fetchFromGitHub {
+              owner = "matze";
+              repo = "wastebin";
+              rev = "02aa38053096fcfdcfa3c21d9434872979a53c6a";
+              hash = "sha256-hBYZH5eayHD3faaaAEb4N2lLHqPF7rBC6zNFmwZUhSA=";
+            };
+            cargoHash = "sha256-Zt/mlCzE12HPJloUeUMp9BaKadafsl7p5mE9MsNX9A8=";
+            doCheck = false;
+          });
+        };
+      });
     }
   ) ];
   nixpkgs.config.packageOverrides = pkgs: {
