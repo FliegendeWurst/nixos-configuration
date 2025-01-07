@@ -29,9 +29,9 @@
   ) ];
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/NUR/archive/5df645957a273092020683752611818db6ba131d.tar.gz";
+      url = "https://github.com/nix-community/NUR/archive/3039f5207715711c24df9867ec3bbf507edb648d.tar.gz";
       # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
-      sha256 = "1vizfm61sqanawqvl88v3ap3pw47vgf7ykplsmihmngv9hgiaw90";
+      sha256 = "1pd14jfq5jwq57vi5862q6k3hdwikh4ymqb51kqivy1yliwgp8l0";
     }) {
       inherit pkgs;
     };
@@ -41,6 +41,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "net.ifnames=0" ];
+
+  zramSwap.enable = true;
+  zramSwap.memoryPercent = 30;
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 180;
+    "vm.watermark_boost_factor" = 0;
+    "vm.watermark_scale_factor" = 125;
+    "vm.page-cluster" = 0;
+  };
 
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = true;
