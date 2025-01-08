@@ -171,6 +171,14 @@
     requires = [ "network-online.target" ];
   };
 
+  services.tt-rss = {
+    enable = true;
+    selfUrlPath = "https://tt-rss.fliegendewurst.eu/";
+    sessionCookieLifetime = 365 * 24 * 60 * 60;
+    singleUserMode = true;
+    virtualHost = "tt-rss.fliegendewurst.eu";
+  };
+
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
@@ -230,6 +238,14 @@
       };
       "mail.fliegendewurst.eu" = {
         enableACME = true;
+      };
+      "tt-rss.fliegendewurst.eu" = {
+        forceSSL = true;
+        enableACME = true;
+
+        locations."/" = {
+          basicAuthFile = "/var/nginx/tt-rss-auth";
+        };
       };
       "typicalc.fliegendewurst.eu" = {
         forceSSL = true;
