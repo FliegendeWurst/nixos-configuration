@@ -496,6 +496,7 @@ rec {
     # TODO(25.05): use regular version
     nixpkgs'.pkgs.hydra-check
     e2fsprogs # filefrag
+    moreutils # parallel
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
