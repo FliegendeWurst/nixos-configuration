@@ -1,5 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
+let
+  pkgsCross = import /nix/store/3wchlbf1adr8hiy3hz7hsz8chhf5bp5c-nixos/nixos {
+    buildPlatform = "x86_64-linux";
+  };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -14,10 +24,10 @@
     })
   ];
 
-  nixpkgs.overlays = [ (final: prev:
-    {
+  nixpkgs.overlays = [
+    (final: prev: {
       gitea = prev.gitea.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [
+        patches = (old.patches or [ ]) ++ [
           (prev.fetchpatch {
             url = "https://github.com/FliegendeWurst/gitea/commit/d78d2d098dc97b77b36ea795682086ff623b0106.patch";
             hash = "sha256-vTykqt/ZgFDjKBuF3uTSv58j2c8wlkFo13HCBaaTCzI=";
@@ -25,32 +35,20 @@
         ];
         doCheck = false;
       });
-      wastebin = prev.wastebin.override (old: {
-        rustPlatform = old.rustPlatform // {
-          buildRustPackage = args: old.rustPlatform.buildRustPackage (args // {
-            src = pkgs.fetchFromGitHub {
-              owner = "matze";
-              repo = "wastebin";
-              rev = "02aa38053096fcfdcfa3c21d9434872979a53c6a";
-              hash = "sha256-hBYZH5eayHD3faaaAEb4N2lLHqPF7rBC6zNFmwZUhSA=";
-            };
-            cargoHash = "sha256-Zt/mlCzE12HPJloUeUMp9BaKadafsl7p5mE9MsNX9A8=";
-            doCheck = false;
-          });
-        };
-      });
-    }
-  ) ];
+    })
+  ];
   nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/NUR/archive/ca9c757ffce0193240967cf5d485758bea1b4f05.tar.gz";
-      # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
-      sha256 = "0nc8lj9ymkpb5ynx1z51r3bq5nmmmp65vlxw2agla6gx8653yrsh";
-    }) {
-      inherit pkgs;
-    };
+    nur =
+      import
+        (builtins.fetchTarball {
+          url = "https://github.com/nix-community/NUR/archive/ca9c757ffce0193240967cf5d485758bea1b4f05.tar.gz";
+          # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
+          sha256 = "0nc8lj9ymkpb5ynx1z51r3bq5nmmmp65vlxw2agla6gx8653yrsh";
+        })
+        {
+          inherit pkgs;
+        };
   };
-
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -72,6 +70,10 @@
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 14d";
   nix.gc.dates = "weekly";
+  nix.settings.trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "home-pc:07v0PAF8ZWtVjxkl+RehTLUWvhYHod7c+fcru1sTQxg="
+  ];
   nix.extraOptions = ''
     min-free = ${toString (10 * 1024 * 1024 * 1024)}
     max-free = ${toString (20 * 1024 * 1024 * 1024)}
@@ -85,11 +87,24 @@
     # Use google's public DNS server
     nameservers = [ "1.1.1.1" ];
     interfaces.eth0 = {
-      ipv4.addresses = [ { address = "10.0.0.90"; prefixLength = 24; } ];
+      ipv4.addresses = [
+        {
+          address = "10.0.0.90";
+          prefixLength = 24;
+        }
+      ];
       useDHCP = false;
     };
     firewall = {
-      allowedTCPPorts = [ 22 80 443 25 993 587 465 ];
+      allowedTCPPorts = [
+        22
+        80
+        443
+        25
+        993
+        587
+        465
+      ];
       logRefusedConnections = false;
       rejectPackets = true;
     };
@@ -120,7 +135,7 @@
     isSystemUser = true;
     group = "typicalc";
   };
-  users.groups.typicalc = {};
+  users.groups.typicalc = { };
   systemd.services.typicalc = {
     description = "Typicalc";
     serviceConfig = {
@@ -139,6 +154,7 @@
 
   services.wastebin = {
     enable = true;
+    package = pkgsCross.wastebin;
     settings = {
       WASTEBIN_BASE_URL = "https://paste.fliegendewurst.eu";
       WASTEBIN_ADDRESS_PORT = "127.0.0.1:26247";
@@ -154,7 +170,7 @@
     isSystemUser = true;
     group = "pr-dashboard";
   };
-  users.groups.pr-dashboard = {};
+  users.groups.pr-dashboard = { };
   systemd.services.pr-dashboard = {
     description = "PR dashboard";
     environment = {
