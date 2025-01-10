@@ -6,8 +6,23 @@
 }:
 
 let
+  nurOverride = pkgs: {
+    nur =
+      import
+        (builtins.fetchTarball {
+          url = "https://github.com/nix-community/NUR/archive/f78b8cc670475468b89c2fafa2ee3cbaaae7e3ac.tar.gz";
+          # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
+          sha256 = "1pzdbxg6bk738mz5wnhilzkm8vwhvdp52297map7q59w2zckifq8";
+        })
+        {
+          inherit pkgs;
+        };
+  };
   pkgsCross = import /nix/store/3wchlbf1adr8hiy3hz7hsz8chhf5bp5c-nixos/nixos {
-    buildPlatform = "x86_64-linux";
+    localSystem = "x86_64-linux";
+    hostSystem = "x86_64-linux";
+    crossSystem = "aarch64-linux";
+    config.packageOverrides = nurOverride;
   };
 in
 {
@@ -37,18 +52,7 @@ in
       });
     })
   ];
-  nixpkgs.config.packageOverrides = pkgs: {
-    nur =
-      import
-        (builtins.fetchTarball {
-          url = "https://github.com/nix-community/NUR/archive/ca9c757ffce0193240967cf5d485758bea1b4f05.tar.gz";
-          # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
-          sha256 = "0nc8lj9ymkpb5ynx1z51r3bq5nmmmp65vlxw2agla6gx8653yrsh";
-        })
-        {
-          inherit pkgs;
-        };
-  };
+  nixpkgs.config.packageOverrides = nurOverride;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -154,7 +158,7 @@ in
 
   services.wastebin = {
     enable = true;
-    package = pkgsCross.wastebin;
+    package = pkgsCross.nur.repos.fliegendewurst.wastebin-fliegendewurst;
     settings = {
       WASTEBIN_BASE_URL = "https://paste.fliegendewurst.eu";
       WASTEBIN_ADDRESS_PORT = "127.0.0.1:26247";
