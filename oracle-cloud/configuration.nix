@@ -2,29 +2,10 @@
   config,
   lib,
   pkgs,
+  wastebin,
   ...
 }:
 
-let
-  nurOverride = pkgs: {
-    nur =
-      import
-        (builtins.fetchTarball {
-          url = "https://github.com/nix-community/NUR/archive/f78b8cc670475468b89c2fafa2ee3cbaaae7e3ac.tar.gz";
-          # Get the hash by running `nix-prefetch-url --unpack <url>` on the above url
-          sha256 = "1pzdbxg6bk738mz5wnhilzkm8vwhvdp52297map7q59w2zckifq8";
-        })
-        {
-          inherit pkgs;
-        };
-  };
-  pkgsCross = import /nix/store/3wchlbf1adr8hiy3hz7hsz8chhf5bp5c-nixos/nixos {
-    localSystem = "x86_64-linux";
-    hostSystem = "x86_64-linux";
-    crossSystem = "aarch64-linux";
-    config.packageOverrides = nurOverride;
-  };
-in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -52,7 +33,6 @@ in
       });
     })
   ];
-  nixpkgs.config.packageOverrides = nurOverride;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -67,13 +47,18 @@ in
     "vm.page-cluster" = 0;
   };
 
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
+  # TODO: do this flake-based?
+  # system.autoUpgrade.enable = true;
+  # system.autoUpgrade.allowReboot = true;
 
   boot.loader.systemd-boot.configurationLimit = 5;
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 14d";
   nix.gc.dates = "weekly";
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.settings.trusted-public-keys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     "home-pc:07v0PAF8ZWtVjxkl+RehTLUWvhYHod7c+fcru1sTQxg="
@@ -82,6 +67,7 @@ in
     min-free = ${toString (10 * 1024 * 1024 * 1024)}
     max-free = ${toString (20 * 1024 * 1024 * 1024)}
   '';
+  documentation.nixos.enable = false;
 
   virtualisation.docker.enable = true;
 
@@ -158,7 +144,7 @@ in
 
   services.wastebin = {
     enable = true;
-    package = pkgsCross.nur.repos.fliegendewurst.wastebin-fliegendewurst;
+    package = wastebin.packages.x86_64-linux-cross-aarch64-linux.wastebin;
     settings = {
       WASTEBIN_BASE_URL = "https://paste.fliegendewurst.eu";
       WASTEBIN_ADDRESS_PORT = "127.0.0.1:26247";
