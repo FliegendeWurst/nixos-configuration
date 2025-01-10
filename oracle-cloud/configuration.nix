@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pr-dashboard,
   wastebin,
   ...
 }:
@@ -169,7 +170,7 @@
       "PORT" = "18120";
     };
     serviceConfig = {
-      ExecStart = "${lib.getExe pkgs.nur.repos.fliegendewurst.pr-dashboard}";
+      ExecStart = lib.getExe pr-dashboard.packages.x86_64-linux-cross-aarch64-linux.pr-dashboard;
       User = "pr-dashboard";
     };
     wantedBy = [ "multi-user.target" ];

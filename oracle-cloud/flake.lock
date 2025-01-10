@@ -75,11 +75,32 @@
         "type": "github"
       }
     },
+    "pr-dashboard": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-pinned"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736497545,
+        "narHash": "sha256-JJMK9ASyBivbDZ/ja76qJcb1zMLvIO9x0MyYOb5rlXI=",
+        "owner": "FliegendeWurst",
+        "repo": "pr-dashboard",
+        "rev": "7b597bb4db3fb55b0d57ed9d7245a4b418835741",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FliegendeWurst",
+        "repo": "pr-dashboard",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
         "nixpkgs-pinned": "nixpkgs-pinned",
         "nur": "nur",
+        "pr-dashboard": "pr-dashboard",
         "wastebin": "wastebin"
       }
     },

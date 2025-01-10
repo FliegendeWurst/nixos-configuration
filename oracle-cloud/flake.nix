@@ -8,6 +8,10 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pr-dashboard = {
+      url = "github:FliegendeWurst/pr-dashboard";
+      inputs.nixpkgs.follows = "nixpkgs-pinned";
+    };
     wastebin = {
       url = "github:FliegendeWurst/wastebin/wip";
       inputs.nixpkgs.follows = "nixpkgs-pinned";
@@ -19,6 +23,7 @@
       self,
       nixpkgs,
       nur,
+      pr-dashboard,
       wastebin,
       ...
     }@inputs:
@@ -32,7 +37,7 @@
             ./configuration.nix
           ];
           specialArgs = {
-            inherit wastebin;
+            inherit pr-dashboard wastebin;
           };
         };
       };
