@@ -132,11 +132,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736521554,
-        "narHash": "sha256-/ZYPGmMnyb5ZzpLn2+5FKWnnypiAtWYai2lh/okxbsk=",
+        "lastModified": 1736533703,
+        "narHash": "sha256-aRElfN7bcpx5zUo1roTmy/d1pcyfwZWEMQppwcyAEkA=",
         "owner": "FliegendeWurst",
         "repo": "wastebin",
-        "rev": "3e22fbe2676ab8ec02795df042eb7c15afeb71dd",
+        "rev": "0b697c341faaa22a587506326835011575748bc8",
         "type": "github"
       },
       "original": {
