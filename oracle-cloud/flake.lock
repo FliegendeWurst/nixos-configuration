@@ -82,11 +82,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736497870,
-        "narHash": "sha256-MBVPCVBrZvKFVSuhjorNKeWY/2uavvShqTGoTpq3b1s=",
+        "lastModified": 1736684065,
+        "narHash": "sha256-zW3+DlXqXHpUZKGpxRztN0Hd+SH9LbJffLPh8j5zs7I=",
         "owner": "FliegendeWurst",
         "repo": "pr-dashboard",
-        "rev": "44e7bb4ad39ab1ba77a045f1bbbbfa0cb40d5490",
+        "rev": "a21bd96e1c693407f0cd39217f075c4b2126fd68",
         "type": "github"
       },
       "original": {
@@ -132,11 +132,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736533703,
-        "narHash": "sha256-aRElfN7bcpx5zUo1roTmy/d1pcyfwZWEMQppwcyAEkA=",
+        "lastModified": 1736683993,
+        "narHash": "sha256-2iE7NFm8qY3AdfRxuJHTIGhSXiFk5Wt6ouzs5SMpcYI=",
         "owner": "FliegendeWurst",
         "repo": "wastebin",
-        "rev": "0b697c341faaa22a587506326835011575748bc8",
+        "rev": "88730e5a2bb9b9ede235f379414deaaa09f89bc7",
         "type": "github"
       },
       "original": {
