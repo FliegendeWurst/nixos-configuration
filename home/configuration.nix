@@ -497,6 +497,8 @@ rec {
     nixpkgs'.pkgs.hydra-check
     e2fsprogs # filefrag
     moreutils # parallel
+    evtest
+    xdotool
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
