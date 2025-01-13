@@ -141,7 +141,8 @@ rec {
   systemd.services.niceNixBuilds = {
     description = "Renice Nix builds";
     script = ''
-      nd=$(pgrep nix-daemon)
+      set +e
+      nd=$(pgrep nix-daemon | head -n1)
       while true; do
         sleep 5
         running=$(cat /proc/$nd/task/$nd/children)
@@ -441,6 +442,9 @@ rec {
     source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
   '';
 
+  programs.less.enable = true;
+  programs.less.lessopen = null;
+
   programs.tmux.enable = true;
   programs.tmux.baseIndex = 1;
   programs.tmux.clock24 = true;
@@ -477,11 +481,12 @@ rec {
 
   systemd.services.defragStuff = {
     script = ''
+      set +x
       shopt -s nullglob
       for f in /home/*/.mozilla/firefox/*.default/{favicons,places}.sqlite /home/*/.local/share/trilium-data/document.db /var/log/journal/*/*; do
         ${lib.getExe' pkgs.btrfs-progs "btrfs"} fi defrag -czstd $f
       done
-      rm /home/*/.cache/gradle/daemon/*/daemon-*.out.log
+      rm /home/*/.cache/gradle/daemon/*/daemon-*.out.log || true
     '';
     serviceConfig = {
       Type = "oneshot";
