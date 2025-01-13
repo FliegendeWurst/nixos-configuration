@@ -284,6 +284,8 @@ rec {
     GTK_USE_PORTAL = "1";
 
     LIBCLANG_PATH = "${lib.getLib pkgs.llvmPackages.libclang}/lib";
+    LIBSQLITE3_SYS_USE_PKG_CONFIG = "1";
+    ZSTD_SYS_USE_PKG_CONFIG = "1";
   };
   environment.etc = {
     "resolv.conf".text = ''
