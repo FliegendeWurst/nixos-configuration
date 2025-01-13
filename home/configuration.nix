@@ -141,24 +141,50 @@ rec {
   systemd.services.niceNixBuilds = {
     description = "Renice Nix builds";
     script = ''
-      watch --interval=5 'for i in $(seq 1 ${toString nix.nrBuildUsers}); do renice 20 --pid `ps --no-heading -o tid --user nixbld$i`; done'
+      nd=$(pgrep nix-daemon)
+      while true; do
+        sleep 5
+        running=$(cat /proc/$nd/task/$nd/children)
+        [ -z $running ] && continue
+        for i in $(seq 1 ${toString nix.nrBuildUsers}); do
+          renice 20 --pid `ps --no-heading -o tid --user nixbld$i` >/dev/null 2>/dev/null
+        done
+      done
     '';
     serviceConfig = {
       User = "root";
       Type = "simple";
     };
+    path = with pkgs; [
+      procps
+      utillinux
+    ];
+    wants = [ "nix-daemon.service" ];
     wantedBy = [ "multi-user.target" ];
   };
   systemd.services.prBuildBot = {
     description = "nixpkgs PR build bot";
     script = ''
+      export PATH="$PATH:/run/wrappers/bin"
+      jj --version
+      git --version
+      nix-shell --version
+      sudo --version
+      source ~/src/nixpkgs-pr-build-bot/.env
       exec ${lib.getExe nixpkgs-pr-build-bot.packages.x86_64-linux.nixpkgs-pr-build-bot}
     '';
     serviceConfig = {
       User = "arne";
       Type = "simple";
     };
-    wantedBy = [ "multi-user.target" ];
+    path = with pkgs; [
+      nixpkgs'.pkgs.jujutsu
+      git
+      pkgs.nix
+    ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "network-online.target" ];
+    after = [ "network-online.target" ];
   };
 
   hardware.cpu.amd.updateMicrocode = true;
@@ -449,6 +475,7 @@ rec {
 
   systemd.services.defragStuff = {
     script = ''
+      shopt -s nullglob
       for f in /home/*/.mozilla/firefox/*.default/{favicons,places}.sqlite /home/*/.local/share/trilium-data/document.db /var/log/journal/*/*; do
         ${lib.getExe' pkgs.btrfs-progs "btrfs"} fi defrag -czstd $f
       done
