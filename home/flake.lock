@@ -37,6 +37,26 @@
         "type": "github"
       }
     },
+    "nixpkgs-pr-build-bot": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736755450,
+        "narHash": "sha256-aHEor0ywY01tk//WQqHex06yhR6xJcrAzj5FSOyBtmM=",
+        "owner": "FliegendeWurst",
+        "repo": "nixpkgs-pr-build-bot",
+        "rev": "d4cd76b379b2f360fd5467eb441c2b575e19a479",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FliegendeWurst",
+        "repo": "nixpkgs-pr-build-bot",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -62,6 +82,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "nixpkgs-pr-build-bot": "nixpkgs-pr-build-bot",
         "nur": "nur"
       }
     },

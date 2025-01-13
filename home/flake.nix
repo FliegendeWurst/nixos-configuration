@@ -7,6 +7,10 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-pr-build-bot = {
+      url = "github:FliegendeWurst/nixpkgs-pr-build-bot";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -14,6 +18,7 @@
       self,
       nixpkgs,
       nur,
+      nixpkgs-pr-build-bot,
       ...
     }@inputs:
     let
@@ -59,7 +64,7 @@
             ./configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs';
+            inherit nixpkgs' nixpkgs-pr-build-bot;
           };
         };
       };

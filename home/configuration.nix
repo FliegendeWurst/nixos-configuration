@@ -3,6 +3,7 @@
   lib,
   pkgs,
   nixpkgs',
+  nixpkgs-pr-build-bot,
   ...
 }:
 
@@ -136,6 +137,28 @@ rec {
     };
     wantedBy = [ "suspend.target" ];
     after = [ "suspend.target" ];
+  };
+  systemd.services.niceNixBuilds = {
+    description = "Renice Nix builds";
+    script = ''
+      watch --interval=5 'for i in $(seq 1 ${toString nix.nrBuildUsers}); do renice 20 --pid `ps --no-heading -o tid --user nixbld$i`; done'
+    '';
+    serviceConfig = {
+      User = "root";
+      Type = "simple";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+  systemd.services.prBuildBot = {
+    description = "nixpkgs PR build bot";
+    script = ''
+      exec ${lib.getExe nixpkgs-pr-build-bot.packages.x86_64-linux.nixpkgs-pr-build-bot}
+    '';
+    serviceConfig = {
+      User = "arne";
+      Type = "simple";
+    };
+    wantedBy = [ "multi-user.target" ];
   };
 
   hardware.cpu.amd.updateMicrocode = true;
