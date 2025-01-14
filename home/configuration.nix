@@ -592,7 +592,7 @@ rec {
     borgbackup
     nix-tree
     rnix-hashes
-    nixpkgs-review
+    #nixpkgs-review
     nixfmt-rfc-style
     #gallery-dl
     yt-dlp
