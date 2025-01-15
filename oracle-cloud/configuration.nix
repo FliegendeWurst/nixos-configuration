@@ -26,8 +26,8 @@
       gitea = prev.gitea.overrideAttrs (old: {
         patches = (old.patches or [ ]) ++ [
           (prev.fetchpatch {
-            url = "https://github.com/FliegendeWurst/gitea/commit/d78d2d098dc97b77b36ea795682086ff623b0106.patch";
-            hash = "sha256-vTykqt/ZgFDjKBuF3uTSv58j2c8wlkFo13HCBaaTCzI=";
+            url = "https://github.com/FliegendeWurst/gitea/commit/8a1be5953c864da554a902c50524c6770599809c.patch";
+            hash = "sha256-L+uc/SfMmN52mQsKwBPpjSTPY5aueAJSI0enIDbEgZY=";
           })
         ];
         doCheck = false;
