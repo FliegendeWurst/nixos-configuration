@@ -343,7 +343,7 @@ rec {
     font-awesome
   ];
 
-  #virtualisation.virtualbox.host.enable = true;
+  virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
   virtualisation.docker.logDriver = "journald";
@@ -412,6 +412,7 @@ rec {
       "dialout"
       "scanner"
       "kvm"
+      "libvirtd"
     ];
     shell = pkgs.zsh;
   };
