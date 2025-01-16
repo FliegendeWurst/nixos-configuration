@@ -95,7 +95,9 @@ rec {
   # /tmp should be a tmpfs
   boot.tmp.useTmpfs = true;
   zramSwap.enable = true;
-  zramSwap.memoryPercent = 80;
+  # normal compression ratio: 5-6
+  # use 150 / 5 = 30% of memory as compressed swap
+  zramSwap.memoryPercent = 150;
   boot.kernel.sysctl = {
     "vm.swappiness" = 150;
     "vm.watermark_boost_factor" = 0;
@@ -684,7 +686,7 @@ rec {
     #winetricks
     #texlive.combined.scheme-full
 
-    prusa-slicer
+    nixpkgs'.pkgs.prusa-slicer
     blender
   ];
   # This value determines the NixOS release from which the default

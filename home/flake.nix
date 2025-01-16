@@ -29,26 +29,25 @@
           {
             name = "nixos-24.11-patched";
             src = inputs.nixpkgs;
-            patches = [
-              # hydra-check 2.0
-              (builtins.fetchurl {
-                url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/359514.patch";
-                sha256 = "0xasznqf7vpcykh2k0yj14s4h21gjaxynirrr93kqv3sdif0bm67";
-              })
-              # jujutsu 0.23 -> 0.24 -> 0.25
-              (builtins.fetchurl {
-                url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/361877.patch";
-                sha256 = "1im5vsqz7r0m1fvifbn203ywx1b8cr8inw634iyaz8qb0gxq90lq";
-              })
-              (builtins.fetchurl {
-                url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/368985.patch";
-                sha256 = "091q88j04jn7nq1n9dd18l7g6y2l34dfm1k0fj4hik1xl5qcrm19";
-              })
-              (builtins.fetchurl {
-                url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/370160.patch";
-                sha256 = "1nbwwgql2pnbay3wivqay4mdz2jd3x8d3cdx2riawpibmwyhny0f";
-              })
-            ];
+            patches =
+              let
+                prPatch =
+                  num: hash:
+                  builtins.fetchurl {
+                    url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/${num}.patch";
+                    sha256 = hash;
+                  };
+              in
+              [
+                # hydra-check 2.0
+                (prPatch "359514" "0xasznqf7vpcykh2k0yj14s4h21gjaxynirrr93kqv3sdif0bm67")
+                # jujutsu 0.23 -> 0.24 -> 0.25
+                (prPatch "361877" "1im5vsqz7r0m1fvifbn203ywx1b8cr8inw634iyaz8qb0gxq90lq")
+                (prPatch "368985" "091q88j04jn7nq1n9dd18l7g6y2l34dfm1k0fj4hik1xl5qcrm19")
+                (prPatch "370160" "1nbwwgql2pnbay3wivqay4mdz2jd3x8d3cdx2riawpibmwyhny0f")
+                # prusa-slicer: 2.8.0 -> 2.9.0
+                (prPatch "367376" "07n0frirw2hi66x3wps7q995ahd7sc2mdmj0bh060z5f97y2xj5n")
+              ];
           };
       nixpkgs' = import nixpkgs-patched' {
         system = "x86_64-linux";
