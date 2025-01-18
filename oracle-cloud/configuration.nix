@@ -132,6 +132,31 @@
     serviceConfig = {
       ExecStart = "${pkgs.jre}/lib/openjdk/bin/java -Dserver.port=7729 -jar /opt/typicalc-1.0-SNAPSHOT.jar";
       User = "typicalc";
+      # hardening
+      CapabilityBoundingSet = "";
+      LockPersonality = true;
+      NoNewPrivileges = true;
+      # MemoryDenyWriteExecute = true;
+      RemoveIPC = true;
+      RestrictAddressFamilies = [ "AF_INET" ]; # "AF_INET6"
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelTunables = true;
+      PrivateMounts = true;
+      PrivateTmp = true;
+      ProtectHome = true;
+      ProtectKernelModules = true;
+      ProtectProc = "noaccess";
+      ProtectSystem = "strict";
+      PrivateUsers = true;
+      SystemCallArchitectures = "native";
+      UMask = "0077";
     };
     wantedBy = [ "multi-user.target" ];
     after = [ "network-online.target" ];
@@ -172,6 +197,31 @@
     serviceConfig = {
       ExecStart = lib.getExe pr-dashboard.packages.x86_64-linux-cross-aarch64-linux.pr-dashboard;
       User = "pr-dashboard";
+      # hardening
+      CapabilityBoundingSet = "";
+      LockPersonality = true;
+      NoNewPrivileges = true;
+      MemoryDenyWriteExecute = true;
+      RemoveIPC = true;
+      RestrictAddressFamilies = [ "AF_INET" ]; # "AF_INET6"
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelTunables = true;
+      PrivateMounts = true;
+      PrivateTmp = true;
+      # ProtectHome = true;
+      ProtectKernelModules = true;
+      ProtectProc = "noaccess";
+      ProtectSystem = "strict";
+      PrivateUsers = true;
+      SystemCallArchitectures = "native";
+      UMask = "0077";
     };
     wantedBy = [ "multi-user.target" ];
     after = [ "network-online.target" ];
