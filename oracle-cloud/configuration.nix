@@ -75,8 +75,13 @@
   networking = {
     hostName = "verschnuufeckli";
     defaultGateway = "10.0.0.1";
-    # Use google's public DNS server
-    nameservers = [ "1.1.1.1" ];
+    # Use Quad9's DNS
+    nameservers = [
+      "9.9.9.9"
+      "149.112.112.112"
+      "2620:fe::fe"
+      "2620:fe::9"
+    ];
     interfaces.eth0 = {
       ipv4.addresses = [
         {
@@ -88,9 +93,12 @@
     };
     firewall = {
       allowedTCPPorts = [
+        # SSH
         22
+        # HTTP(S)
         80
         443
+        # mail-related
         25
         993
         587
