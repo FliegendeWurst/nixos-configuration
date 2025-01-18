@@ -70,6 +70,8 @@ rec {
     "amdgpu.noretry=0"
     # this system has 128GB of RAM, I'm not writing that to disk
     "nohibernate"
+    # increase dmesg limit
+    "log_buf_len=128M"
   ];
   boot.kernel.sysctl = {
     "kernel.dmesg_restrict" = false;
@@ -145,13 +147,12 @@ rec {
     script = ''
       set +e
       nd=$(pgrep nix-daemon | head -n1)
+      all=$(seq 1 64 | sed -s 's/^/nixbld/g' | tr '\n' ',' | head -c-1)
       while true; do
         sleep 5
         running=$(cat /proc/$nd/task/$nd/children)
         [ -z $running ] && continue
-        for i in $(seq 1 ${toString nix.nrBuildUsers}); do
-          renice 20 --pid `ps --no-heading -o tid --user nixbld$i` >/dev/null 2>/dev/null
-        done
+        renice 20 --pid `ps --no-heading -o tid --user $all` >/dev/null 2>/dev/null
       done
     '';
     serviceConfig = {
