@@ -96,6 +96,7 @@ rec {
   ];
   # /tmp should be a tmpfs
   boot.tmp.useTmpfs = true;
+  boot.tmp.tmpfsSize = "100%";
   zramSwap.enable = true;
   # normal compression ratio: 5-6
   # use 150 / 5 = 30% of memory as compressed swap
