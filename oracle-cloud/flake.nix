@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-pinned.url = "github:NixOS/nixpkgs/bffc22eb12172e6db3c5dde9e3e5628f8e3e7912";
+    nixpkgs-pinned.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
