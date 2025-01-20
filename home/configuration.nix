@@ -45,6 +45,7 @@ rec {
   nix.settings.auto-optimise-store = false;
 
   documentation.nixos.enable = false;
+  environment.etc.issue.source = "/dev/null";
 
   boot.initrd.systemd.enable = true;
   boot.loader.systemd-boot.enable = true;
