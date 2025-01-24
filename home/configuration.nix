@@ -355,6 +355,7 @@ rec {
 
   # services.printing.enable = true;
   services.trilium-server.enable = true;
+  services.trilium-server.package = pkgs.trilium-next-server;
   services.trilium-server.host = "0.0.0.0";
   services.trilium-server.port = 12783;
   services.boinc.enable = false;
@@ -438,6 +439,7 @@ rec {
       ];
     strictDepsByDefault = config.system.nixos.release == "25.05";
     permittedInsecurePackages = [
+      "electron-31.7.7"
     ];
   };
   programs.steam.enable = gaming;
@@ -566,7 +568,6 @@ rec {
     nur.repos.fliegendewurst.map
     nur.repos.fliegendewurst.diskgraph
     nur.repos.fliegendewurst.freqtop
-    nur.repos.xeals.cura5
     openscad-unstable
 
     # programming environments
@@ -622,7 +623,7 @@ rec {
     #tor-browser-bundle-bin
     #mathematica
     gparted
-    trilium-desktop
+    trilium-next-desktop
     qdirstat
     filelight
     #libreoffice-fresh
@@ -651,6 +652,7 @@ rec {
     mpvPlus
     inkscape
     element-desktop
+    nixpkgs'.pkgs.cura-appimage
 
     #xorg.xkbcomp
     xorg.xrandr

@@ -39,14 +39,16 @@
                   };
               in
               [
-                # hydra-check 2.0
+                # hydra-check: 2.0
                 (prPatch "359514" "0xasznqf7vpcykh2k0yj14s4h21gjaxynirrr93kqv3sdif0bm67")
-                # jujutsu 0.23 -> 0.24 -> 0.25
+                # jujutsu: 0.23 -> 0.24 -> 0.25
                 (prPatch "361877" "1im5vsqz7r0m1fvifbn203ywx1b8cr8inw634iyaz8qb0gxq90lq")
                 (prPatch "368985" "091q88j04jn7nq1n9dd18l7g6y2l34dfm1k0fj4hik1xl5qcrm19")
                 (prPatch "370160" "1nbwwgql2pnbay3wivqay4mdz2jd3x8d3cdx2riawpibmwyhny0f")
                 # prusa-slicer: 2.8.0 -> 2.9.0
                 (prPatch "367376" "07n0frirw2hi66x3wps7q995ahd7sc2mdmj0bh060z5f97y2xj5n")
+                # cura-appimage: init at 5.9.0
+                (prPatch "372614" "0z1ci7vwyib7pab3329676a2dn630qsh18yy24yf9qbpvavsjra3")
               ];
           };
       nixpkgs' = import nixpkgs-patched' {
