@@ -182,6 +182,7 @@ rec {
     serviceConfig = {
       User = "arne";
       Type = "simple";
+      OOMPolicy = "continue";
     };
     path = with pkgs; [
       nixpkgs'.pkgs.jujutsu
