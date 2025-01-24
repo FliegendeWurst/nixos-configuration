@@ -501,6 +501,16 @@ rec {
     };
     startAt = "*-*-* 16:10:00";
   };
+  systemd.services.powerMeasure = {
+    script = ''
+      ~/.cache/cargo/target/release/power-monitor
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "arne";
+    };
+    startAt = "*:0/5";
+  };
 
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
