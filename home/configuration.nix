@@ -590,9 +590,9 @@ rec {
     cargo-outdated
     #jupyter
     vscodium
-    jetbrains.idea-ultimate
+    #jetbrains.idea-ultimate
     androidStudioPackages.stable
-    clang
+    #clang
     #gnumake cmake
     llvmPackages.bintools
 
@@ -701,7 +701,7 @@ rec {
     #texlive.combined.scheme-full
 
     nixpkgs'.pkgs.prusa-slicer
-    blender
+    #blender
   ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
