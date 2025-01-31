@@ -119,16 +119,40 @@ rec {
   systemd.services.disableCPUBoost = {
     description = "Disable CPU Boost and configure fan";
     script = ''
+      set +x
       echo 0 > /sys/devices/system/cpu/cpufreq/boost
       # auxiliary fan
       echo 1 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1_enable
       echo 115 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
+      # red, green LED
+      chmod go+w /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm{5,6}{,_enable}
+      # power
+      echo `date '+%s'`,0 >> /home/arne/src/power-monitor/data.csv
     '';
+    path = with pkgs; [
+      coreutils
+    ];
     serviceConfig = {
       User = "root";
       Type = "oneshot";
     };
     wantedBy = [ "basic.target" ];
+  };
+  systemd.services.preSuspend = {
+    description = "Pre-suspend actions";
+    script = ''
+      # power
+      echo `date '+%s'`,0 >> /home/arne/src/power-monitor/data.csv
+    '';
+    path = with pkgs; [
+      coreutils
+    ];
+    serviceConfig = {
+      User = "root";
+      Type = "oneshot";
+    };
+    wantedBy = [ "suspend.target" ];
+    after = [ "suspend.target" ];
   };
   systemd.services.configureAuxFan = {
     description = "Configure fan";
@@ -136,7 +160,12 @@ rec {
       # auxiliary fan
       echo 1 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1_enable
       echo 115 > /sys/devices/platform/nct6775.2592/hwmon/hwmon*/pwm1
+      # power
+      echo `date '+%s'`,0 >> /home/arne/src/power-monitor/data.csv
     '';
+    path = with pkgs; [
+      coreutils
+    ];
     serviceConfig = {
       User = "root";
       Type = "oneshot";
@@ -592,7 +621,7 @@ rec {
     vscodium
     #jetbrains.idea-ultimate
     androidStudioPackages.stable
-    #clang
+    clang
     #gnumake cmake
     llvmPackages.bintools
 
