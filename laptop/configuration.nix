@@ -24,8 +24,10 @@ rec {
   boot.kernelPackages = linuxPackages;
   boot.blacklistedKernelModules = [ "sp5100_tco" ];
   boot.extraModulePackages = [
+    linuxPackages.ryzen-smu
   ];
   boot.kernelModules = [
+    "ryzen_smu"
   ];
 
   services.btrfs.autoScrub = {
@@ -188,6 +190,7 @@ rec {
     evtest
     xdotool
     fw-ectool
+    ryzenadj
 
     #nur.repos.fliegendewurst.ripgrep-all
     #nur.repos.fliegendewurst.map
