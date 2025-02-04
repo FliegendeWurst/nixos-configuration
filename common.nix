@@ -198,4 +198,14 @@ rec {
     enableSSHSupport = false;
     pinentryPackage = pkgs.pinentry-qt;
   };
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    user = "arne";
+    settings.gui = {
+      user = "arne";
+      password = "syncthing";
+    };
+  };
 }

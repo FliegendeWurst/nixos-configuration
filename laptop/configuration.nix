@@ -125,6 +125,11 @@ rec {
   programs.tmux.terminal = "tmux-256color";
   programs.tmux.plugins = with pkgs.tmuxPlugins; [ pkgs.nur.repos.fliegendewurst.tmux-thumbs ];
 
+  services.syncthing = {
+    key = "/etc/nixos/syncthing/key.pem";
+    cert = "/etc/nixos/syncthing/cert.pem";
+  };
+
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     baloo-widgets
