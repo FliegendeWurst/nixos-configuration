@@ -44,6 +44,10 @@
                 (prPatch "370160" "1nbwwgql2pnbay3wivqay4mdz2jd3x8d3cdx2riawpibmwyhny0f")
                 # prusa-slicer: 2.8.0 -> 2.9.0
                 (prPatch "367376" "07n0frirw2hi66x3wps7q995ahd7sc2mdmj0bh060z5f97y2xj5n")
+                (builtins.fetchurl {
+                  url = "https://github.com/FliegendeWurst/nixpkgs/commit/prusa-slicer-native-file-dialog.patch?full_index=1";
+                  sha256 = "15dp3cp92xvzj4pdrzpyvg1ccx9w1xnrkxk2hk97v25pw2b00yyg";
+                })
                 # cura-appimage: init at 5.9.0
                 (prPatch "372614" "0z1ci7vwyib7pab3329676a2dn630qsh18yy24yf9qbpvavsjra3")
                 # electron_34: init
