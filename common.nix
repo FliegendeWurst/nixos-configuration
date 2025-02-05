@@ -124,12 +124,6 @@ rec {
   };
 
   environment.etc = {
-    "resolv.conf".text = ''
-      domain fritz.box
-      nameserver 192.168.178.1
-      nameserver fd00::e228:6dff:fe3d:545a
-      options edns0
-    '';
     "zshenv.local" = {
       text = ''
         ZDOTDIR=$HOME/.config/zsh
