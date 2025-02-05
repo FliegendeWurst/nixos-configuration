@@ -61,6 +61,9 @@ rec {
       identity="uskyk@kit.edu"
       password="${builtins.readFile "/home/arne/Documents/KIT-password.txt"}"
     '';
+    innohub-GUEST.auth = ''
+      key_mgmt=NONE
+    '';
   };
   networking.hostName = "framework";
   networking.firewall.allowedTCPPorts = [
