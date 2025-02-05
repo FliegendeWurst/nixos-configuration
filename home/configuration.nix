@@ -190,7 +190,7 @@ rec {
       while true; do
         sleep 5
         running=$(cat /proc/$nd/task/$nd/children)
-        [ -z $running ] && continue
+        [[ -z "$running" ]] && continue
         renice 20 --pid `ps --no-heading -o tid --user $all` >/dev/null 2>/dev/null
       done
     '';
@@ -392,7 +392,7 @@ rec {
 
   # services.printing.enable = true;
   services.trilium-server.enable = true;
-  services.trilium-server.package = pkgs.trilium-next-server;
+  services.trilium-server.package = nixpkgs'.pkgs.trilium-next-server;
   services.trilium-server.host = "0.0.0.0";
   services.trilium-server.port = 12783;
   services.boinc.enable = false;
@@ -549,6 +549,20 @@ rec {
     startAt = "*:0/5";
   };
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    user = "arne";
+    settings.gui = {
+      user = "arne";
+      password = "syncthing";
+    };
+  };
+  services.syncthing = {
+    key = "/etc/nixos/syncthing/key.pem";
+    cert = "/etc/nixos/syncthing/cert.pem";
+  };
+
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     baloo-widgets
@@ -670,7 +684,7 @@ rec {
     #tor-browser-bundle-bin
     #mathematica
     gparted
-    trilium-next-desktop
+    nixpkgs'.pkgs.trilium-next-desktop
     qdirstat
     filelight
     #libreoffice-fresh

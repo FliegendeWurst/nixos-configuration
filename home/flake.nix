@@ -49,6 +49,10 @@
                 (prPatch "367376" "07n0frirw2hi66x3wps7q995ahd7sc2mdmj0bh060z5f97y2xj5n")
                 # cura-appimage: init at 5.9.0
                 (prPatch "372614" "0z1ci7vwyib7pab3329676a2dn630qsh18yy24yf9qbpvavsjra3")
+                # electron_34: init
+                (prPatch "376770" "125qhz6w9iikrgl0xhp6pcqhm4qxwkafi9a6480qsb826wxs8yw0")
+                # trilium-next-{desktop,server}: 0.90.12 -> 0.91.5
+                (prPatch "378477" "0gf5hnhjsvfxg8pvhhn7hy3c8pk0sk3lvp2rknv5gl556rslhz9m")
               ];
           };
       nixpkgs' = import nixpkgs-patched' {
