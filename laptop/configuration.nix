@@ -44,6 +44,8 @@ rec {
   };
   systemd.services."beesd@root".wantedBy = lib.mkForce [ ];
 
+  services.fwupd.enable = true;
+
   hardware.bluetooth.enable = true;
 
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
