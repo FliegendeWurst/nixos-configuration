@@ -197,6 +197,8 @@ rec {
     enable = true;
     openDefaultPorts = true;
     user = "arne";
+    dataDir = "/home/arne";
+    overrideFolders = false;
     settings.gui = {
       user = "arne";
       password = "syncthing";
