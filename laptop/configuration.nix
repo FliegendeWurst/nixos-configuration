@@ -49,7 +49,19 @@ rec {
   hardware.bluetooth.enable = true;
 
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.wireless.networks."Charlie Brown".pskRaw = "98aa71084a9bf5ca76feea0ccfd738459d3032116827cdd12fd063e6dd9ef45e";
+  networking.wireless.networks = {
+    "Charlie Brown".pskRaw = "98aa71084a9bf5ca76feea0ccfd738459d3032116827cdd12fd063e6dd9ef45e";
+    eduroam.auth = ''
+      key_mgmt=WPA-EAP
+      pairwise=CCMP TKIP
+      group=CCMP TKIP
+      eap=TTLS
+      phase2="auth=PAP"
+      anonymous_identity="anonymous@kit.edu"
+      identity="uskyk@kit.edu"
+      password="${builtins.readFile "/home/arne/Documents/KIT-password.txt"}"
+    '';
+  };
   networking.hostName = "framework";
   networking.firewall.allowedTCPPorts = [
   ];
