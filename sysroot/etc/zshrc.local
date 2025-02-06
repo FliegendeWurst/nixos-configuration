@@ -1,0 +1,192 @@
+###############
+# shell setup #
+###############
+
+# uncomment to get profiling data with zprof
+#zmodload zsh/zprof
+
+autoload -Uz zmv
+autoload -Uz add-zsh-hook
+autoload -Uz compinit
+autoload -U colors && colors
+compinit -d "$XDG_CACHE_HOME/zcompdump"
+
+zstyle ':completion:*' menu select
+
+eval "$(zoxide init zsh)"
+
+bindkey -e
+bindkey "\e[1~" beginning-of-line
+# ctrl+arrow keys
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+bindkey "\e[4~" end-of-line
+bindkey "\e[3~" delete-char
+# ctrl+backspace
+bindkey '^H' backward-kill-word
+# F9: duplicate last argument
+bindkey -s "\e[20~" "!#\$^I"
+paste-clipboard () {
+ LBUFFER+="$(wl-paste)"
+}
+zle -N paste-clipboard
+bindkey "\e[2~" paste-clipboard
+bindkey '^V' paste-clipboard
+
+beep-pre() {
+  cmd_timestamp=$((EPOCHREALTIME*1000))
+}
+
+
+beep-hook() {
+ local -i code=$?
+ local stop=$((EPOCHREALTIME*1000))
+ local start=${cmd_timestamp:-$stop}
+ local elapsed=$stop-$start
+ [[ "$elapsed" -lt 5000 ]] && return
+ [[ "$code" -gt 0 ]] && (mpv --loop-playlist=no --volume=60 /home/arne/Downloads/z-0LsdL7.wav 2>&1 >/dev/null &)
+ [[ "$code" = "0" ]] && (mpv --loop-playlist=no --volume=60 /home/arne/Downloads/pickupCoin\(1\).wav 2>&1 >/dev/null &)
+}
+
+# add-zsh-hook preexec beep-pre
+# add-zsh-hook precmd beep-hook
+
+#########################
+# variables and aliases #
+#########################
+
+RPROMPT="%{$fg[green]%}%~%{$reset_color%}%"
+PS1='%B%(?..[%?] )%b%n@%U%m%u> '
+if (($+IN_NIX_SHELL)); then
+  PS1="($IN_NIX_SHELL) $PS1"
+fi
+check_nix_run() {
+  local path_copy
+  local -a bins
+  bins=()
+  path_copy="$PATH"
+  while [[ "$path_copy" =~ '\/nix\/store\/[^/]{33}([^/]+)\/[^:]+:?' ]]; do
+    bins+="$match[1]"
+    path_copy="${path_copy:$MEND}"
+  done
+  if [[ "${#bins[@]}" > 0 ]]; then
+    old_ps1="$PS1"
+    PS1="($bins[@]) $PS1"
+    in_nix_run=1
+  fi
+}
+check_nix_run
+hide_nix_run() {
+  PS1="$old_ps1"
+}
+boop () {
+  local last="$?"
+  if [[ "$last" == '0' ]]; then
+    (mpv --loop-playlist=no ~/Music/sfx_good.wav & disown) >/dev/null 2>/dev/null
+  else
+    (mpv --loop-playlist=no ~/Music/sfx_bad.wav & disown) >/dev/null 2>/dev/null
+  fi
+  $(exit "$last")
+}
+export LANG=de_DE.utf8
+export LC_CTYPE=C.utf8
+export EXA_COLORS='*.opus=38;5;248:*.ogg=38;5;248:*.mp3=38;5;248'
+export TIME_STYLE=long-iso
+export NPM_PACKAGES="${HOME}/.local/share/npm"
+# export SSH_ASKPASS_REQUIRE='prefer'
+export WINEDLLOVERRIDES=winemenubuilder.exe=d
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR=vim
+
+source /etc/zsh-aliases.zsh
+
+#export GIT_ASKPASS='/run/current-system/sw/bin/ksshaskpass'
+export NIX_PATH='nixpkgs=/home/arne/nixpkgs'
+
+#############
+# utilities #
+#############
+
+#############
+# XDG fixes #
+#############
+
+#export XDG_CONFIG_HOME="$HOME/.config"
+#export XDG_DATA_HOME="$HOME/.local/share"
+#export XDG_CACHE_HOME="$HOME/.cache"
+#export CARGO_HOME="$XDG_CACHE_HOME/cargo"
+#export RUSTUP_HOME="$HOME/.local/rustup"
+#export CARGO_TARGET_DIR="$CARGO_HOME/target"
+export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
+export WINEPREFIX="$XDG_CACHE_HOME/wine"
+export VIMINIT="set nocp | source ${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc"
+alias mvn="env HOME=$XDG_CACHE_HOME mvn --global-settings /home/arne/.config/maven/settings.xml -Dmaven.repo.local=$XDG_CACHE_HOME/m2/repository -Duser.home=$XDG_CACHE_HOME"
+alias idle="HOME=/home/arne/.config idle3.9"
+alias cargo="MALLOC_CONF='thp:always,metadata_thp:always' cargo"
+
+#################
+# history setup #
+#################
+
+### source $HOME/.local/bin/zsh-histdb/sqlite-history.zsh
+
+# disable default histfile
+HISTDB_FILE=$HOME/.local/share/zsh-history.db
+HISTFILE=
+SAVEHIST=0
+HISTSIZE=1000
+unsetopt SHARE_HISTORY # don't share history between sessions
+setopt HIST_IGNORE_SPACE
+
+function mouse_around_rand {
+  while true; do
+    sleep "$1"
+    xdotool mousemove_relative -- $(($RANDOM % 10)) $(($RANDOM % 10))
+    xdotool mousemove_relative -- -$(($RANDOM % 10)) -$(($RANDOM % 10))
+  done
+}
+
+function git_github()
+{
+ git config user.name FliegendeWurst
+ git config user.email 'arne.keller@posteo.de'
+}
+
+function git_github_ak()
+{
+ git config user.name arnek01
+ git config user.email 2012gdwu@posteo.de
+ git config commit.gpgsign false
+}
+
+function git_ak()
+{
+ git config --replace user.name Arne\ Keller
+ git config --replace user.email arne.keller@posteo.de
+ git config commit.gpgsign false
+}
+
+function git_gitlab_ak()
+{
+ git config --replace user.name Arne\ Keller 
+ git config user.email arne.keller@posteo.de
+ git config commit.gpgsign false
+}
+function git_kit()
+{
+ git config --replace user.name Arne\ Keller
+ git config --replace user.email arne.keller@student.kit.edu
+}
+function git_key()
+{
+ git config --replace user.name Arne\ Keller
+ git config --replace user.email arne.keller@posteo.de
+}
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/arne/.opam/opam-init/init.zsh' ]] || source '/home/arne/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration

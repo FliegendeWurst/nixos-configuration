@@ -130,6 +130,11 @@ rec {
       '';
       mode = "0444";
     };
+    "zshrc.local".text = builtins.readFile ./sysroot/etc/zshrc.local;
+    "zsh-aliases.zsh".text = builtins.readFile ./sysroot/etc/zsh-aliases.zsh
+    + ''
+      source "${nixpkgs'.pkgs.zsh-histdb}/share/zsh-histdb/sqlite-history.zsh"
+    '';
   };
 
   programs.zsh.enable = true;

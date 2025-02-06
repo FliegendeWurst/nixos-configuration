@@ -54,6 +54,8 @@
                 (prPatch "376770" "125qhz6w9iikrgl0xhp6pcqhm4qxwkafi9a6480qsb826wxs8yw0")
                 # trilium-next-{desktop,server}: 0.90.12 -> 0.91.5
                 (prPatch "378477" "0gf5hnhjsvfxg8pvhhn7hy3c8pk0sk3lvp2rknv5gl556rslhz9m")
+                # zsh-histdb: init
+                (prPatch "379862" "09himfp9bnnq4ssqm19xg1h3a07iji14ycl7bg54x1n9cvx6grl0")
               ];
           };
       nixpkgs' = import nixpkgs-patched' {

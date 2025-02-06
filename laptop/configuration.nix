@@ -208,6 +208,7 @@ rec {
     xdotool
     fw-ectool
     ryzenadj
+    wl-clipboard
 
     #nur.repos.fliegendewurst.ripgrep-all
     #nur.repos.fliegendewurst.map
