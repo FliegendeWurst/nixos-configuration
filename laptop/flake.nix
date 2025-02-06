@@ -54,6 +54,12 @@
                 (prPatch "376770" "125qhz6w9iikrgl0xhp6pcqhm4qxwkafi9a6480qsb826wxs8yw0")
                 # trilium-next-{desktop,server}: 0.90.12 -> 0.91.5
                 (prPatch "378477" "0gf5hnhjsvfxg8pvhhn7hy3c8pk0sk3lvp2rknv5gl556rslhz9m")
+                # fwupd: 1.9.25 -> 2.0.5
+                (prPatch "351772" "10bj6dfdx25w0a89njm09wyzqcgjnw3d5n1qfkdjjagb9xn2fyrn")
+                (prPatch "359279" "1j4zm8cbzq1ifnfq59dq8657wbj4rplcz058n91scxss6qyk6b0v")
+                (prPatch "362399" "14miv52ac0vmm439arxnij09xsxwcml3hmkcqs3ch42lbcvczp2c")
+                (prPatch "375313" "07llm69d5y7pml47xa8x2qkabpwwds0qa5zbdyffdsxk7xi7gwsi")
+                (prPatch "379099" "0szwbhck3jd91b7db0q7naiyjyxdc5v1ljb2xrajrrpfxd7qcq94")
               ];
           };
       nixpkgs' = import nixpkgs-patched' {
