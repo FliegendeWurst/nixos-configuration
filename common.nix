@@ -204,6 +204,7 @@ rec {
     user = "arne";
     dataDir = "/home/arne";
     overrideFolders = false;
+    overrideDevices = false;
     settings.gui = {
       user = "arne";
       password = "syncthing";
