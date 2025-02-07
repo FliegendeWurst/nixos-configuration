@@ -8,11 +8,6 @@
 
 let
   linuxPackages = pkgs.linuxPackages_6_6;
-  mpvPlus =
-    with pkgs;
-    mpv.override {
-      scripts = [ mpvScripts.mpris ];
-    };
 in
 rec {
   imports = [
@@ -53,6 +48,7 @@ rec {
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.wireless.networks = {
     "Charlie Brown".pskRaw = "98aa71084a9bf5ca76feea0ccfd738459d3032116827cdd12fd063e6dd9ef45e";
+    "WLAN-HXMPZB".pskRaw = "388eeaec0e32f4e95275c553ee4f1dcf6e03c8c2e26676266c01dbe540d6573a";
     eduroam.auth = ''
       key_mgmt=WPA-EAP
       pairwise=CCMP TKIP
@@ -308,7 +304,6 @@ rec {
     #ksshaskpass
     notepadqq
     #skrooge
-    mpvPlus
     inkscape
     element-desktop
     nixpkgs'.pkgs.cura-appimage

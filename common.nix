@@ -113,11 +113,17 @@ rec {
     GRADLE_USER_HOME = "${XDG_CACHE_HOME}/gradle";
     XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
     _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
+
+    # illegal trick to make GTK applications use the KDE file picker
     GTK_USE_PORTAL = "1";
 
+    # development libraries for Rust
     LIBCLANG_PATH = "${lib.getLib pkgs.llvmPackages.libclang}/lib";
     LIBSQLITE3_SYS_USE_PKG_CONFIG = "1";
     ZSTD_SYS_USE_PKG_CONFIG = "1";
+
+    # disable Dr. Konqi
+    KDE_DEBUG = "1";
   };
   environment.variables = {
     EDITOR = "vim";
@@ -167,8 +173,6 @@ rec {
       };
     };
   };
-  services.xserver.autoRepeatDelay = 183;
-  services.xserver.autoRepeatInterval = 33;
 
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
