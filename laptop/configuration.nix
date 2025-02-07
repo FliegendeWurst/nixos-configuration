@@ -44,6 +44,8 @@ rec {
   };
   systemd.services."beesd@root".wantedBy = lib.mkForce [ ];
 
+  services.pipewire.systemWide = true;
+
   services.fwupd.enable = true;
 
   hardware.bluetooth.enable = true;
@@ -127,6 +129,7 @@ rec {
       "adbusers"
       "wireshark"
       "audio"
+      "pipewire"
       "cdrom"
       "dialout"
       "scanner"
@@ -134,6 +137,7 @@ rec {
     ];
     shell = pkgs.zsh;
     hashedPasswordFile = "/etc/nixos/arne.passwd";
+    homeMode = "701";
   };
 
   programs.tmux.enable = true;
@@ -148,6 +152,12 @@ rec {
     key = "/etc/nixos/syncthing/key.pem";
     cert = "/etc/nixos/syncthing/cert.pem";
   };
+  services.mopidy = {
+    enable = true;
+    extensionPackages = with pkgs; [ nixpkgs'.pkgs.mopidy-bandcamp mopidy-iris ];
+    extraConfigFiles = [ "/home/arne/mopidy.conf" ];
+  };
+  users.users.mopidy.extraGroups = [ "audio" "pipewire" ];
 
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [

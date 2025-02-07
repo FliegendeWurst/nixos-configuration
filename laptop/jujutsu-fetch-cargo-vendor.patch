@@ -1,0 +1,15 @@
+diff --git a/pkgs/by-name/ju/jujutsu/package.nix b/pkgs/by-name/ju/jujutsu/package.nix
+index c096701c143e2..2ed77e0269426 100644
+--- a/pkgs/by-name/ju/jujutsu/package.nix
++++ b/pkgs/by-name/ju/jujutsu/package.nix
+@@ -35,7 +35,9 @@ rustPlatform.buildRustPackage {
+     hash = "sha256-5J1ZfPNyniUK5D3Pt1aKuJ+/8vad3JPxCztBRY591N8=";
+   };
+
+-  cargoHash = "sha256-kuZ1zvb6H5QWjJSUYMq5tEywsQMC6187YJPUT1r4S5o=";
++  useFetchCargoVendor = true;
++
++  cargoHash = "sha256-RiiIF9XFwXDgGSPvUMFOft4nH8PR1L3nZ+0s4QPobs8=";
+
+ nativeBuildInputs = [
+   installShellFiles
