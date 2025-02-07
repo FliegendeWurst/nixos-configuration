@@ -66,6 +66,9 @@ rec {
     innohub-GUEST.auth = ''
       key_mgmt=NONE
     '';
+    "WIFI@DB".auth = ''
+      key_mgmt=NONE
+    '';
   };
   networking.hostName = "framework";
   networking.firewall.allowedTCPPorts = [
@@ -152,12 +155,12 @@ rec {
     key = "/etc/nixos/syncthing/key.pem";
     cert = "/etc/nixos/syncthing/cert.pem";
   };
-  services.mopidy = {
-    enable = true;
-    extensionPackages = with pkgs; [ nixpkgs'.pkgs.mopidy-bandcamp mopidy-iris ];
-    extraConfigFiles = [ "/home/arne/mopidy.conf" ];
-  };
-  users.users.mopidy.extraGroups = [ "audio" "pipewire" ];
+  #services.mopidy = {
+  #  enable = true;
+  #  extensionPackages = with pkgs; [ nixpkgs'.pkgs.mopidy-bandcamp mopidy-iris ];
+  #  extraConfigFiles = [ "/home/arne/mopidy.conf" ];
+  #};
+  #users.users.mopidy.extraGroups = [ "pipewire" ];
 
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [

@@ -64,7 +64,7 @@
                 # zsh-histdb: init
                 (prPatch "379862" "09himfp9bnnq4ssqm19xg1h3a07iji14ycl7bg54x1n9cvx6grl0")
                 # mopidy-bandcamp: fix
-                ./mopidy-bandcamp.patch
+                #./mopidy-bandcamp.patch
               ];
           };
       nixpkgs' = import nixpkgs-patched' {
