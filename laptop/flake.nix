@@ -8,6 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,6 +20,7 @@
       nixpkgs,
       nur,
       nixos-hardware,
+      nix-index-database,
       ...
     }@inputs:
     let
@@ -81,6 +86,7 @@
             ../common.nix
             ./configuration.nix
 
+            nix-index-database.nixosModules.nix-index
             nixos-hardware.nixosModules.framework-13-7040-amd
           ];
           specialArgs = {

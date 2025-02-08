@@ -204,7 +204,6 @@ rec {
     nvme-cli
     zola
     colorized-logs
-    nix-index
     # TODO(25.05): use regular version
     nixpkgs'.pkgs.jujutsu
     schedtool

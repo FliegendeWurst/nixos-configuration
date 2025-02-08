@@ -145,9 +145,6 @@ rec {
 
   programs.zsh.enable = true;
   programs.zsh.enableGlobalCompInit = false;
-  programs.zsh.interactiveShellInit = ''
-    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
-  '';
 
   programs.less.enable = true;
   programs.less.lessopen = null;
