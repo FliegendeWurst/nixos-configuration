@@ -121,9 +121,6 @@ rec {
     LIBCLANG_PATH = "${lib.getLib pkgs.llvmPackages.libclang}/lib";
     LIBSQLITE3_SYS_USE_PKG_CONFIG = "1";
     ZSTD_SYS_USE_PKG_CONFIG = "1";
-
-    # disable Dr. Konqi
-    KDE_DEBUG = "1";
   };
   environment.variables = {
     EDITOR = "vim";
