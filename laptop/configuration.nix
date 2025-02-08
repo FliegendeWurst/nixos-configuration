@@ -304,6 +304,7 @@ rec {
     kdePackages.kruler
     kdePackages.kdeconnect-kde
     kdePackages.plasma-vault
+    kdePackages.ksshaskpass
     #ksshaskpass
     notepadqq
     #skrooge
