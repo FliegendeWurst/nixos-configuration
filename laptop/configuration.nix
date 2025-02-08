@@ -147,6 +147,8 @@ rec {
   programs.tmux.terminal = "tmux-256color";
   programs.tmux.plugins = with pkgs.tmuxPlugins; [ pkgs.nur.repos.fliegendewurst.tmux-thumbs ];
 
+  programs.adb.enable = true;
+
   services.syncthing = {
     key = "/etc/nixos/syncthing/key.pem";
     cert = "/etc/nixos/syncthing/cert.pem";
