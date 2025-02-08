@@ -237,7 +237,7 @@ rec {
     #jupyter
     vscodium
     #jetbrains.idea-ultimate
-    #androidStudioPackages.stable
+    androidStudioPackages.stable
     clang
     #gnumake cmake
     llvmPackages.bintools
