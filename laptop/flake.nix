@@ -12,6 +12,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sysinfo = {
+      url = "github:FliegendeWurst/sysinfo";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -21,6 +25,7 @@
       nur,
       nixos-hardware,
       nix-index-database,
+      sysinfo,
       ...
     }@inputs:
     let
@@ -90,7 +95,7 @@
             nixos-hardware.nixosModules.framework-13-7040-amd
           ];
           specialArgs = {
-            inherit nixpkgs';
+            inherit nixpkgs' sysinfo;
           };
         };
       };

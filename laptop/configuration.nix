@@ -3,6 +3,7 @@
   lib,
   pkgs,
   nixpkgs',
+  sysinfo,
   ...
 }:
 
@@ -219,6 +220,7 @@ rec {
     fw-ectool
     ryzenadj
     wl-clipboard
+    sysinfo.packages.x86_64-linux.sysinfo
 
     #nur.repos.fliegendewurst.ripgrep-all
     #nur.repos.fliegendewurst.map
