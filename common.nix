@@ -140,11 +140,19 @@ rec {
     '';
   };
 
-  programs.zsh.enable = true;
-  programs.zsh.enableGlobalCompInit = false;
+  programs.bash.interactiveShellInit = ''
+    export HISTFILE=$HOME/.local/share/bash_history
+  '';
 
-  programs.less.enable = true;
-  programs.less.lessopen = null;
+  programs.zsh = {
+    enable = true;
+    enableGlobalCompInit = false;
+  };
+
+  programs.less = {
+    enable = true;
+    lessopen = null;
+  };
 
   security.sudo.package = pkgs.sudo.override {
     withInsults = true;
