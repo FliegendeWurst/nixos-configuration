@@ -22,6 +22,11 @@ slideEnabled=false
 squashEnabled=false
 togglewindowEnabled=true
 
+[TabBoxAlternative]
+DesktopMode=0
+LayoutName=compact
+MinimizedMode=2
+
 [Tiling]
 padding=4
 
