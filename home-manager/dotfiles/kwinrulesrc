@@ -1,0 +1,14 @@
+[General]
+count=1
+rules=b145a842-b676-4504-a812-7b86d523cf0a
+
+[b145a842-b676-4504-a812-7b86d523cf0a]
+Description=Einstellungen für Alacritty
+desktops=\\0
+desktopsrule=2
+opacityactive=80
+opacityactiverule=2
+position=52,0
+positionrule=2
+wmclass=Alacritty
+wmclassmatch=1
