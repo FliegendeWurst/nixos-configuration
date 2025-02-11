@@ -37,6 +37,7 @@ in
 
   home.file = {
     # Disable Baloo.
+    ".config/systemd/user/plasma-baloorunner.service".source = mkOutOfStoreSymlink "/dev/null";
     ".config/baloofilerc".text = ''
       [Basic Settings]
       Indexing-Enabled=false
