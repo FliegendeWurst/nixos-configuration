@@ -553,6 +553,8 @@ rec {
     enable = true;
     openDefaultPorts = true;
     user = "arne";
+    overrideFolders = false;
+    overrideDevices = false;
     settings.gui = {
       user = "arne";
       password = "syncthing";
