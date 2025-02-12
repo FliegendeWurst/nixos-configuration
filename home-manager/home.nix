@@ -116,6 +116,9 @@ in
       "git.fliegendewurst.eu" = {
         identityFile = "~/.ssh/gitea_laptop";
       };
+      "gitlab.kit.edu" = {
+        identityFile = "~/.ssh/gitlab_kit_laptop";
+      };
     };
   };
 
