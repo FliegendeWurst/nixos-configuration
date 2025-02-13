@@ -128,6 +128,7 @@
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBt5gU0SiJtTYhAqziUi4VIc1xmvQI2vJUKqF50JkO4l arne@nixOS"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFBEiIr2SjYgQsebxjbym1JxgmYEaQmwFXHrIq+swkE pi@himbeere-null"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBuF+rXgZvU5PsP1c7r5AG7kkHzKcZvFW8N1ILNS/L4X arne@framework"
   ];
 
   users.users.typicalc = {
