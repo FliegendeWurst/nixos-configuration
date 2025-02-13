@@ -216,4 +216,10 @@ rec {
       password = "syncthing";
     };
   };
+
+  services.udisks2.settings."udisks2.conf" = {
+    defaults = {
+      defaults = "noatime";
+    };
+  };
 }
