@@ -55,7 +55,7 @@
   boot.loader.systemd-boot.configurationLimit = 5;
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 14d";
-  nix.gc.dates = "weekly";
+  nix.gc.dates = "monthly";
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -67,6 +67,7 @@
   nix.extraOptions = ''
     min-free = ${toString (10 * 1024 * 1024 * 1024)}
     max-free = ${toString (20 * 1024 * 1024 * 1024)}
+    store = daemon
   '';
   documentation.nixos.enable = false;
 
