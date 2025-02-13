@@ -119,6 +119,9 @@ in
       "gitlab.kit.edu" = {
         identityFile = "~/.ssh/gitlab_kit_laptop";
       };
+      "fliegendewurst.eu" = {
+        identityFile = "~/.ssh/oracle_laptop";
+      };
     };
   };
 
