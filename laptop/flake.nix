@@ -68,14 +68,10 @@
                 ./prusa-bgcode.patch
                 # cura-appimage: init at 5.9.0
                 (prPatch "372614" "0z1ci7vwyib7pab3329676a2dn630qsh18yy24yf9qbpvavsjra3")
-                # electron_34: init
-                (prPatch "376770" "125qhz6w9iikrgl0xhp6pcqhm4qxwkafi9a6480qsb826wxs8yw0")
                 # trilium-next-{desktop,server}: 0.90.12 -> 0.91.5
                 (prPatch "378477" "0gf5hnhjsvfxg8pvhhn7hy3c8pk0sk3lvp2rknv5gl556rslhz9m")
                 # zsh-histdb: init
                 (prPatch "379862" "09himfp9bnnq4ssqm19xg1h3a07iji14ycl7bg54x1n9cvx6grl0")
-                # mopidy-bandcamp: fix
-                #./mopidy-bandcamp.patch
               ];
           };
       nixpkgs' = import nixpkgs-patched' {
