@@ -69,6 +69,8 @@ rec {
   };
   networking.hostName = "framework";
   networking.firewall.allowedTCPPorts = [
+    # misc. HTTP stuff
+    8080
   ];
   networking.firewall.allowedTCPPortRanges = [
     # KDE Connect
