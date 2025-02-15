@@ -71,6 +71,8 @@ rec {
   networking.firewall.allowedTCPPorts = [
     # misc. HTTP stuff
     8080
+    # wireless ADB
+    5037
   ];
   networking.firewall.allowedTCPPortRanges = [
     # KDE Connect
