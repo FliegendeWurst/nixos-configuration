@@ -50,6 +50,7 @@ rec {
   networking.wireless.networks = {
     "Charlie Brown".pskRaw = "98aa71084a9bf5ca76feea0ccfd738459d3032116827cdd12fd063e6dd9ef45e";
     "WLAN-HXMPZB".pskRaw = "388eeaec0e32f4e95275c553ee4f1dcf6e03c8c2e26676266c01dbe540d6573a";
+    "WLAN-676951".pskRaw = "a74b46a551b3d487ad9f070d383c9b5512e2bc49ce4b330cebeb6f052236933d";
     eduroam.auth = ''
       key_mgmt=WPA-EAP
       pairwise=CCMP TKIP
@@ -82,6 +83,8 @@ rec {
     }
   ];
   networking.firewall.allowedUDPPorts = [
+    # ADB
+    5353
   ];
   networking.firewall.allowedUDPPortRanges = [
     # KDE Connect
