@@ -9,6 +9,14 @@
 
 let
   linuxPackages = pkgs.linuxPackages_6_6;
+  sddm-theme = pkgs.nur.repos.fliegendewurst.sddm-theme-utah.overrideAttrs (finalAttrs: previousAttrs: {
+    src = /home/arne/Pictures/Utah_Desert_Contact_Info.jpg;
+    installPhase = previousAttrs.installPhase + ''
+      substituteInPlace $out/share/sddm/themes/sddm-theme-custom/Main.qml \
+        --replace-fail 'state: loginScreenRoot.uiVisible ? "on" : "off"' 'state: "off"' \
+        --replace-fail 'config.type === "image"' 'false'
+    '';
+  });
 in
 rec {
   imports = [
@@ -98,7 +106,7 @@ rec {
   #services.xserver.libinput.accelProfile = "flat";
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
-  services.displayManager.sddm.theme = "${pkgs.nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
+  services.displayManager.sddm.theme = "${sddm-theme}/share/sddm/themes/sddm-theme-custom";
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "plasma";
 
