@@ -1,4 +1,4 @@
-alias df=duf
+alias df='duf -hide special; duf -only-mp /tmp'
 alias ski="sk --ansi -c 'rg --color=always --line-number \"{}\"'"
 alias ls="eza"
 alias ls-partitions="lsblk"
