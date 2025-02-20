@@ -86,6 +86,7 @@ rec {
     8080
     # wireless ADB
     5037
+    # Boludo
     20122
   ];
   networking.firewall.allowedTCPPortRanges = [
@@ -107,17 +108,18 @@ rec {
     }
   ];
 
-  networking.interfaces.enp193s0f3u2 = {
-    useDHCP = false;
-    ipv6 = {
-      addresses = [
-        {
-          address = "fd9a:de16:dfa3:11::1";
-          prefixLength = 48;
-        }
-      ];
-    };
-  };
+  # static IPv6 interface
+  #networking.interfaces.enp193s0f3u2 = {
+  #  useDHCP = false;
+  #  ipv6 = {
+  #    addresses = [
+  #      {
+  #        address = "fd9a:de16:dfa3:11::1";
+  #        prefixLength = 48;
+  #      }
+  #    ];
+  #  };
+  #};
 
   services.libinput.enable = true;
   #services.xserver.libinput.accelProfile = "flat";
@@ -186,12 +188,6 @@ rec {
     key = "/etc/nixos/syncthing/key.pem";
     cert = "/etc/nixos/syncthing/cert.pem";
   };
-  #services.mopidy = {
-  #  enable = true;
-  #  extensionPackages = with pkgs; [ nixpkgs'.pkgs.mopidy-bandcamp mopidy-iris ];
-  #  extraConfigFiles = [ "/home/arne/mopidy.conf" ];
-  #};
-  #users.users.mopidy.extraGroups = [ "pipewire" ];
 
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
