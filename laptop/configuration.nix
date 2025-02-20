@@ -9,14 +9,18 @@
 
 let
   linuxPackages = pkgs.linuxPackages_6_6;
-  sddm-theme = pkgs.nur.repos.fliegendewurst.sddm-theme-utah.overrideAttrs (finalAttrs: previousAttrs: {
-    src = /home/arne/Pictures/Utah_Desert_Contact_Info.jpg;
-    installPhase = previousAttrs.installPhase + ''
-      substituteInPlace $out/share/sddm/themes/sddm-theme-custom/Main.qml \
-        --replace-fail 'state: loginScreenRoot.uiVisible ? "on" : "off"' 'state: "off"' \
-        --replace-fail 'config.type === "image"' 'false'
-    '';
-  });
+  sddm-theme = pkgs.nur.repos.fliegendewurst.sddm-theme-utah.overrideAttrs (
+    finalAttrs: previousAttrs: {
+      src = /home/arne/Pictures/Utah_Desert_Contact_Info.jpg;
+      installPhase =
+        previousAttrs.installPhase
+        + ''
+          substituteInPlace $out/share/sddm/themes/sddm-theme-custom/Main.qml \
+            --replace-fail 'state: loginScreenRoot.uiVisible ? "on" : "off"' 'state: "off"' \
+            --replace-fail 'config.type === "image"' 'false'
+        '';
+    }
+  );
 in
 rec {
   imports = [
@@ -54,7 +58,7 @@ rec {
 
   hardware.bluetooth.enable = true;
 
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   networking.wireless.networks = {
     "Charlie Brown".pskRaw = "98aa71084a9bf5ca76feea0ccfd738459d3032116827cdd12fd063e6dd9ef45e";
     "WLAN-HXMPZB".pskRaw = "388eeaec0e32f4e95275c553ee4f1dcf6e03c8c2e26676266c01dbe540d6573a";
@@ -82,6 +86,7 @@ rec {
     8080
     # wireless ADB
     5037
+    20122
   ];
   networking.firewall.allowedTCPPortRanges = [
     # KDE Connect
@@ -101,6 +106,18 @@ rec {
       to = 1764;
     }
   ];
+
+  networking.interfaces.enp193s0f3u2 = {
+    useDHCP = false;
+    ipv6 = {
+      addresses = [
+        {
+          address = "fd9a:de16:dfa3:11::1";
+          prefixLength = 48;
+        }
+      ];
+    };
+  };
 
   services.libinput.enable = true;
   #services.xserver.libinput.accelProfile = "flat";
