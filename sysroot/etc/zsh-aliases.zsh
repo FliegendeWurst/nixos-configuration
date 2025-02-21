@@ -24,6 +24,7 @@ alias jl="jj log -T log_compact_fast --limit 10 --no-pager"
 alias music="mpv --no-video --script=~/.config/mpv/scripts-disabled/ratings-based-shuffle.lua ~/Music/1sec_silence.mp3"
 alias jsplit="JJ_EDITOR=gen-commit-message jj split"
 alias copy="wl-copy"
+alias nixpkgs-review-pr='nixpkgs-review pr --build-args "-j 2" --eval github --print-result'
 
 ntop() {
  nd=$(pgrep nix-daemon | head -n1) && sudo parallel sh -c '
