@@ -76,6 +76,8 @@ in
     ".cache/mozilla/firefox/s0kjua7b.default/cache2".source = mkOutOfStoreSymlink "/tmp/firefox-cache";
     # Move KDE thumbnails to /tmp.
     ".cache/thumbnails".source = mkOutOfStoreSymlink "/tmp/thumbnail-cache";
+    # Move nixpkgs-review worktrees to /tmp.
+    ".cache/nixpkgs-review".source = mkOutOfStoreSymlink "/tmp/nixpkgs-review";
   };
 
   # Home Manager can also manage your environment variables through
@@ -99,8 +101,9 @@ in
   };
 
   systemd.user.tmpfiles.rules = [
-    "d /tmp/firefox-cache 600 arne users 0 -"
-    "d /tmp/thumbnail-cache 600 arne users 0 -"
+    "d /tmp/firefox-cache 700 arne users 0 -"
+    "d /tmp/thumbnail-cache 700 arne users 0 -"
+    "d /tmp/nixpkgs-review 700 arne users 0 -"
   ];
 
   # Let Home Manager install and manage itself.
