@@ -88,6 +88,8 @@ rec {
     5037
     # Boludo
     20122
+    # Trilium
+    12783
   ];
   networking.firewall.allowedTCPPortRanges = [
     # KDE Connect
@@ -172,6 +174,11 @@ rec {
     shell = pkgs.zsh;
     hashedPasswordFile = "/etc/nixos/arne.passwd";
     homeMode = "701";
+  };
+
+  environment.variables = {
+    # Make the desktop app a sync server on this port.
+    TRILIUM_PORT = "12783";
   };
 
   programs.tmux.enable = true;
@@ -284,7 +291,7 @@ rec {
     borgbackup
     nix-tree
     rnix-hashes
-    #nixpkgs-review
+    nixpkgs-review
     nixfmt-rfc-style
     #gallery-dl
     yt-dlp
