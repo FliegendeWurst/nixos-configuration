@@ -9,6 +9,7 @@
 
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
+  cachedirTag = "Signature: 8a477f597d28d172789f06886806bc55";
 in
 {
   home.username = "arne";
@@ -54,7 +55,13 @@ in
       RepeatDelay=183
       RepeatRate=30
     '';
-    ".cache/CACHEDIR.TAG".text = "Signature: 8a477f597d28d172789f06886806bc55";
+    ".cache/CACHEDIR.TAG".text = cachedirTag;
+    ".local/rustup/CACHEDIR.TAG".text = cachedirTag;
+    ".jdks/CACHEDIR.TAG".text = cachedirTag;
+    ".config/TriliumNext Notes/CACHEDIR.TAG".text = cachedirTag;
+    ".npm/CACHEDIR.TAG".text = cachedirTag;
+    "src/TriliumDroid/app/build/CACHEDIR.TAG".text = cachedirTag;
+    "src/triples/app/build/CACHEDIR.TAG".text = cachedirTag;
     # Disables useless DrKonqi processor.
     ".config/systemd/user/drkonqi-coredump-pickup.service".source = mkOutOfStoreSymlink "/dev/null";
     # Disable useless Klipper clipboard manager.
