@@ -319,7 +319,7 @@ rec {
     nixpkgs'.pkgs.trilium-next-desktop
     qdirstat
     #filelight
-    #libreoffice-fresh
+    libreoffice-qt-fresh
     #qbittorrent
     tdesktop
     signal-desktop
