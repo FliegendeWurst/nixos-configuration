@@ -220,9 +220,12 @@ rec {
     };
   };
 
-  services.udisks2.settings."udisks2.conf" = {
+  services.udisks2.settings."mount_options.conf" = {
     defaults = {
       defaults = "noatime";
+      ext4_defaults = "noatime,errors=remount-ro";
+      exfat_defaults = "noatime,uid=$UID,gid=$GID,iocharset=utf8,errors=remount-ro";
+      vfat_defaults = "noatime,uid=$UID,gid=$GID,shortname=mixed,utf8=1,showexec,flush";
     };
   };
 }
