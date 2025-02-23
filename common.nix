@@ -114,6 +114,9 @@ rec {
     XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
     _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
 
+    # enable Wayland for Chromium/Electron
+    NIXOS_OZONE_WL = "1";
+
     # illegal trick to make GTK applications use the KDE file picker
     GTK_USE_PORTAL = "1";
 
