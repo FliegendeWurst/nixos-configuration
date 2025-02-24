@@ -320,7 +320,7 @@ rec {
     qdirstat
     #filelight
     libreoffice-qt-fresh
-    #qbittorrent
+    qbittorrent
     tdesktop
     signal-desktop
     alacritty
@@ -342,7 +342,7 @@ rec {
     kdePackages.ksshaskpass
     #ksshaskpass
     notepadqq
-    #skrooge
+    skrooge
     inkscape
     element-desktop
     nixpkgs'.pkgs.cura-appimage
