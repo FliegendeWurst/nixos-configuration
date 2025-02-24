@@ -134,6 +134,9 @@ in
       "fliegendewurst.eu" = {
         identityFile = "~/.ssh/oracle_laptop";
       };
+      "himbeere-null" = {
+        identityFile = "~/.ssh/rpi0_laptop";
+      };
     };
   };
 
