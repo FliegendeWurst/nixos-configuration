@@ -119,6 +119,8 @@ in
   programs.ssh = {
     enable = true;
     compression = true;
+    serverAliveInterval = 10;
+    serverAliveCountMax = 3;
     matchBlocks = {
       "github.com" = {
         identityFile = "~/.ssh/github_laptop";
