@@ -326,7 +326,6 @@ rec {
     alacritty
     kdePackages.kwalletmanager
     kdePackages.okular
-    kdePackages.akregator
     kdePackages.gwenview
     kdePackages.ark
     kdePackages.kate
