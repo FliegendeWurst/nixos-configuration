@@ -137,6 +137,9 @@ in
       "himbeere-null" = {
         identityFile = "~/.ssh/rpi0_laptop";
       };
+      "raspberrypi-fw" = {
+        identityFile = "~/.ssh/rpi0w2_laptop";
+      };
     };
   };
 
