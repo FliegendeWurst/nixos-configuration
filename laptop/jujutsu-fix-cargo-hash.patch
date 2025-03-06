@@ -4,5 +4,5 @@ index c096701c143e2..2ed77e0269426 100644
 +++ b/pkgs/by-name/ju/jujutsu/package.nix
 @@ -35,2 +35,2 @@ rustPlatform.buildRustPackage {
 
--  cargoHash = "sha256-CtyRekrbRwUvQq2HsFwNo46RCDEGwy9e4ZU8/TwGxSU=";
-+  cargoHash = "sha256-pthBx8ux4Y3WhE+0cQLCei8zyyjuTCwBU99Bh9cjmtE=";
+-  cargoHash = "sha256-35DJdAUXc2gb/EXECScwinSzzp7uaxFbUxedjqRGfj8=";
++  cargoHash = "sha256-b+BJI92f+/GAwzvAdJSEn/9rnTQj3l0HQhNTPybOA/4=";

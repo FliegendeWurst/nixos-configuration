@@ -1,0 +1,54 @@
+diff --git a/pkgs/by-name/tr/trilium-next-desktop/package.nix b/pkgs/by-name/tr/trilium-next-desktop/package.nix
+index 754d16bdf9c4..72b5c56736a6 100644
+--- a/pkgs/by-name/tr/trilium-next-desktop/package.nix
++++ b/pkgs/by-name/tr/trilium-next-desktop/package.nix
+@@ -16,13 +16,13 @@
+ 
+ let
+   pname = "trilium-next-desktop";
+-  version = "0.91.6";
++  version = "0.92.2-beta";
+ 
+   linuxSource.url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-v${version}-linux-x64.zip";
+-  linuxSource.sha256 = "13r9akfakmrpvnyab182irhraf9hpqb24205r8rxjfgj8dpmfa4p";
++  linuxSource.sha256 = "06y1c1g13pzn60q8xdidjz4p7db7m1p5f2wxckrzn7cn2r30x3sb";
+ 
+   darwinSource.url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-v${version}-macos-x64.zip";
+-  darwinSource.sha256 = "0iaz4wim11x110phg4xgzdw3sjcbmxwbksk5gpygjbhlzhjprnnp";
++  darwinSource.sha256 = "1s2bg4g637v0bs104lxd5las6s7fndd4xhpjcijsjrq5993dmjv3";
+ 
+   meta = {
+     description = "Hierarchical note taking application with focus on building large personal knowledge bases";
+diff --git a/pkgs/by-name/tr/trilium-next-desktop/update.sh b/pkgs/by-name/tr/trilium-next-desktop/update.sh
+index 2aa423d37f9f..dea31ea4d41f 100755
+--- a/pkgs/by-name/tr/trilium-next-desktop/update.sh
++++ b/pkgs/by-name/tr/trilium-next-desktop/update.sh
+@@ -8,7 +8,7 @@ setKV () {
+     sed -i "s|$2 = \".*\"|$2 = \"${3:-}\"|" $1
+ }
+ 
+-version=$(curl -s --show-error "https://api.github.com/repos/TriliumNext/Notes/releases/latest" | jq -r '.tag_name' | tail -c +2)
++version=0.92.2-beta # $(curl -s --show-error "https://api.github.com/repos/TriliumNext/Notes/releases/latest" | jq -r '.tag_name' | tail -c +2)
+ setKV ./package.nix version $version
+ 
+ # Update desktop application
+diff --git a/pkgs/by-name/tr/trilium-next-server/package.nix b/pkgs/by-name/tr/trilium-next-server/package.nix
+index 45961d959b89..9a53be5fc868 100644
+--- a/pkgs/by-name/tr/trilium-next-server/package.nix
++++ b/pkgs/by-name/tr/trilium-next-server/package.nix
+@@ -7,11 +7,11 @@
+ }:
+ 
+ let
+-  version = "0.91.6";
++  version = "0.92.2-beta";
+ 
+-  serverSource_x64.url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-linux-x64-v${version}.tar.xz";
+-  serverSource_x64.sha256 = "0ji1i792afzklg2vn99krm74nvb617pdr1gz061r573vi7nn5rnx";
+-  serverSource_arm64.url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-linux-arm64-v${version}.tar.xz";
++  serverSource_x64.url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-Server-v${version}-linux-x64.tar.xz";
++  serverSource_x64.sha256 = "sha256-vui6ARQrgeVl4yOEoU9PRVebYtHh3/GEo2nG4zPCRoA=";
++  serverSource_arm64.url = "https://github.com/TriliumNext/Notes/releases/download/v${version}/TriliumNextNotes-Server-v${version}-linux-arm64.tar.xz";
+   serverSource_arm64.sha256 = "1lyzm7rwj7cbb36nlswnwiy8hn0yba4f7mbrgirvzyx03q4wv29z";
+ 
+   serverSource =

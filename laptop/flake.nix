@@ -48,7 +48,7 @@
               [
                 # hydra-check: 2.0
                 (prPatch "359514" "0xasznqf7vpcykh2k0yj14s4h21gjaxynirrr93kqv3sdif0bm67")
-                # jujutsu: 0.23 -> 0.24 -> 0.25 -> 0.26
+                # jujutsu: 0.23 -> 0.24 -> 0.25 -> 0.26 -> 0.27
                 (prPatch "361877" "1im5vsqz7r0m1fvifbn203ywx1b8cr8inw634iyaz8qb0gxq90lq")
                 (prPatch "368985" "091q88j04jn7nq1n9dd18l7g6y2l34dfm1k0fj4hik1xl5qcrm19")
                 (prPatch "370160" "1nbwwgql2pnbay3wivqay4mdz2jd3x8d3cdx2riawpibmwyhny0f")
@@ -58,6 +58,7 @@
                 #  sha256 = "0w92m7xi5p42jfzs0ia4ypznkfcp6394y7260iymv3qc8kgca61k";
                 #})
                 (prPatch "379801" "11gh6n7dinlj7mriknkld147jzdlbfvfv7nh05ia53l3ss4df6k2")
+                (prPatch "387469" "0gcwfql632qfwpjzqv8ky9hbm0k7h2kfnj4mkrsvlbvxg65gv2gy")
                 ./jujutsu-fix-cargo-hash.patch
                 # prusa-slicer: 2.8.0 -> 2.9.0
                 (prPatch "367376" "07n0frirw2hi66x3wps7q995ahd7sc2mdmj0bh060z5f97y2xj5n")
@@ -68,8 +69,10 @@
                 ./prusa-bgcode.patch
                 # cura-appimage: init at 5.9.0
                 (prPatch "372614" "0z1ci7vwyib7pab3329676a2dn630qsh18yy24yf9qbpvavsjra3")
-                # trilium-next-{desktop,server}: 0.90.12 -> 0.91.5
+                # trilium-next-{desktop,server}: 0.90.12 -> 0.91.5 -> 0.91.6 -> 0.92.2-beta
                 (prPatch "378477" "0gf5hnhjsvfxg8pvhhn7hy3c8pk0sk3lvp2rknv5gl556rslhz9m")
+                (prPatch "380940" "0k90wbmgx99fls4hz58gbsz68ajyrwyhaaspjcc8w7px4p42vflm")
+                ./trilium-next-beta.patch
                 # zsh-histdb: init
                 (prPatch "379862" "09himfp9bnnq4ssqm19xg1h3a07iji14ycl7bg54x1n9cvx6grl0")
               ];
