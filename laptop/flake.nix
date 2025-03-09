@@ -46,8 +46,9 @@
                   };
               in
               [
-                # hydra-check: 2.0
+                # hydra-check: 2.0 -> 2.0.3
                 (prPatch "359514" "0xasznqf7vpcykh2k0yj14s4h21gjaxynirrr93kqv3sdif0bm67")
+                (prPatch "378570" "1li0xpkbika15nzjvpp3gpl2hqk3y9x5n3f3gsnic18bzdnn0cg8")
                 # jujutsu: 0.23 -> 0.24 -> 0.25 -> 0.26 -> 0.27
                 (prPatch "361877" "1im5vsqz7r0m1fvifbn203ywx1b8cr8inw634iyaz8qb0gxq90lq")
                 (prPatch "368985" "091q88j04jn7nq1n9dd18l7g6y2l34dfm1k0fj4hik1xl5qcrm19")
@@ -67,8 +68,9 @@
                   sha256 = "0sdjq1rk9ncmv3fg75sv94j6kbfpsn1cvx0ppj1hdcjkmqg7vry2";
                 })
                 ./prusa-bgcode.patch
-                # cura-appimage: init at 5.9.0
+                # cura-appimage: init at 5.9.0 -> 5.9.1
                 (prPatch "372614" "0z1ci7vwyib7pab3329676a2dn630qsh18yy24yf9qbpvavsjra3")
+                (prPatch "386520" "0qxh70xm8mcmscj6rbrjv92vdmidk26vf0rs43rbbps4xvfxfidl")
                 # trilium-next-{desktop,server}: 0.90.12 -> 0.91.5 -> 0.91.6 -> 0.92.2-beta
                 (prPatch "378477" "0gf5hnhjsvfxg8pvhhn7hy3c8pk0sk3lvp2rknv5gl556rslhz9m")
                 (prPatch "380940" "0k90wbmgx99fls4hz58gbsz68ajyrwyhaaspjcc8w7px4p42vflm")
