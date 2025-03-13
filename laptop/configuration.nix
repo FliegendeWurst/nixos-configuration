@@ -119,6 +119,7 @@ rec {
       }
     ];
   };
+  systemd.services.network-addresses-enp195s0f3u1.wantedBy = lib.mkForce [ ];
 
   # static IPv6 interface
   #networking.interfaces.enp193s0f3u2 = {
