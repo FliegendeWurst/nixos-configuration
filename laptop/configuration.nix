@@ -110,6 +110,16 @@ rec {
     }
   ];
 
+  networking.interfaces."enp195s0f3u1" = {
+    useDHCP = false;
+    ipv4.addresses = [
+      {
+        address = "169.254.1.2";
+        prefixLength = 16;
+      }
+    ];
+  };
+
   # static IPv6 interface
   #networking.interfaces.enp193s0f3u2 = {
   #  useDHCP = false;
