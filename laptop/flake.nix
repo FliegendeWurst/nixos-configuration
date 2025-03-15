@@ -62,6 +62,7 @@
                 (prPatch "387469" "0gcwfql632qfwpjzqv8ky9hbm0k7h2kfnj4mkrsvlbvxg65gv2gy")
                 ./jujutsu-fix-cargo-hash.patch
                 # prusa-slicer: 2.8.0 -> 2.9.0
+                ./prusa-revert-1.patch
                 (prPatch "367376" "07n0frirw2hi66x3wps7q995ahd7sc2mdmj0bh060z5f97y2xj5n")
                 (builtins.fetchurl {
                   url = "https://github.com/FliegendeWurst/nixpkgs/commit/prusa-slicer-native-file-dialog.patch?full_index=1";
