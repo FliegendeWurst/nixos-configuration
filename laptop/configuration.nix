@@ -207,6 +207,8 @@ rec {
     cert = "/etc/nixos/syncthing/cert.pem";
   };
 
+  programs.steam.enable = true;
+
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     baloo-widgets
