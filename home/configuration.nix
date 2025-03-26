@@ -503,6 +503,7 @@ rec {
   programs.wireshark.package = pkgs.wireshark;
   programs.ssh.startAgent = true;
   # use the neat X11 password entry dialog (only need to enter 'yes')
+  programs.ssh.enableAskPassword = true;
   programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
   programs.gnupg.agent = {
     enable = true;
