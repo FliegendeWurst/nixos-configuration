@@ -351,8 +351,6 @@ rec {
 
   services.xserver.excludePackages = [ pkgs.xterm ];
   services.xserver.desktopManager.xterm.enable = false;
-  services.xserver.enable = true;
-  services.xserver.enableCtrlAltBackspace = true;
   services.libinput.enable = true;
   #services.xserver.libinput.accelProfile = "flat";
   services.xserver.xkb.layout = "dvorak-custom";
@@ -372,8 +370,8 @@ rec {
   services.displayManager.sddm.theme = "${pkgs.nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
   services.displayManager.logToJournal = true;
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.defaultSession = "plasmax11";
-  services.displayManager.sddm.wayland.enable = false;
+  services.displayManager.defaultSession = "plasma";
+  services.displayManager.sddm.wayland.enable = true;
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
   systemd.services."drkonqi-coredump-processor@".enable = false;
