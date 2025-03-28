@@ -642,7 +642,7 @@ rec {
     cargo-outdated
     #jupyter
     vscodium
-    #jetbrains.idea-ultimate
+    jetbrains.idea-ultimate
     androidStudioPackages.stable
     clang
     #gnumake cmake
