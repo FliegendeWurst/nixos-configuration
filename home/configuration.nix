@@ -359,8 +359,8 @@ rec {
       description = "Dvorak customized";
       languages = [ "eng" ];
       symbolsFile = pkgs.fetchurl {
-        url = "https://gist.github.com/FliegendeWurst/856bd34536028b5579bdb102f324325a/raw/caa2a2c52c3450b5fb27212d43f5624586dcbee8/dvorak-custom";
-        hash = "sha256-/SWLa/OefNNmBmXLP7bhD0g1bc5VpmPXNkU+Qunouok=";
+        url = "https://gist.github.com/FliegendeWurst/856bd34536028b5579bdb102f324325a/raw/24f8ac70b920708e8b94a1e457d6b2a4524c6afe/dvorak-custom";
+        hash = "sha256-VhYbDkVYtnrUSjz2c1+luMABbjTxWUDMXdUQ9p2hA24=";
       };
     };
   };
@@ -472,7 +472,7 @@ rec {
         "android-studio-stable"
         "sddm-theme-utah"
       ];
-    strictDepsByDefault = config.system.nixos.release == "25.05";
+    strictDepsByDefault = config.system.nixos.release == "25.11";
     permittedInsecurePackages = [
       "electron-31.7.7"
     ];
@@ -659,7 +659,6 @@ rec {
     sqlite
     borgbackup
     nix-tree
-    rnix-hashes
     #nixpkgs-review
     nixfmt-rfc-style
     #gallery-dl
@@ -687,12 +686,12 @@ rec {
     gparted
     nixpkgs'.pkgs.trilium-next-desktop
     qdirstat
-    filelight
     #libreoffice-fresh
     qbittorrent
     tdesktop
     signal-desktop
     alacritty
+    kdePackages.filelight
     kdePackages.kwalletmanager
     kdePackages.okular
     kdePackages.akregator
