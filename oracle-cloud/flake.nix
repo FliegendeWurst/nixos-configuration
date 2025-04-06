@@ -12,6 +12,10 @@
       url = "github:FliegendeWurst/pr-dashboard";
       inputs.nixpkgs.follows = "nixpkgs-pinned";
     };
+    reddit-image-grid = {
+      url = "github:FliegendeWurst/reddit-image-grid";
+      inputs.nixpkgs.follows = "nixpkgs-pinned";
+    };
     wastebin = {
       url = "github:FliegendeWurst/wastebin/wip";
       inputs.nixpkgs.follows = "nixpkgs-pinned";
@@ -24,6 +28,7 @@
       nixpkgs,
       nur,
       pr-dashboard,
+      reddit-image-grid,
       wastebin,
       ...
     }@inputs:
@@ -37,7 +42,7 @@
             ./configuration.nix
           ];
           specialArgs = {
-            inherit pr-dashboard wastebin;
+            inherit pr-dashboard reddit-image-grid wastebin;
           };
         };
       };

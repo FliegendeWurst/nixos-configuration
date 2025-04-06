@@ -3,6 +3,7 @@
   lib,
   pkgs,
   pr-dashboard,
+  reddit-image-grid,
   wastebin,
   ...
 }:
@@ -90,7 +91,7 @@
           prefixLength = 24;
         }
       ];
-      useDHCP = false;
+      useDHCP = true;
     };
     firewall = {
       allowedTCPPorts = [
@@ -240,6 +241,53 @@
     requires = [ "network-online.target" ];
   };
 
+  users.users.reddit-image-grid = {
+    home = "/home/reddit-image-grid";
+    isSystemUser = true;
+    group = "reddit-image-grid";
+  };
+  users.groups.reddit-image-grid = { };
+  systemd.services.reddit-image-grid = {
+    description = "Reddit Image Grid";
+    environment = {
+      "REDDIT_IMAGE_GRID_BASE_URL" = "https://fliegendewurst.eu/rig";
+      "REDDIT_IMAGE_GRID_PORT" = "23377";
+    };
+    serviceConfig = {
+      ExecStart = lib.getExe' reddit-image-grid.packages.x86_64-linux-cross-aarch64-linux.reddit-image-grid "server";
+      User = "reddit-image-grid";
+      Group= "reddit-image-grid";
+      # hardening
+      CapabilityBoundingSet = "";
+      LockPersonality = true;
+      NoNewPrivileges = true;
+      MemoryDenyWriteExecute = true;
+      RemoveIPC = true;
+      RestrictAddressFamilies = [ "AF_INET" ]; # "AF_INET6"
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelTunables = true;
+      PrivateMounts = true;
+      PrivateTmp = true;
+      # ProtectHome = true;
+      ProtectKernelModules = true;
+      ProtectProc = "noaccess";
+      ProtectSystem = "strict";
+      PrivateUsers = true;
+      SystemCallArchitectures = "native";
+      UMask = "0077";
+    };
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    requires = [ "network-online.target" ];
+  };
+
   services.tt-rss = {
     enable = true;
     selfUrlPath = "https://tt-rss.fliegendewurst.eu/";
@@ -263,6 +311,13 @@
 
         locations."/" = {
           root = "/var/www";
+        };
+        locations."/rig" = {
+          extraConfig = ''
+            rewrite ^/rig$ / break;
+            rewrite ^/rig(.+)$ $1 break;
+          '';
+          proxyPass = "http://127.0.0.1:23377";
         };
       };
       "git.fliegendewurst.eu" = {

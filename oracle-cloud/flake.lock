@@ -23,11 +23,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1742422364,
-        "narHash": "sha256-mNqIplmEohk5jRkqYqG19GA8MbQ/D4gQSK0Mu4LvfRQ=",
+        "lastModified": 1743827369,
+        "narHash": "sha256-rpqepOZ8Eo1zg+KJeWoq1HAOgoMCDloqv5r2EAa9TSA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a84ebe20c6bc2ecbcfb000a50776219f48d134cc",
+        "rev": "42a1c966be226125b48c384171c44c651c236c22",
         "type": "github"
       },
       "original": {
@@ -39,11 +39,11 @@
     },
     "nixpkgs-pinned": {
       "locked": {
-        "lastModified": 1737062831,
-        "narHash": "sha256-Tbk1MZbtV2s5aG+iM99U8FqwxU/YNArMcWAv6clcsBc=",
+        "lastModified": 1743827369,
+        "narHash": "sha256-rpqepOZ8Eo1zg+KJeWoq1HAOgoMCDloqv5r2EAa9TSA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5df43628fdf08d642be8ba5b3625a6c70731c19c",
+        "rev": "42a1c966be226125b48c384171c44c651c236c22",
         "type": "github"
       },
       "original": {
@@ -82,16 +82,36 @@
         ]
       },
       "locked": {
-        "lastModified": 1737295264,
-        "narHash": "sha256-WuupriW1zWskyvDhoOKemCmXFQVnJ4bD2a/eWMxE0C4=",
+        "lastModified": 1743949640,
+        "narHash": "sha256-RrZFs6KSQ8klhH3KYaflfnVbkzcvaa+7spWlW+dOmZw=",
         "owner": "FliegendeWurst",
         "repo": "pr-dashboard",
-        "rev": "936b3da6e092d5700bdfca7195eba1bd0ade0912",
+        "rev": "99ff6d8f946ad352ffeb9af3a8173d54d035d057",
         "type": "github"
       },
       "original": {
         "owner": "FliegendeWurst",
         "repo": "pr-dashboard",
+        "type": "github"
+      }
+    },
+    "reddit-image-grid": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-pinned"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743972242,
+        "narHash": "sha256-UTMG26+3xnPvi85YrY+r05osgPwWQgbfTdu04bydjdM=",
+        "owner": "FliegendeWurst",
+        "repo": "reddit-image-grid",
+        "rev": "0e509cd2b74464b5ce20ea87172fb01c0d394972",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FliegendeWurst",
+        "repo": "reddit-image-grid",
         "type": "github"
       }
     },
@@ -101,6 +121,7 @@
         "nixpkgs-pinned": "nixpkgs-pinned",
         "nur": "nur",
         "pr-dashboard": "pr-dashboard",
+        "reddit-image-grid": "reddit-image-grid",
         "wastebin": "wastebin"
       }
     },
@@ -132,11 +153,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737884421,
-        "narHash": "sha256-2NZso/0Al0MJ9h0I7c6nCltEmzZ7Gf6tYSFrJEj/8ho=",
+        "lastModified": 1743949669,
+        "narHash": "sha256-8sSUcrMl+q9GQl03+GxOxYd/CqJOTHhDMri5YTOlCzc=",
         "owner": "FliegendeWurst",
         "repo": "wastebin",
-        "rev": "a9690dc26cbfd741e11e396d66954c6bd287adb2",
+        "rev": "96ce43e75432d93ef730bd85295f1cc338dfb779",
         "type": "github"
       },
       "original": {
