@@ -22,7 +22,7 @@ rec {
         "android-studio-stable"
         "sddm-theme-utah"
       ];
-    strictDepsByDefault = config.system.nixos.release == "25.05";
+    strictDepsByDefault = config.system.nixos.release == "25.11";
     permittedInsecurePackages = [
     ];
   };
@@ -173,11 +173,13 @@ rec {
       description = "Dvorak customized";
       languages = [ "eng" ];
       symbolsFile = pkgs.fetchurl {
-        url = "https://gist.github.com/FliegendeWurst/856bd34536028b5579bdb102f324325a/raw/caa2a2c52c3450b5fb27212d43f5624586dcbee8/dvorak-custom";
-        hash = "sha256-/SWLa/OefNNmBmXLP7bhD0g1bc5VpmPXNkU+Qunouok=";
+        url = "https://gist.github.com/FliegendeWurst/856bd34536028b5579bdb102f324325a/raw/24f8ac70b920708e8b94a1e457d6b2a4524c6afe/dvorak-custom";
+        hash = "sha256-VhYbDkVYtnrUSjz2c1+luMABbjTxWUDMXdUQ9p2hA24=";
       };
     };
   };
+  services.xserver.autoRepeatDelay = 183;
+  services.xserver.autoRepeatInterval = 33;
 
   xdg.portal.enable = true;
   xdg.portal.xdgOpenUsePortal = true;
@@ -200,7 +202,8 @@ rec {
   programs.firefox.wrapperConfig.speechSynthesisSupport = false;
   programs.ssh.startAgent = true;
   # use the neat X11 password entry dialog (only need to enter 'yes')
-  # TODO: doesn't work
+  # TODO: still doesn't work
+  programs.ssh.enableAskPassword = true;
   programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
   programs.gnupg.agent = {
     enable = true;

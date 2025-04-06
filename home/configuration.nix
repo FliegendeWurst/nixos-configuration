@@ -38,19 +38,8 @@ rec {
   ];
 
   nix.nrBuildUsers = 64;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nix.settings.auto-optimise-store = false;
 
-  documentation.nixos.enable = false;
-  environment.etc.issue.source = "/dev/null";
-
-  boot.initrd.systemd.enable = true;
-  boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.memtest86.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = linuxPackages;
   boot.blacklistedKernelModules = [ "sp5100_tco" ];
   boot.extraModulePackages = [
@@ -64,9 +53,7 @@ rec {
     "nct6775"
     "hid_microsoft_ergonomic"
   ];
-  boot.kernelParams = [
-    # bad bit in 0x193e4e5540
-    "memmap=0x1000$0x193e4e5000"
+  boot.kernelParams = lib.mkForce [
     "mitigations=off"
     "amdgpu.noretry=0"
     # this system has 128GB of RAM, I'm not writing that to disk
@@ -75,38 +62,8 @@ rec {
     "log_buf_len=128M"
   ];
   boot.kernel.sysctl = {
-    "kernel.dmesg_restrict" = false;
-    # enable Alt+SysRq commands
-    "kernel.sysrq" = 1;
     # for funky network experiments
     #"net.ipv4.ip_forward" = 1;
-    # silence kernel warning
-    "fs.suid_dumpable" = 0;
-  };
-  # disable coredumps
-  systemd.coredump.extraConfig = ''
-    Storage=none
-  '';
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      item = "core";
-      type = "hard";
-      value = "0";
-    }
-  ];
-  # /tmp should be a tmpfs
-  boot.tmp.useTmpfs = true;
-  boot.tmp.tmpfsSize = "100%";
-  zramSwap.enable = true;
-  # normal compression ratio: 5-6
-  # use 150 / 5 = 30% of memory as compressed swap
-  zramSwap.memoryPercent = 150;
-  boot.kernel.sysctl = {
-    "vm.swappiness" = 150;
-    "vm.watermark_boost_factor" = 0;
-    "vm.watermark_scale_factor" = 125;
-    "vm.page-cluster" = 0;
   };
 
   services.btrfs.autoScrub = {
@@ -227,15 +184,9 @@ rec {
       pkgs.nix
     ];
     wants = [ "network-online.target" ];
-    wantedBy = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
     after = [ "network-online.target" ];
   };
-
-  hardware.cpu.amd.updateMicrocode = true;
-  hardware.mcelog.enable = true;
-  services.fstrim.enable = true;
-  # the journal tends to fill up with junk
-  services.journald.extraConfig = "SystemMaxUse=100M";
 
   #services.triggerhappy.enable = true;
   #services.triggerhappy.user = "root";
@@ -245,8 +196,6 @@ rec {
 
   hardware.bluetooth.enable = false;
 
-  networking.useDHCP = true;
-  networking.dhcpcd.wait = "background";
   # systemd.services.accounts-daemon.wantedBy = lib.mkForce [ ];
   # systemd.services.network-local-commands.enable = lib.mkForce false;
   # services.logrotate.enable = lib.mkForce false;
@@ -266,8 +215,6 @@ rec {
   #  }
   #];
   networking.hostName = "nixOS";
-  networking.firewall.logRefusedConnections = false;
-  networking.firewall.rejectPackets = true;
   networking.firewall.allowedTCPPorts = [
     12783
     12975
@@ -291,46 +238,6 @@ rec {
   # Or disable the firewall altogether.
   #networking.firewall.enable = false;
 
-  security.sudo.package = pkgs.sudo.override {
-    withInsults = true;
-  };
-  security.sudo.extraConfig = ''
-    Defaults insults
-    Defaults timestamp_timeout=-1
-  '';
-
-  time.timeZone = "Europe/Berlin";
-  i18n.defaultLocale = "de_DE.UTF-8";
-  #i18n.supportedLocales = [
-  #  "C.UTF-8/UTF-8"
-  #  "de_DE.UTF-8/UTF-8"
-  #  "en_US.UTF-8/UTF-8"
-  #  "en_GB.UTF-8/UTF-8"
-  #];
-  console = {
-    keyMap = "dvorak";
-  };
-  environment.sessionVariables = {
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_DATA_HOME = "$HOME/.local/share";
-
-    CARGO_HOME = "$XDG_CACHE_HOME/cargo";
-    CARGO_TARGET_DIR = "$CARGO_HOME/target";
-    RUSTUP_HOME = "$HOME/.local/rustup";
-    KDEHOME = "$HOME/.config/kde";
-    #KDESYCOCA = "$HOME/.cache/kdesycoca";
-    KDE_UTF8_FILENAMES = "1";
-    ANDROID_SDK_HOME = "$HOME/.cache";
-    GRADLE_USER_HOME = "$HOME/.cache/gradle";
-    XCOMPOSECACHE = "$HOME/.cache/X11/xcompose";
-    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$HOME/.config/java";
-    GTK_USE_PORTAL = "1";
-
-    LIBCLANG_PATH = "${lib.getLib pkgs.llvmPackages.libclang}/lib";
-    LIBSQLITE3_SYS_USE_PKG_CONFIG = "1";
-    ZSTD_SYS_USE_PKG_CONFIG = "1";
-  };
   environment.etc = {
     "resolv.conf".text = ''
       domain fritz.box
@@ -338,43 +245,18 @@ rec {
       nameserver fd00::e228:6dff:fe3d:545a
       options edns0
     '';
-    "zshenv.local" = {
-      text = ''
-        ZDOTDIR=$HOME/.config/zsh
-      '';
-      mode = "0444";
-    };
     "sysconfig/lm_sensors".text = ''
       HWMON_MODULES="nct6775"
     '';
   };
 
-  services.xserver.excludePackages = [ pkgs.xterm ];
-  services.xserver.desktopManager.xterm.enable = false;
   services.libinput.enable = true;
   #services.xserver.libinput.accelProfile = "flat";
-  services.xserver.xkb.layout = "dvorak-custom";
-  services.xserver.xkb.extraLayouts = {
-    dvorak-custom = {
-      description = "Dvorak customized";
-      languages = [ "eng" ];
-      symbolsFile = pkgs.fetchurl {
-        url = "https://gist.github.com/FliegendeWurst/856bd34536028b5579bdb102f324325a/raw/24f8ac70b920708e8b94a1e457d6b2a4524c6afe/dvorak-custom";
-        hash = "sha256-VhYbDkVYtnrUSjz2c1+luMABbjTxWUDMXdUQ9p2hA24=";
-      };
-    };
-  };
-  services.xserver.autoRepeatDelay = 183;
-  services.xserver.autoRepeatInterval = 33;
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.theme = "${pkgs.nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
-  services.displayManager.logToJournal = true;
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "plasma";
   services.displayManager.sddm.wayland.enable = true;
-  xdg.portal.enable = true;
-  xdg.portal.xdgOpenUsePortal = true;
-  systemd.services."drkonqi-coredump-processor@".enable = false;
 
   fonts.enableDefaultPackages = true;
   fonts.packages = with pkgs; [
@@ -423,23 +305,16 @@ rec {
   };
   # services.logmein-hamachi.enable = true;
 
-  security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
-    alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
   };
 
-  hardware.graphics.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
     amdvlk
     vaapiVdpau
     libvdpau-va-gl
   ];
   hardware.graphics.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
-
-  hardware.sane.enable = true;
 
   users.users.arne = {
     isNormalUser = true;
@@ -457,35 +332,11 @@ rec {
     shell = pkgs.zsh;
   };
 
-  nixpkgs.config = {
-    allowUnfreePredicate =
-      pkg:
-      builtins.elem (pkgs.lib.getName pkg) [
-        "minecraft-launcher"
-        "steam"
-        "steam-original"
-        "steam-runtime"
-        "steam-run"
-        "steam-unwrapped"
-        "mathematica"
-        "idea-ultimate"
-        "android-studio-stable"
-        "sddm-theme-utah"
-      ];
-    strictDepsByDefault = config.system.nixos.release == "25.11";
-    permittedInsecurePackages = [
-      "electron-31.7.7"
-    ];
-  };
   programs.steam.enable = gaming;
-  programs.zsh.enable = true;
-  programs.zsh.enableGlobalCompInit = false;
+
   programs.zsh.interactiveShellInit = ''
     source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
   '';
-
-  programs.less.enable = true;
-  programs.less.lessopen = null;
 
   programs.tmux.enable = true;
   programs.tmux.baseIndex = 1;
@@ -495,21 +346,9 @@ rec {
   programs.tmux.terminal = "tmux-256color";
   programs.tmux.plugins = with pkgs.tmuxPlugins; [ pkgs.nur.repos.fliegendewurst.tmux-thumbs ];
 
-  programs.command-not-found.enable = false;
   programs.adb.enable = true;
-  programs.firefox.enable = true;
-  programs.firefox.wrapperConfig.speechSynthesisSupport = false;
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark;
-  programs.ssh.startAgent = true;
-  # use the neat X11 password entry dialog (only need to enter 'yes')
-  programs.ssh.enableAskPassword = true;
-  programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = false;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
   # do not show unlock prompt on login
   security.pam.services.sddm.enableKwallet = lib.mkOverride 0 false;
 
@@ -568,7 +407,6 @@ rec {
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     baloo-widgets
   ];
-  environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; [
     # standard utilities
     (coreutils.override {
