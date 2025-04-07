@@ -10,7 +10,11 @@
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
   cachedirTag = "Signature: 8a477f597d28d172789f06886806bc55";
+  hostname = builtins.getEnv "HOST";
+  onFramework = lib.optionalAttrs (hostname == "framework");
+  onDesktop = lib.optionalAttrs (hostname == "nixOS");
 in
+assert hostname != "";
 {
   home.username = "arne";
   home.homeDirectory = "/home/arne";
@@ -36,56 +40,63 @@ in
     # '')
   ];
 
-  home.file = {
-    # Disable Baloo.
-    ".config/systemd/user/plasma-baloorunner.service".source = mkOutOfStoreSymlink "/dev/null";
-    ".config/baloofilerc".text = ''
-      [Basic Settings]
-      Indexing-Enabled=false
+  home.file =
+    {
+      # Disable Baloo.
+      ".config/systemd/user/plasma-baloorunner.service".source = mkOutOfStoreSymlink "/dev/null";
+      ".config/baloofilerc".text = ''
+        [Basic Settings]
+        Indexing-Enabled=false
 
-      [General]
-      dbVersion=2
-      exclude filters=*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.tfstate*,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.terraform,.venv,venv,core-dumps,lost+found
-      exclude filters version=9
-    '';
-    ".config/htop/htoprc".source = dotfiles/htoprc;
-    # Replaces services.xserver.autoRepeatInterval and autoRepeatDelay.
-    ".config/kcminputrc".text = ''
-      [Keyboard]
-      RepeatDelay=183
-      RepeatRate=30
-    '';
-    ".cache/CACHEDIR.TAG".text = cachedirTag;
-    ".local/rustup/CACHEDIR.TAG".text = cachedirTag;
-    ".jdks/CACHEDIR.TAG".text = cachedirTag;
-    ".config/TriliumNext Notes/CACHEDIR.TAG".text = cachedirTag;
-    ".npm/CACHEDIR.TAG".text = cachedirTag;
-    "src/TriliumDroid/app/build/CACHEDIR.TAG".text = cachedirTag;
-    "src/triples/app/build/CACHEDIR.TAG".text = cachedirTag;
-    # Disables useless DrKonqi processor.
-    ".config/systemd/user/drkonqi-coredump-pickup.service".source = mkOutOfStoreSymlink "/dev/null";
-    # Disable useless Klipper clipboard manager.
-    ".config/klipperrc".text = ''
-      [General]
-      KeepClipboardContents=false
-      MaxClipItems=1
-      SelectionTextOnly=false
-      Version=6.2.5
-    '';
-    # Manage home-manager in my repo.
-    ".config/home-manager".source =
-      mkOutOfStoreSymlink "/home/arne/src/nixos-configuration/home-manager";
-    # KWin window rules, to fix positioning and other stuff.
-    ".config/kwinrulesrc".source = dotfiles/kwinrulesrc;
-    # KWin configuration: number of desktops, scale factor, etc.
-    ".config/kwinrc".source = dotfiles/kwinrc;
-    # Move Firefox cache to /tmp.
-    ".cache/mozilla/firefox/s0kjua7b.default/cache2".source = mkOutOfStoreSymlink "/tmp/firefox-cache";
-    # Move KDE thumbnails to /tmp.
-    ".cache/thumbnails".source = mkOutOfStoreSymlink "/tmp/thumbnail-cache";
-    # Move nixpkgs-review worktrees to /tmp.
-    ".cache/nixpkgs-review".source = mkOutOfStoreSymlink "/tmp/nixpkgs-review";
-  };
+        [General]
+        dbVersion=2
+        exclude filters=*~,*.part,*.o,*.la,*.lo,*.loT,*.moc,moc_*.cpp,qrc_*.cpp,ui_*.h,cmake_install.cmake,CMakeCache.txt,CTestTestfile.cmake,libtool,config.status,confdefs.h,autom4te,conftest,confstat,Makefile.am,*.gcode,.ninja_deps,.ninja_log,build.ninja,*.csproj,*.m4,*.rej,*.gmo,*.pc,*.omf,*.aux,*.tmp,*.po,*.vm*,*.nvram,*.rcore,*.swp,*.swap,lzo,litmain.sh,*.orig,.histfile.*,.xsession-errors*,*.map,*.so,*.a,*.db,*.qrc,*.ini,*.init,*.img,*.vdi,*.vbox*,vbox.log,*.qcow2,*.vmdk,*.vhd,*.vhdx,*.sql,*.sql.gz,*.ytdl,*.tfstate*,*.class,*.pyc,*.pyo,*.elc,*.qmlc,*.jsc,*.fastq,*.fq,*.gb,*.fasta,*.fna,*.gbff,*.faa,po,CVS,.svn,.git,_darcs,.bzr,.hg,CMakeFiles,CMakeTmp,CMakeTmpQmake,.moc,.obj,.pch,.uic,.npm,.yarn,.yarn-cache,__pycache__,node_modules,node_packages,nbproject,.terraform,.venv,venv,core-dumps,lost+found
+        exclude filters version=9
+      '';
+      ".config/htop/htoprc".source = dotfiles/htoprc;
+      # Replaces services.xserver.autoRepeatInterval and autoRepeatDelay.
+      ".config/kcminputrc".text = ''
+        [Keyboard]
+        RepeatDelay=183
+        RepeatRate=30
+      '';
+      ".cache/CACHEDIR.TAG".text = cachedirTag;
+      ".local/rustup/CACHEDIR.TAG".text = cachedirTag;
+      ".jdks/CACHEDIR.TAG".text = cachedirTag;
+      ".config/TriliumNext Notes/CACHEDIR.TAG".text = cachedirTag;
+      ".npm/CACHEDIR.TAG".text = cachedirTag;
+      "src/TriliumDroid/app/build/CACHEDIR.TAG".text = cachedirTag;
+      # Disables useless DrKonqi processor.
+      ".config/systemd/user/drkonqi-coredump-pickup.service".source = mkOutOfStoreSymlink "/dev/null";
+      # Disable useless Klipper clipboard manager.
+      ".config/klipperrc".text = ''
+        [General]
+        KeepClipboardContents=false
+        MaxClipItems=1
+        SelectionTextOnly=false
+        Version=6.2.5
+      '';
+      # Manage home-manager in my repo.
+      ".config/home-manager".source =
+        mkOutOfStoreSymlink "/home/arne/src/nixos-configuration/home-manager";
+      # Move KDE thumbnails to /tmp.
+      ".cache/thumbnails".source = mkOutOfStoreSymlink "/tmp/thumbnail-cache";
+      # Move nixpkgs-review worktrees to /tmp.
+      ".cache/nixpkgs-review".source = mkOutOfStoreSymlink "/tmp/nixpkgs-review";
+    }
+    // onFramework {
+      "src/triples/app/build/CACHEDIR.TAG".text = cachedirTag;
+      # KWin window rules, to fix positioning and other stuff.
+      ".config/kwinrulesrc".source = dotfiles/kwinrulesrc;
+      # KWin configuration: number of desktops, scale factor, etc.
+      ".config/kwinrc".source = dotfiles/kwinrc;
+      # Move Firefox cache to /tmp.
+      ".cache/mozilla/firefox/s0kjua7b.default/cache2".source = mkOutOfStoreSymlink "/tmp/firefox-cache";
+    }
+    // onDesktop {
+      # Move Firefox cache to /tmp.
+      ".cache/mozilla/firefox/q7zjqact.default/cache2".source = mkOutOfStoreSymlink "/tmp/firefox-cache";
+    };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -121,26 +132,78 @@ in
     compression = true;
     serverAliveInterval = 10;
     serverAliveCountMax = 3;
-    matchBlocks = {
-      "github.com" = {
-        identityFile = "~/.ssh/github_laptop";
+    matchBlocks =
+      onFramework {
+        "github.com" = {
+          identityFile = "~/.ssh/github_laptop";
+        };
+        "git.fliegendewurst.eu" = {
+          identityFile = "~/.ssh/gitea_laptop";
+        };
+        "gitlab.kit.edu" = {
+          identityFile = "~/.ssh/gitlab_kit_laptop";
+        };
+        "fliegendewurst.eu" = {
+          identityFile = "~/.ssh/oracle_laptop";
+        };
+        "himbeere-null" = {
+          identityFile = "~/.ssh/rpi0_laptop";
+        };
+        "raspberrypi-fw" = {
+          identityFile = "~/.ssh/rpi0w2_laptop";
+        };
+      }
+      // onDesktop {
+        # git forges
+        "github.com" = {
+          identityFile = "~/.ssh/github_pc";
+          user = "git";
+        };
+        "gitlab.com" = {
+          identityFile = "~/.ssh/gitlab_ak";
+        };
+        "gitlab.kit.edu" = {
+          identityFile = "~/.ssh/kit_gitlab_pc";
+        };
+        "git.key-project.org" = {
+          identityFile = "~/.ssh/id_newkey2021";
+        };
+        "git.fliegendewurst.eu" = {
+          identityFile = "~/.ssh/gitea_pc";
+        };
+        "bitbucket.org" = {
+          identityFile = "~/.ssh/bitbucket_pc";
+          user = "git";
+        };
+        # cloud
+        "138.2.166.187" = {
+          identityFile = "~/.ssh/oracle_pc";
+        };
+        "fliegendewurst.eu" = {
+          identityFile = "~/.ssh/oracle_pc";
+        };
+        "e4d60918-db9d-4447-997a-70db8a246863.ka.bw-cloud-instance.org" = {
+          identityFile = "~/.ssh/typicalc_pc";
+          port = 22351;
+        };
+        "u294555.your-storagebox.de" = {
+          extraOptions.PubkeyAuthentication = "no";
+        };
+        # misc.
+        "darwin-build-box.nix-community.org" = {
+          identityFile = "~/.ssh/communitydarwin_pc";
+        };
+        "i08fs1.informatik.kit.edu" = {
+          identityFile = "~/.ssh/id_ed25519";
+        };
+        # local
+        "raspberrypi" = {
+          identityFile = "~/.ssh/rpi3_pc";
+        };
+        "himbeere-null" = {
+          identityFile = "~/.ssh/rpi0_pc";
+        };
       };
-      "git.fliegendewurst.eu" = {
-        identityFile = "~/.ssh/gitea_laptop";
-      };
-      "gitlab.kit.edu" = {
-        identityFile = "~/.ssh/gitlab_kit_laptop";
-      };
-      "fliegendewurst.eu" = {
-        identityFile = "~/.ssh/oracle_laptop";
-      };
-      "himbeere-null" = {
-        identityFile = "~/.ssh/rpi0_laptop";
-      };
-      "raspberrypi-fw" = {
-        identityFile = "~/.ssh/rpi0w2_laptop";
-      };
-    };
   };
 
   programs.git = {
@@ -148,6 +211,7 @@ in
     aliases = {
       "log-branches" = "log --all --graph --decorate --oneline --simplify-by-decoration";
       "pfusch" = "push --force";
+      "staged" = "diff --staged";
     };
     delta = {
       enable = true;
@@ -165,9 +229,10 @@ in
     userName = "Arne Keller";
     extraConfig = {
       core = {
-        askpass = "/run/current-system/sw/bin/ksshaskpass";
         quotepath = "off";
       };
+      http.postBuffer = "1048576000";
+      merge.conflictstyle = "diff3";
       pull.ff = "only";
       rerere.enabled = "1";
       user.useConfigOnly = true;
@@ -182,6 +247,22 @@ in
         email = "arne.keller@posteo.de";
         name = "FliegendeWurst";
       };
+      template-aliases.log_compact_fast = ''
+        if(root,
+          format_root_commit(self),
+          label(if(current_working_copy, "working_copy"),
+            concat(
+              format_short_commit_header(self) ++ "\n",
+              separate(" ",
+                if(description,
+                  description.first_line(),
+                  label("", description_placeholder),
+                ),
+              ) ++ "\n",
+            ),
+          )
+        )
+      '';
     };
   };
 
@@ -193,6 +274,8 @@ in
     bindings = {
       "<" = "playlist_next";
       ">" = "playlist_prev";
+      "Alt+UP" = "script-message RBS-upvote";
+      "Alt+DOWN" = "script-message RBS-downvote";
     };
     config = {
       "profile" = "gpu-hq";
@@ -243,26 +326,45 @@ in
           foreground = "#eff0f1";
         };
       };
-      font = {
-        size = 13;
-        bold = {
-          family = "CozetteVector";
-          style = "Regular";
+      font =
+        onFramework {
+          size = 13;
+          bold = {
+            family = "CozetteVector";
+            style = "Regular";
+          };
+          normal.family = "CozetteVector";
+        }
+        // onDesktop {
+          size = 8;
+          bold = {
+            family = "Cozette";
+            style = "Regular";
+          };
+          normal.family = "Cozette";
         };
-        normal.family = "CozetteVector";
-      };
       scrolling.history = 0;
 
       window = {
         decorations = "none";
-        dimensions = {
-          columns = 180;
-          lines = 40;
-        };
-        padding = {
-          x = 6;
-          y = 4;
-        };
+        dimensions =
+          onFramework {
+            columns = 180;
+            lines = 40;
+          }
+          // onDesktop {
+            columns = 247;
+            lines = 44;
+          };
+        padding =
+          onFramework {
+            x = 6;
+            y = 4;
+          }
+          // onDesktop {
+            x = 4;
+            y = 4;
+          };
       };
     };
   };
@@ -280,7 +382,7 @@ in
     extraConfig = builtins.readFile ./dotfiles/tmux.conf;
   };
 
-  xdg.userDirs = {
+  xdg.userDirs = onFramework {
     enable = true;
     createDirectories = true;
   };
