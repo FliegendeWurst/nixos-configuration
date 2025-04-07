@@ -11,8 +11,10 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
   cachedirTag = "Signature: 8a477f597d28d172789f06886806bc55";
   hostname = builtins.getEnv "HOST";
-  onFramework = lib.optionalAttrs (hostname == "framework");
-  onDesktop = lib.optionalAttrs (hostname == "nixOS");
+  isFramework = hostname == "framework";
+  isDesktop = hostname == "nixOS";
+  onFramework = lib.optionalAttrs isFramework;
+  onDesktop = lib.optionalAttrs isDesktop;
 in
 assert hostname != "";
 {
@@ -379,7 +381,9 @@ assert hostname != "";
     clock24 = true;
     escapeTime = 0;
     historyLimit = 20000;
-    extraConfig = builtins.readFile ./dotfiles/tmux.conf;
+    extraConfig = lib.replaceStrings [ "@statusInterval@" ] [ (if isDesktop then "1" else "10") ] (
+      builtins.readFile ./dotfiles/tmux.conf
+    );
   };
 
   xdg.userDirs = onFramework {
