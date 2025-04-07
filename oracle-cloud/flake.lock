@@ -82,11 +82,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743949640,
-        "narHash": "sha256-RrZFs6KSQ8klhH3KYaflfnVbkzcvaa+7spWlW+dOmZw=",
+        "lastModified": 1744061127,
+        "narHash": "sha256-DkkEk3BLs1b/LQRY/v7Ndg6XCM+UBtnZCsWtiIq/EFg=",
         "owner": "FliegendeWurst",
         "repo": "pr-dashboard",
-        "rev": "99ff6d8f946ad352ffeb9af3a8173d54d035d057",
+        "rev": "2b484a8b22bf9c707bf8ac33d59d034521e69f45",
         "type": "github"
       },
       "original": {
