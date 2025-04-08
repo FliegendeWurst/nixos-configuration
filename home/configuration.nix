@@ -9,7 +9,7 @@
 
 let
   gaming = true;
-  linuxPackages = pkgs.linuxPackages_6_6;
+  linuxPackages = pkgs.linuxPackages_6_12; # some LTS version
   mpvPlus =
     with pkgs;
     mpv.override {
@@ -452,13 +452,11 @@ rec {
     zola
     colorized-logs
     nix-index
-    # TODO(25.05): use regular version
     nixpkgs'.pkgs.jujutsu
     bees
     schedtool
     compsize
-    # TODO(25.05): use regular version
-    nixpkgs'.pkgs.hydra-check
+    hydra-check
     e2fsprogs # filefrag
     moreutils # parallel
     evtest
@@ -545,20 +543,17 @@ rec {
     kdePackages.kruler
     kdePackages.kdeconnect-kde
     kdePackages.plasma-vault
-    #ksshaskpass
     notepadqq
     skrooge
     mpvPlus
     inkscape
     element-desktop
     nixpkgs'.pkgs.cura-appimage
+    nixpkgs'.pkgs.prusa-slicer
 
-    #xorg.xkbcomp
-    xorg.xrandr
-    #evtest
     lm_sensors
 
-    xclip
+    wl-clipboard
     ntfs3g
     cryptsetup
     pinentry-qt
@@ -588,9 +583,6 @@ rec {
     #wineWowPackages.full
     #winetricks
     #texlive.combined.scheme-full
-
-    nixpkgs'.pkgs.prusa-slicer
-    #blender
   ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

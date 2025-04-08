@@ -43,6 +43,7 @@
                   };
               in
               [
+                # prusa-slicer stuff
                 (builtins.fetchurl {
                   url = "https://github.com/FliegendeWurst/nixpkgs/commit/prusa-slicer-native-file-dialog.patch?full_index=1";
                   sha256 = "0sdjq1rk9ncmv3fg75sv94j6kbfpsn1cvx0ppj1hdcjkmqg7vry2";
