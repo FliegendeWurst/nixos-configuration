@@ -215,7 +215,6 @@ rec {
     enable = true;
     openDefaultPorts = true;
     user = "arne";
-    dataDir = "/home/arne";
     overrideFolders = false;
     overrideDevices = false;
     settings.gui = {

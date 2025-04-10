@@ -203,6 +203,7 @@ rec {
   programs.adb.enable = true;
 
   services.syncthing = {
+    dataDir = "/home/arne";
     key = "/etc/nixos/syncthing/key.pem";
     cert = "/etc/nixos/syncthing/cert.pem";
   };
