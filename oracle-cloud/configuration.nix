@@ -252,6 +252,7 @@
     environment = {
       "REDDIT_IMAGE_GRID_BASE_URL" = "https://fliegendewurst.eu/rig";
       "REDDIT_IMAGE_GRID_PORT" = "23377";
+      "REDDIT_IMAGE_GRID_DATABASE" = "/home/reddit-image-grid/stars.db";
     };
     serviceConfig = {
       ExecStart = lib.getExe' reddit-image-grid.packages.x86_64-linux-cross-aarch64-linux.reddit-image-grid "server";

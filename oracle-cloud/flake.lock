@@ -102,11 +102,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743972242,
-        "narHash": "sha256-UTMG26+3xnPvi85YrY+r05osgPwWQgbfTdu04bydjdM=",
+        "lastModified": 1744368819,
+        "narHash": "sha256-l+irDvM+bqnacVA/Ykr0o0nSpqzOuRev/AGbHlkMims=",
         "owner": "FliegendeWurst",
         "repo": "reddit-image-grid",
-        "rev": "0e509cd2b74464b5ce20ea87172fb01c0d394972",
+        "rev": "4b66ce23794bbd653fc22ab606bc609d658428c5",
         "type": "github"
       },
       "original": {
