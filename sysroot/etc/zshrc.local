@@ -27,7 +27,7 @@ bindkey '^H' backward-kill-word
 # F9: duplicate last argument
 bindkey -s "\e[20~" "!#\$^I"
 paste-clipboard () {
- LBUFFER+="$(wl-paste)"
+ LBUFFER+="$(wl-paste | trim-prefix-suffix)"
 }
 zle -N paste-clipboard
 bindkey "\e[2~" paste-clipboard
@@ -48,8 +48,8 @@ beep-hook() {
  [[ "$code" = "0" ]] && (mpv --loop-playlist=no --volume=60 /home/arne/Downloads/pickupCoin\(1\).wav 2>&1 >/dev/null &)
 }
 
-# add-zsh-hook preexec beep-pre
-# add-zsh-hook precmd beep-hook
+[[ $HOST = nixOS ]] && add-zsh-hook preexec beep-pre
+[[ $HOST = nixOS ]] && add-zsh-hook precmd beep-hook
 
 #########################
 # variables and aliases #
@@ -61,19 +61,11 @@ if (($+IN_NIX_SHELL)); then
   PS1="($IN_NIX_SHELL) $PS1"
 fi
 check_nix_run() {
-  local path_copy
-  local -a bins
-  bins=()
-  path_copy="$PATH"
-  while [[ "$path_copy" =~ '\/nix\/store\/[^/]{33}([^/]+)\/[^:]+:?' ]]; do
-    bins+="$match[1]"
-    path_copy="${path_copy:$MEND}"
-  done
-  if [[ "${#bins[@]}" > 0 ]]; then
-    old_ps1="$PS1"
-    PS1="($bins[@]) $PS1"
-    in_nix_run=1
-  fi
+  [[ -z $buildInputs ]] && return
+  local bins=$(echo $buildInputs | tr ' ' '\n' | rg --only-matching '.{44}(.+)' -r '$1' | tr '\n' ' ' | trim-prefix-suffix)
+  old_ps1="$PS1"
+  PS1="($bins) $PS1"
+  in_nix_run=1
 }
 check_nix_run
 hide_nix_run() {
@@ -88,15 +80,10 @@ boop () {
   fi
   $(exit "$last")
 }
-export LANG=de_DE.utf8
-export LC_CTYPE=C.utf8
 export EXA_COLORS='*.opus=38;5;248:*.ogg=38;5;248:*.mp3=38;5;248'
-export TIME_STYLE=long-iso
-export NPM_PACKAGES="${HOME}/.local/share/npm"
 # export SSH_ASKPASS_REQUIRE='prefer'
 export WINEDLLOVERRIDES=winemenubuilder.exe=d
 export PATH="$HOME/.local/bin:$PATH"
-export EDITOR=vim
 
 source /etc/zsh-aliases.zsh
 
@@ -111,24 +98,18 @@ export NIX_PATH='nixpkgs=/home/arne/nixpkgs'
 # XDG fixes #
 #############
 
-#export XDG_CONFIG_HOME="$HOME/.config"
-#export XDG_DATA_HOME="$HOME/.local/share"
-#export XDG_CACHE_HOME="$HOME/.cache"
-#export CARGO_HOME="$XDG_CACHE_HOME/cargo"
-#export RUSTUP_HOME="$HOME/.local/rustup"
-#export CARGO_TARGET_DIR="$CARGO_HOME/target"
 export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 export WINEPREFIX="$XDG_CACHE_HOME/wine"
 export VIMINIT="set nocp | source ${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc"
-alias mvn="env HOME=$XDG_CACHE_HOME mvn --global-settings /home/arne/.config/maven/settings.xml -Dmaven.repo.local=$XDG_CACHE_HOME/m2/repository -Duser.home=$XDG_CACHE_HOME"
-alias idle="HOME=/home/arne/.config idle3.9"
+#alias mvn="env HOME=$XDG_CACHE_HOME mvn --global-settings /home/arne/.config/maven/settings.xml -Dmaven.repo.local=$XDG_CACHE_HOME/m2/repository -Duser.home=$XDG_CACHE_HOME"
+#alias idle="HOME=/home/arne/.config idle3.9"
 alias cargo="MALLOC_CONF='thp:always,metadata_thp:always' cargo"
 
 #################
 # history setup #
 #################
 
-### source $HOME/.local/bin/zsh-histdb/sqlite-history.zsh
+### zsh-histdb sourced in common.nix ###
 
 # disable default histfile
 HISTDB_FILE=$HOME/.local/share/zsh-history.db
@@ -138,13 +119,9 @@ HISTSIZE=1000
 unsetopt SHARE_HISTORY # don't share history between sessions
 setopt HIST_IGNORE_SPACE
 
-function mouse_around_rand {
-  while true; do
-    sleep "$1"
-    xdotool mousemove_relative -- $(($RANDOM % 10)) $(($RANDOM % 10))
-    xdotool mousemove_relative -- -$(($RANDOM % 10)) -$(($RANDOM % 10))
-  done
-}
+##################
+# git identities #
+##################
 
 function git_github()
 {

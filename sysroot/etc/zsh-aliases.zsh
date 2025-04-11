@@ -45,9 +45,16 @@ nix-run() {
  #echo $ARGS
  nix shell --impure ${ARGS[@]} --command zsh
 }
+mouse_around_rand() {
+  while true; do
+    sleep "$1"
+    xdotool mousemove_relative -- $(($RANDOM % 10)) $(($RANDOM % 10))
+    xdotool mousemove_relative -- -$(($RANDOM % 10)) -$(($RANDOM % 10))
+  done
+}
 g () { if [[ $# -gt 0 ]]; then git "$@"; else git status; fi }
 pr() {
- git fetch origin pull/$1/head
+ git fetch origin pull/"$1"/head
  git merge --message="Merge PR $1" FETCH_HEAD
 }
 mrebase() {
@@ -61,19 +68,19 @@ mrebase3() {
  jj rebase -s $1 --destination master_old && jj bookmark create $2 -r $3 && jj git push --remote fork --allow-new --bookmark $2 && firefox "https://github.com/FliegendeWurst/nixpkgs/pull/new/$2"
 }
 ryantm() {
- git fetch r-ryantm $1
- git checkout r-ryantm/$1
- git switch -c $1
+ git fetch r-ryantm "$1"
+ git checkout r-ryantm/"$1"
+ git switch -c "$1"
 }
 delta_date() {
  sudo sh -c "date --set='+$1 minutes'; sleep 0.2; date --set='-$1 minutes'"
 }
 build_and_push() {
  rm result 2> /dev/null
- nix build .#packages.x86_64-linux-cross-aarch64-linux.$1 && nix store sign -k ~/.local/share/nix-store-binary-cache-key-secret $(readlink -f result) && nix copy --to ssh://root@fliegendewurst.eu $(readlink -f result)
+ nix build .#packages.x86_64-linux-cross-aarch64-linux."$1" && nix store sign -k ~/.local/share/nix-store-binary-cache-key-secret $(readlink -f result) && nix copy --to ssh://root@fliegendewurst.eu $(readlink -f result)
 }
 ch() {
- tmux capture-pane -pJ -S - -E - | rg --only-matching -r '$1' 'got:    (sha256.+)' | tail -n1 | tr -d '\n' | copy
+ tmux capture-pane -pJ -S - -E - | rg --only-matching -r '$1' 'got: +(sha256.+)' | tail -n1 | tr -d '\n' | copy
 }
 
 ###########
@@ -84,6 +91,18 @@ histdb-fzf-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
   selected=( $(_histdb_query "select DISTINCT commands.argv from commands join history on history.command_id = commands.id order by start_time desc" |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" fzf) )
+
+  LBUFFER=$selected
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+
+  return $ret
+}
+histdb-here-fzf-widget() {
+  local selected num
+  setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+  selected=( $(_histdb_query "select DISTINCT commands.argv from commands join history ON history.command_id = commands.id JOIN places ON history.place_id = places.id WHERE dir = '$(pwd)' order by start_time desc" |
     FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" fzf) )
 
   LBUFFER=$selected
@@ -120,17 +139,20 @@ files-modified-fzf-widget() {
 }
 
 zle -N histdb-fzf-widget
+zle -N histdb-here-fzf-widget
 zle -N files-fzf-widget
 zle -N files-modified-fzf-widget
 bindkey '^R' histdb-fzf-widget
+bindkey '^G' histdb-here-fzf-widget
 bindkey '^T' files-fzf-widget
 bindkey '^N' files-modified-fzf-widget
 
+# requires sysstat
 wait_until_cpu_low() {
     awk -v target="$1" '
     $12 ~ /^[0-9.]+$/ {
       current = 100 - $12
       if(current <= target) { exit(0); }
-    }' < <(LC_ALL=C /nix/store/4ligq7wfpwqf96xk3g1qs9d8kiggn7s5-sysstat-12.7.4/bin/mpstat 1)
+    }' < <(LC_ALL=C mpstat 1)
 }
 

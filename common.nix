@@ -100,6 +100,10 @@ rec {
   };
 
   environment.sessionVariables = rec {
+    LANG = i18n.defaultLocale;
+    LC_CTYPE = "C.utf8";
+    TIME_STYLE = "long-iso";
+
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_DATA_HOME = "$HOME/.local/share";
@@ -107,6 +111,7 @@ rec {
     CARGO_HOME = "${XDG_CACHE_HOME}/cargo";
     CARGO_TARGET_DIR = "${CARGO_HOME}/target";
     RUSTUP_HOME = "$HOME/.local/rustup";
+    NPM_PACKAGES = "$HOME/.local/share/npm";
     KDEHOME = "$HOME/.config/kde";
     KDE_UTF8_FILENAMES = "1";
     ANDROID_SDK_HOME = "${XDG_CACHE_HOME}";
@@ -137,14 +142,16 @@ rec {
       mode = "0444";
     };
     "zshrc.local".text = builtins.readFile ./sysroot/etc/zshrc.local;
-    "zsh-aliases.zsh".text = builtins.readFile ./sysroot/etc/zsh-aliases.zsh
-    + ''
-      source "${nixpkgs'.pkgs.zsh-histdb}/share/zsh-histdb/sqlite-history.zsh"
-    '';
+    "zsh-aliases.zsh".text =
+      builtins.readFile ./sysroot/etc/zsh-aliases.zsh
+      + ''
+        source "${nixpkgs'.pkgs.zsh-histdb}/share/zsh-histdb/sqlite-history.zsh"
+      '';
   };
 
   programs.bash.interactiveShellInit = ''
-    export HISTFILE=$HOME/.local/share/bash_history
+    HISTCONTROL=ignoreboth:erasedups
+    HISTFILE=$HOME/.local/share/bash_history
   '';
 
   programs.zsh = {
@@ -231,4 +238,10 @@ rec {
       vfat_defaults = "noatime,uid=$UID,gid=$GID,shortname=mixed,utf8=1,showexec,flush";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    duf
+    ripgrep
+    sysstat
+  ];
 }

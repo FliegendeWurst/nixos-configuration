@@ -428,10 +428,8 @@ rec {
     tree
     killall
     # premium utilities
-    duf
     delta
     jq
-    ripgrep
     p7zip
     iotop
     img2pdf
