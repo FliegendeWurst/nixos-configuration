@@ -55,14 +55,16 @@ beep-hook() {
 # variables and aliases #
 #########################
 
+export PATH="$HOME/.local/bin:$PATH"
+
 RPROMPT="%{$fg[green]%}%~%{$reset_color%}%"
 PS1='%B%(?..[%?] )%b%n@%U%m%u> '
 if (($+IN_NIX_SHELL)); then
   PS1="($IN_NIX_SHELL) $PS1"
 fi
 check_nix_run() {
-  [[ -z $buildInputs ]] && return
-  local bins=$(echo $buildInputs | tr ' ' '\n' | rg --only-matching '.{44}(.+)' -r '$1' | tr '\n' ' ' | trim-prefix-suffix)
+  local bins=$(echo $PATH | tr ':' '\n' | rg --only-matching '/nix/store/.{33}(.+)/bin' -r '$1' | rg -v '^(bash-interactive|patchelf|gcc-wrapper|gcc|glibc|coreutils|binutils|findutils|diffutils|gnused|gnugrep|gawk|gnutar|gzip|bzip2|gnumake|bash|patch|xz|file)-' | tr '\n' ' ' | trim-prefix-suffix)
+  [[ -z $bins ]] && return
   old_ps1="$PS1"
   PS1="($bins) $PS1"
   in_nix_run=1
@@ -83,7 +85,6 @@ boop () {
 export EXA_COLORS='*.opus=38;5;248:*.ogg=38;5;248:*.mp3=38;5;248'
 # export SSH_ASKPASS_REQUIRE='prefer'
 export WINEDLLOVERRIDES=winemenubuilder.exe=d
-export PATH="$HOME/.local/bin:$PATH"
 
 source /etc/zsh-aliases.zsh
 
