@@ -300,11 +300,7 @@ rec {
 
     # CLI applications
     #lynx
-    #droidcam
-    sqlite
     borgbackup
-    nix-tree
-    rnix-hashes
     nixpkgs-review
     nixfmt-rfc-style
     #gallery-dl

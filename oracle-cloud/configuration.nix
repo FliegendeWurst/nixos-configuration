@@ -431,7 +431,7 @@
     jre
     killall
     cargo
-    sqlite
+    sqlite-interactive
     git
   ];
 

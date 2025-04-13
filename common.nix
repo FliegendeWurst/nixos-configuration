@@ -240,6 +240,8 @@ rec {
   };
 
   environment.systemPackages = with pkgs; [
+    sqlite-interactive
+    nix-tree
     duf
     ripgrep
     sysstat

@@ -490,9 +490,7 @@ rec {
     # CLI applications
     lynx
     droidcam
-    sqlite
     borgbackup
-    nix-tree
     #nixpkgs-review
     nixfmt-rfc-style
     #gallery-dl
