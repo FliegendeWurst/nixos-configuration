@@ -78,6 +78,10 @@ assert hostname != "";
         SelectionTextOnly=false
         Version=6.2.5
       '';
+      # Move global NPM stuff to ~/.local
+      ".config/npmrc".text = ''
+        prefix=/home/arne/.local/share/npm
+      '';
       # Manage home-manager in my repo.
       ".config/home-manager".source =
         mkOutOfStoreSymlink "/home/arne/src/nixos-configuration/home-manager";

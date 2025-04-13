@@ -112,6 +112,7 @@ rec {
     CARGO_TARGET_DIR = "${CARGO_HOME}/target";
     RUSTUP_HOME = "$HOME/.local/rustup";
     NPM_PACKAGES = "$HOME/.local/share/npm";
+    NPM_CONFIG_USERCONFIG = "$HOME/.config/npmrc";
     KDEHOME = "$HOME/.config/kde";
     KDE_UTF8_FILENAMES = "1";
     ANDROID_SDK_HOME = "${XDG_CACHE_HOME}";
