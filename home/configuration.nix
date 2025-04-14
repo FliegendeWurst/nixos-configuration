@@ -518,7 +518,7 @@ rec {
     gparted
     nixpkgs'.pkgs.trilium-next-desktop
     qdirstat
-    #libreoffice-fresh
+    libreoffice-qt6-fresh
     qbittorrent
     tdesktop
     signal-desktop
