@@ -27,7 +27,10 @@ bindkey '^H' backward-kill-word
 # F9: duplicate last argument
 bindkey -s "\e[20~" "!#\$^I"
 paste-clipboard () {
- LBUFFER+="$(wl-paste | trim-prefix-suffix)"
+  local pasted
+  pasted="$(wl-paste 2> /dev/null)" || (beep-angery & return)
+  pasted=$(echo "$pasted" | trim-prefix-suffix)
+  LBUFFER+="$pasted"
 }
 zle -N paste-clipboard
 bindkey "\e[2~" paste-clipboard
@@ -37,6 +40,9 @@ beep-pre() {
   cmd_timestamp=$((EPOCHREALTIME*1000))
 }
 
+beep-angery() {
+  mpv --loop-playlist=no --volume=60 /home/arne/Downloads/z-0LsdL7.wav 2>&1 >/dev/null
+}
 
 beep-hook() {
  local -i code=$?
@@ -44,7 +50,7 @@ beep-hook() {
  local start=${cmd_timestamp:-$stop}
  local elapsed=$stop-$start
  [[ "$elapsed" -lt 5000 ]] && return
- [[ "$code" -gt 0 ]] && (mpv --loop-playlist=no --volume=60 /home/arne/Downloads/z-0LsdL7.wav 2>&1 >/dev/null &)
+ [[ "$code" -gt 0 ]] && (beep-angery &)
  [[ "$code" = "0" ]] && (mpv --loop-playlist=no --volume=60 /home/arne/Downloads/pickupCoin\(1\).wav 2>&1 >/dev/null &)
 }
 
