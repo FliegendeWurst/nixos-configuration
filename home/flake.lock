@@ -44,11 +44,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744543394,
-        "narHash": "sha256-I0sKE0n8VyryUq26Sf9T+XGcJr7kjCEnkzo5tUJoDl8=",
+        "lastModified": 1744986384,
+        "narHash": "sha256-qdKn4d7EnLfMP/N9RcNbvDSnytBuVgHe2Yye0LUAfAM=",
         "owner": "FliegendeWurst",
         "repo": "nixpkgs-pr-build-bot",
-        "rev": "9f9daff7290e1319ba35550672d560ee890e3a09",
+        "rev": "f34fd50dc14f7ff957a741cca55850692b664599",
         "type": "github"
       },
       "original": {
