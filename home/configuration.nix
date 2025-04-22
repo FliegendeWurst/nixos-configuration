@@ -74,7 +74,7 @@ rec {
   services.beesd.filesystems = {
     root = {
       spec = "UUID=7d5c0dfc-4040-4576-8c1b-5d77520f223b";
-      hashTableSizeMB = 8192;
+      hashTableSizeMB = 16384;
       verbosity = "crit";
     };
   };
