@@ -246,5 +246,6 @@ rec {
     duf
     ripgrep
     sysstat
+    _7zz
   ];
 }

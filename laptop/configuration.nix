@@ -238,7 +238,6 @@ rec {
     delta
     jq
     ripgrep
-    p7zip
     iotop
     img2pdf
     pdftk

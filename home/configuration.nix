@@ -430,7 +430,6 @@ rec {
     # premium utilities
     delta
     jq
-    p7zip
     iotop
     img2pdf
     pdftk
