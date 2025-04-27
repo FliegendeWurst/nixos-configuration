@@ -95,13 +95,15 @@ rec {
 
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "de_DE.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_MESSAGES = "en_US.UTF-8";
+    LC_CTYPE = "C.UTF-8";
+  };
   console = {
     keyMap = "dvorak";
   };
 
   environment.sessionVariables = rec {
-    LANG = i18n.defaultLocale;
-    LC_CTYPE = "C.utf8";
     TIME_STYLE = "long-iso";
 
     XDG_CONFIG_HOME = "$HOME/.config";
