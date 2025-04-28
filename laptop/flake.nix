@@ -47,8 +47,8 @@
               in
               [
                 # hydra-check: 2.0 -> 2.0.3
-                (prPatch "359514" "0xasznqf7vpcykh2k0yj14s4h21gjaxynirrr93kqv3sdif0bm67")
-                (prPatch "378570" "1li0xpkbika15nzjvpp3gpl2hqk3y9x5n3f3gsnic18bzdnn0cg8")
+                #(prPatch "359514" "0xasznqf7vpcykh2k0yj14s4h21gjaxynirrr93kqv3sdif0bm67")
+                #(prPatch "378570" "1li0xpkbika15nzjvpp3gpl2hqk3y9x5n3f3gsnic18bzdnn0cg8")
                 # jujutsu: 0.23 -> 0.24 -> 0.25 -> 0.26 -> 0.27
                 (prPatch "361877" "1im5vsqz7r0m1fvifbn203ywx1b8cr8inw634iyaz8qb0gxq90lq")
                 (prPatch "368985" "091q88j04jn7nq1n9dd18l7g6y2l34dfm1k0fj4hik1xl5qcrm19")
@@ -62,13 +62,13 @@
                 (prPatch "387469" "0gcwfql632qfwpjzqv8ky9hbm0k7h2kfnj4mkrsvlbvxg65gv2gy")
                 ./jujutsu-fix-cargo-hash.patch
                 # prusa-slicer: 2.8.0 -> 2.9.0
-                ./prusa-revert-1.patch
-                (prPatch "367376" "07n0frirw2hi66x3wps7q995ahd7sc2mdmj0bh060z5f97y2xj5n")
-                (builtins.fetchurl {
-                  url = "https://github.com/FliegendeWurst/nixpkgs/commit/prusa-slicer-native-file-dialog.patch?full_index=1";
-                  sha256 = "0sdjq1rk9ncmv3fg75sv94j6kbfpsn1cvx0ppj1hdcjkmqg7vry2";
-                })
-                ./prusa-bgcode.patch
+                #./prusa-revert-1.patch
+                #(prPatch "367376" "07n0frirw2hi66x3wps7q995ahd7sc2mdmj0bh060z5f97y2xj5n")
+                #(builtins.fetchurl {
+                #  url = "https://github.com/FliegendeWurst/nixpkgs/commit/prusa-slicer-native-file-dialog.patch?full_index=1";
+                #  sha256 = "0sdjq1rk9ncmv3fg75sv94j6kbfpsn1cvx0ppj1hdcjkmqg7vry2";
+                #})
+                #./prusa-bgcode.patch
                 # cura-appimage: init at 5.9.0 -> 5.9.1
                 (prPatch "372614" "0z1ci7vwyib7pab3329676a2dn630qsh18yy24yf9qbpvavsjra3")
                 (prPatch "386520" "0qxh70xm8mcmscj6rbrjv92vdmidk26vf0rs43rbbps4xvfxfidl")

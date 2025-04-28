@@ -256,11 +256,11 @@ rec {
     zola
     colorized-logs
     # TODO(25.05): use regular version
-    nixpkgs'.pkgs.jujutsu
+    # nixpkgs'.pkgs.jujutsu
     schedtool
     compsize
     # TODO(25.05): use regular version
-    nixpkgs'.pkgs.hydra-check
+    # nixpkgs'.pkgs.hydra-check
     e2fsprogs # filefrag
     moreutils # parallel
     evtest
