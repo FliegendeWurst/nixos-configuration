@@ -63,11 +63,13 @@ assert hostname != "";
         RepeatRate=30
       '';
       ".cache/CACHEDIR.TAG".text = cachedirTag;
+      ".local/lib/Android/Sdk/CACHEDIR.TAG".text = cachedirTag;
       ".local/rustup/CACHEDIR.TAG".text = cachedirTag;
       ".jdks/CACHEDIR.TAG".text = cachedirTag;
       ".config/TriliumNext Notes/CACHEDIR.TAG".text = cachedirTag;
       ".npm/CACHEDIR.TAG".text = cachedirTag;
       "src/TriliumDroid/app/build/CACHEDIR.TAG".text = cachedirTag;
+      "src/Notes/node_modules/CACHEDIR.TAG".text = cachedirTag;
       # Disables useless DrKonqi processor.
       ".config/systemd/user/drkonqi-coredump-pickup.service".source = mkOutOfStoreSymlink "/dev/null";
       # Disable useless Klipper clipboard manager.
