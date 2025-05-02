@@ -458,6 +458,7 @@ rec {
     moreutils # parallel
     evtest
     xdotool
+    landrun
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map
