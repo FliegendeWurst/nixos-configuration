@@ -570,6 +570,7 @@ rec {
         jdk21
       ];
     })
+    ftb-app
     #minecraft
     #logmein-hamachi
 
