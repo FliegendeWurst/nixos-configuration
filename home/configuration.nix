@@ -30,6 +30,10 @@ let
     #pillow
   ];
   python3-with-pkgs = pkgs.python3.withPackages python3-pkgs;
+  utahBackground = pkgs.fetchurl {
+    url = "https://fliegendewurst.eu/tmp/utah.png";
+    hash = "sha256-eREFKG5Uj991UB6GppZEOgrao1WToq1OtA+rKB5szs8=";
+  };
 in
 rec {
   imports = [
@@ -253,7 +257,6 @@ rec {
   services.libinput.enable = true;
   #services.xserver.libinput.accelProfile = "flat";
   services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.theme = "${pkgs.nur.repos.fliegendewurst.sddm-theme-utah}/share/sddm/themes/sddm-theme-custom";
   services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "plasma";
   services.displayManager.sddm.wayland.enable = true;
@@ -501,6 +504,12 @@ rec {
     #qemu
     graphviz
     fend
+
+    # SDDM theme
+    (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+      [General]
+      background=${utahBackground}
+    '')
 
     # GUI applications
     sqlitebrowser
