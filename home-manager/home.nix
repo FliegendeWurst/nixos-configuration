@@ -211,6 +211,10 @@ assert hostname != "";
         "himbeere-null" = {
           identityFile = "~/.ssh/rpi0_pc";
         };
+        "himbeere-mit-musik" = {
+          identityFile = "~/.ssh/rpi3b_pc";
+          user = "pi";
+        };
       };
   };
 
