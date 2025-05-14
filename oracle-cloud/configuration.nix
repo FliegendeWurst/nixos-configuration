@@ -19,19 +19,18 @@
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
       # release="nixos-23.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
       # commit b4fbffe79c00f19be94b86b4144ff67541613659
-      sha256 = "0r8c0mkj7cn2cz0r6m45h51w5qwf2cyiiv956bz75p3fcps4qj1n";
+      sha256 = "0imxmdbx8z0hn0yvgrhazs0qx788a92w8hgysr1vlqfxwd4qc3gf";
     })
   ];
 
   nixpkgs.overlays = [
     (final: prev: {
-      gitea = prev.gitea.overrideAttrs (old: {
-        patches = (old.patches or [ ]) ++ [
-          (prev.fetchpatch {
-            url = "https://github.com/FliegendeWurst/gitea/commit/8a1be5953c864da554a902c50524c6770599809c.patch";
-            hash = "sha256-L+uc/SfMmN52mQsKwBPpjSTPY5aueAJSI0enIDbEgZY=";
-          })
-        ];
+      forgejo-lts = prev.forgejo-lts.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace 'cmd/serv.go' \
+            --replace-fail 'alphaDashDotPattern = regexp.MustCompile(`[^\w-\.]`)' \
+            'alphaDashDotPattern = regexp.MustCompile(`[^\w-\.äöüÄÖÜ]`)'
+        '';
         doCheck = false;
       });
     })
@@ -383,10 +382,10 @@
     };
   };
 
-  services.gitea = {
+  services.forgejo = {
     enable = true;
-    appName = "gitea - Arne Keller";
     settings = {
+      DEFAULT.APP_NAME = "Forgejo: FliegendeWurst's instance";
       service.DISABLE_REGISTRATION = true;
 
       server.HTTP_PORT = 26599;
@@ -395,7 +394,6 @@
       # server.DISABLE_SSH = true;
       server.OFFLINE_MODE = true;
     };
-    repositoryRoot = "/var/lib/gitea/data/gitea-repositories";
   };
 
   mailserver = {
