@@ -183,6 +183,10 @@ assert hostname != "";
           identityFile = "~/.ssh/bitbucket_pc";
           user = "git";
         };
+        "codeberg.org" = {
+          identityFile = "~/.ssh/codeberg_pc";
+          user = "git";
+        };
         # cloud
         "138.2.166.187" = {
           identityFile = "~/.ssh/oracle_pc";
