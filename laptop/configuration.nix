@@ -208,7 +208,7 @@ rec {
     cert = "/etc/nixos/syncthing/cert.pem";
   };
 
-  programs.steam.enable = true;
+  #TODO(25.05) programs.steam.enable = true;
 
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -256,11 +256,11 @@ rec {
     zola
     colorized-logs
     # TODO(25.05): use regular version
-    nixpkgs'.pkgs.jujutsu
+    # nixpkgs'.pkgs.jujutsu
     schedtool
     compsize
     # TODO(25.05): use regular version
-    nixpkgs'.pkgs.hydra-check
+    # nixpkgs'.pkgs.hydra-check
     e2fsprogs # filefrag
     moreutils # parallel
     evtest
@@ -287,7 +287,7 @@ rec {
     #jupyter
     vscodium
     #jetbrains.idea-ultimate
-    androidStudioPackages.stable
+    #TODO(25.05) androidStudioPackages.stable
     clang
     #gnumake cmake
     llvmPackages.bintools
@@ -353,7 +353,7 @@ rec {
     skrooge
     inkscape
     element-desktop
-    nixpkgs'.pkgs.cura-appimage
+    #TODO(25.05) nixpkgs'.pkgs.cura-appimage
 
     #xorg.xkbcomp
     #xorg.xrandr

@@ -151,6 +151,10 @@ assert hostname != "";
         "gitlab.kit.edu" = {
           identityFile = "~/.ssh/gitlab_kit_laptop";
         };
+        "codeberg.org" = {
+          identityFile = "~/.ssh/codeberg_laptop";
+          user = "git";
+        };
         "fliegendewurst.eu" = {
           identityFile = "~/.ssh/oracle_laptop";
         };
