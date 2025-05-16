@@ -39,6 +39,130 @@ rec {
         };
         doCheck = false;
       });
+      libbgcode = prev.libbgcode.overrideAttrs (old: {
+        version = "2025-02-19";
+        src = final.fetchFromGitHub {
+          owner = "prusa3d";
+          repo = "libbgcode";
+          rev = "5041c093b33e2748e76d6b326f2251310823f3df";
+          hash = "sha256-EaxVZerH2v8b1Yqk+RW/r3BvnJvrAelkKf8Bd+EHbEc=";
+        };
+
+        buildInputs = [
+          final.heatshrink
+          final.zlib
+          final.boost
+          final.catch2_3
+        ];
+      });
+      prusa-slicer = prev.prusa-slicer.overrideAttrs (old: {
+        version = "2.9.2";
+
+        src = final.fetchFromGitHub {
+          owner = "prusa3d";
+          repo = "PrusaSlicer";
+          hash = "sha256-j/fdEgcFq0nWBLpyapwZIbBIXCnqEWV6Tk+6sTHk/Bc=";
+          tag = "version_2.9.2";
+        };
+
+        patches = [
+          (final.fetchpatch {
+            name = "build-with-boost-187";
+            url = "https://946495.bugs.gentoo.org/attachment.cgi?id=914594";
+            hash = "sha256-FVCpfkOe8a7zRG7QXoBu6i8I4sFu2i/j+E9uKPGmcec=";
+          })
+        ];
+
+        postPatch = null;
+
+        buildInputs =
+          let
+            wxGTK-prusa = final.wxGTK32.overrideAttrs (old: {
+              pname = "wxwidgets-prusa3d-patched";
+              version = "3.2.0";
+              configureFlags = old.configureFlags ++ [ "--disable-glcanvasegl" ];
+              patches = [
+                ./wxWidgets-Makefile.in-fix.patch
+                (final.fetchpatch {
+                  url = "https://github.com/FliegendeWurst/wxWidgets/commit/50f7d5db40be3f3b5791f12d5cf09f320d8a8641.patch";
+                  hash = "sha256-i/nBf2gKvbqYJbLUVGa2zAt8lY8Ot8EuyuNilpybQtU=";
+                })
+              ];
+              src = final.fetchFromGitHub {
+                owner = "prusa3d";
+                repo = "wxWidgets";
+                rev = "78aa2dc0ea7ce99dc19adc1140f74c3e2e3f3a26";
+                hash = "sha256-rYvmNmvv48JSKVT4ph9AS+JdstnLSRmcpWz1IdgBzQo=";
+                fetchSubmodules = true;
+              };
+            });
+            nanosvg-fltk = final.nanosvg.overrideAttrs (old: rec {
+              pname = "nanosvg-fltk";
+              version = "unstable-2022-12-22";
+
+              src = final.fetchFromGitHub {
+                owner = "fltk";
+                repo = "nanosvg";
+                rev = "abcd277ea45e9098bed752cf9c6875b533c0892f";
+                hash = "sha256-WNdAYu66ggpSYJ8Kt57yEA4mSTv+Rvzj9Rm1q765HpY=";
+              };
+            });
+            openvdb_tbb_2021_8 = final.openvdb.override { tbb = final.tbb_2021_11; };
+            wxGTK-override' = wxGTK-prusa;
+            opencascade-override' = final.opencascade-occt_7_6_1;
+          in
+          [
+            final.binutils
+            final.boost
+            final.cereal
+            final.cgal
+            final.curl
+            final.dbus
+            final.eigen
+            final.expat
+            final.glew
+            final.glib
+            final.glib-networking
+            final.gmp
+            final.gtk3
+            final.hicolor-icon-theme
+            final.ilmbase
+            final.libpng
+            final.mpfr
+            nanosvg-fltk
+            final.nlopt
+            opencascade-override'
+            openvdb_tbb_2021_8
+            final.qhull
+            final.tbb_2021_11
+            wxGTK-override'
+            final.xorg.libX11
+            final.libbgcode
+            final.heatshrink
+            final.catch2_3
+            final.webkitgtk_4_0
+            final.z3-cmake
+            final.systemd
+          ];
+      });
+      z3-cmake = (
+        final.stdenv.mkDerivation {
+          inherit (final.z3) pname version src;
+
+          patches = [
+            ./0001-fix-pkgconfig-prefixes.patch
+          ];
+
+          cmakeFlags = [
+            "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
+          ];
+
+          nativeBuildInputs = [
+            final.cmake
+            final.python3
+          ];
+        }
+      );
     })
   ];
 
