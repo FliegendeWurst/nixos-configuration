@@ -35,6 +35,10 @@ let
     url = "https://fliegendewurst.eu/tmp/utah.png";
     hash = "sha256-eREFKG5Uj991UB6GppZEOgrao1WToq1OtA+rKB5szs8=";
   };
+  git = pkgs.git.override {
+    perlSupport = false;
+    doInstallCheck = false;
+  };
 in
 rec {
   imports = [
