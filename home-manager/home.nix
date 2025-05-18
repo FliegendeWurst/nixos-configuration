@@ -69,7 +69,6 @@ assert hostname != "";
       ".config/TriliumNext Notes/CACHEDIR.TAG".text = cachedirTag;
       ".npm/CACHEDIR.TAG".text = cachedirTag;
       "src/TriliumDroid/app/build/CACHEDIR.TAG".text = cachedirTag;
-      "src/Notes/node_modules/CACHEDIR.TAG".text = cachedirTag;
       # Disables useless DrKonqi processor.
       ".config/systemd/user/drkonqi-coredump-pickup.service".source = mkOutOfStoreSymlink "/dev/null";
       # Disable useless Klipper clipboard manager.
