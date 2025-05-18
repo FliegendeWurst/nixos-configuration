@@ -183,7 +183,7 @@ rec {
       OOMPolicy = "continue";
     };
     path = with pkgs; [
-      nixpkgs'.pkgs.jujutsu
+      jujutsu
       git
       pkgs.nix
     ];
@@ -275,7 +275,7 @@ rec {
 
   # services.printing.enable = true;
   services.trilium-server.enable = true;
-  services.trilium-server.package = nixpkgs'.pkgs.trilium-next-server;
+  services.trilium-server.package = pkgs.trilium-next-server;
   services.trilium-server.host = "0.0.0.0";
   services.trilium-server.port = 12783;
   services.boinc.enable = false;
@@ -452,7 +452,7 @@ rec {
     zola
     colorized-logs
     nix-index
-    nixpkgs'.pkgs.jujutsu
+    jujutsu
     bees
     schedtool
     compsize
@@ -525,7 +525,7 @@ rec {
     #tor-browser-bundle-bin
     #mathematica
     gparted
-    nixpkgs'.pkgs.trilium-next-desktop
+    trilium-next-desktop
     qdirstat
     libreoffice-qt6-fresh
     qbittorrent
@@ -553,8 +553,8 @@ rec {
     mpvPlus
     inkscape
     element-desktop
-    nixpkgs'.pkgs.cura-appimage
-    nixpkgs'.pkgs.prusa-slicer
+    cura-appimage
+    prusa-slicer
 
     lm_sensors
 
