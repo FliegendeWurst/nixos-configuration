@@ -4,6 +4,7 @@
   pkgs,
   nixpkgs',
   nixpkgs-pr-build-bot,
+  sysinfo,
   ...
 }:
 
@@ -462,6 +463,7 @@ rec {
     evtest
     xdotool
     landrun
+    sysinfo.packages.x86_64-linux.sysinfo
 
     #nur.repos.fliegendewurst.ripgrep-all
     nur.repos.fliegendewurst.map

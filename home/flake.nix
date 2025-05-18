@@ -11,6 +11,10 @@
       url = "github:FliegendeWurst/nixpkgs-pr-build-bot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sysinfo = {
+      url = "git+https://codeberg.org/FliegendeWurst/sysinfo.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -19,6 +23,7 @@
       nixpkgs,
       nur,
       nixpkgs-pr-build-bot,
+      sysinfo,
       ...
     }@inputs:
     let
@@ -56,7 +61,7 @@
             ./configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs' nixpkgs-pr-build-bot;
+            inherit nixpkgs' nixpkgs-pr-build-bot sysinfo;
           };
         };
       };

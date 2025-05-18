@@ -83,7 +83,28 @@
       "inputs": {
         "nixpkgs": "nixpkgs",
         "nixpkgs-pr-build-bot": "nixpkgs-pr-build-bot",
-        "nur": "nur"
+        "nur": "nur",
+        "sysinfo": "sysinfo"
+      }
+    },
+    "sysinfo": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747593863,
+        "narHash": "sha256-CEBd3jsjw2ELBVpWrJTSc2c2/U09Uh4nDQ9hSbW6Fsc=",
+        "ref": "refs/heads/master",
+        "rev": "f1ea8a2c1901e09dda3218e4b8f688b6bcc1602d",
+        "revCount": 12,
+        "type": "git",
+        "url": "https://codeberg.org/FliegendeWurst/sysinfo.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/FliegendeWurst/sysinfo.git"
       }
     },
     "treefmt-nix": {
