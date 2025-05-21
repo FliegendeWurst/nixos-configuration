@@ -140,7 +140,7 @@ rec {
             final.libbgcode
             final.heatshrink
             final.catch2_3
-            final.webkitgtk_4_0
+            final.webkitgtk_4_1
             final.z3-cmake
             final.systemd
           ];
