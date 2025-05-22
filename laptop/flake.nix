@@ -2,7 +2,7 @@
   description = "FliegendeWurst's NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -90,7 +90,7 @@
                 (prPatch "379862" "09himfp9bnnq4ssqm19xg1h3a07iji14ycl7bg54x1n9cvx6grl0")
               ];
           };
-      nixpkgs' = import nixpkgs-patched' {
+      nixpkgs' = import nixpkgs {
         system = "x86_64-linux";
       };
     in

@@ -381,7 +381,7 @@ rec {
     #winetricks
     #texlive.combined.scheme-full
 
-    nixpkgs'.pkgs.prusa-slicer
+    prusa-slicer
   ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
