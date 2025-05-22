@@ -3,6 +3,7 @@
   lib,
   pkgs,
   nixpkgs',
+  sysinfo,
   ...
 }:
 
@@ -391,5 +392,7 @@ rec {
     ripgrep
     sysstat
     _7zz
+
+    sysinfo.packages.x86_64-linux.sysinfo
   ];
 }
