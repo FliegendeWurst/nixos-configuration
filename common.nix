@@ -163,6 +163,9 @@ rec {
   ];
   nix.settings.auto-optimise-store = false;
 
+  # TODO: re-enable when it works with no root flake.nix
+  # system.rebuild.enableNg = true;
+
   documentation.nixos.enable = false;
   environment.etc.issue.source = "/dev/null";
 
