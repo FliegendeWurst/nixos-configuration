@@ -103,6 +103,8 @@ assert hostname != "";
     // onDesktop {
       # Move Firefox cache to /tmp.
       ".cache/mozilla/firefox/q7zjqact.default/cache2".source = mkOutOfStoreSymlink "/tmp/firefox-cache";
+      # Build cache. Gets stale if you do as much as look at the source code.
+      "src/Notes/.nx".source = mkOutOfStoreSymlink "/tmp/nx-cache";
     };
 
   # Home Manager can also manage your environment variables through
@@ -128,6 +130,7 @@ assert hostname != "";
   systemd.user.tmpfiles.rules = [
     "d /tmp/firefox-cache 700 arne users 0 -"
     "d /tmp/thumbnail-cache 700 arne users 0 -"
+    "d /tmp/nx-cache 700 arne users 0 -"
     "d /tmp/nixpkgs-review 700 arne users 0 -"
   ];
 
