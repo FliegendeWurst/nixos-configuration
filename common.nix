@@ -7,6 +7,9 @@
   ...
 }:
 
+let
+  nitpicks = false;
+in
 rec {
   nixpkgs.config = {
     allowUnfreePredicate =
@@ -27,6 +30,8 @@ rec {
     permittedInsecurePackages = [
     ];
   };
+  nixpkgs.config.checkMeta = nitpicks;
+  showDerivationWarnings = if nitpicks then [ "maintainerless" ] else null;
   nixpkgs.overlays = [
     (final: prev: {
       openscad-unstable = prev.openscad-unstable.overrideAttrs (old: {
