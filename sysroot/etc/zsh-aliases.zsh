@@ -60,12 +60,12 @@ pr() {
 mrebase() {
  p=$(jj log --limit 1 --no-pager --no-graph -T change_id -r '..@ & merges()')
  jj new --no-edit -B @ -A $p -A @- -m 'Merge own PR'
- jj rebase -s $1 --destination master_old && jj bookmark create $2 -r $1 && jj git push --remote fork --allow-new --bookmark $2 && firefox "https://github.com/FliegendeWurst/nixpkgs/pull/new/$2"
+ jj rebase -s $1 --destination master && jj bookmark create $2 -r $1 && jj git push --remote fork --allow-new --bookmark $2 && firefox "https://github.com/FliegendeWurst/nixpkgs/pull/new/$2"
 }
 mrebase3() {
  p=$(jj log --limit 1 --no-pager --no-graph -T change_id -r '..@ & merges()')
  jj new --no-edit -B @ -A $p -A @- -m 'Merge own PR'
- jj rebase -s $1 --destination master_old && jj bookmark create $2 -r $3 && jj git push --remote fork --allow-new --bookmark $2 && firefox "https://github.com/FliegendeWurst/nixpkgs/pull/new/$2"
+ jj rebase -s $1 --destination master && jj bookmark create $2 -r $3 && jj git push --remote fork --allow-new --bookmark $2 && firefox "https://github.com/FliegendeWurst/nixpkgs/pull/new/$2"
 }
 ryantm() {
  git fetch r-ryantm "$1"
