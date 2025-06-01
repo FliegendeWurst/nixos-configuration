@@ -31,7 +31,7 @@ rec {
     ];
   };
   nixpkgs.config.checkMeta = nitpicks;
-  showDerivationWarnings = if nitpicks then [ "maintainerless" ] else null;
+  nixpkgs.config.showDerivationWarnings = if nitpicks then [ "maintainerless" ] else null;
   nixpkgs.overlays = [
     (final: prev: {
       openscad-unstable = prev.openscad-unstable.overrideAttrs (old: {
