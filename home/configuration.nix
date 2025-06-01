@@ -155,7 +155,7 @@ rec {
       all=$(seq 1 64 | sed -s 's/^/nixbld/g' | tr '\n' ',' | head -c-1)
       while true; do
         sleep 5
-        running=$(cat /proc/$nd/task/$nd/children)
+        running=$(cat /proc/$nd/task/*/children)
         [[ -z "$running" ]] && continue
         renice 20 --pid `ps --no-heading -o tid --user $all` >/dev/null 2>/dev/null
       done

@@ -35,7 +35,7 @@ ntop() {
   time="${time//00d/   }";
   pid=$(printf "%07d" $0);
   echo "PID $pid $time $(recursive-cpu-usage $0)" $(cat /proc/$0/environ | tr "\\0" "\\n" \
-   | rg "^(name)=(.+)" - --replace "\$2" | tr "\\n" " ")' -- $(cat "/proc/$nd/task/$nd/children" \
+   | rg "^(name)=(.+)" - --replace "\$2" | tr "\\n" " ")' -- $(cat /proc/$nd/task/*/children \
    | tr ' ' '\n' | xargs -L 1 sh -c 'cat /proc/$0/task/*/children') \
    | sort | sed -s "s/ 00/   /g" | sed -s "s/ 0/  /g" | sed -s "s/   s/  0s/g"
 }
