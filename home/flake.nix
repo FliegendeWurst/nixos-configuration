@@ -15,6 +15,10 @@
       url = "git+https://codeberg.org/FliegendeWurst/sysinfo.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -24,6 +28,7 @@
       nur,
       nixpkgs-pr-build-bot,
       sysinfo,
+      lix-module,
       ...
     }@inputs:
     let
@@ -56,6 +61,7 @@
           system = "x86_64-linux";
           modules = [
             nur.modules.nixos.default
+            lix-module.nixosModules.default
 
             ../common.nix
             ./configuration.nix
