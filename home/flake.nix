@@ -19,6 +19,10 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-tree = {
+      url = "github:utdemir/nix-tree";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -29,6 +33,7 @@
       nixpkgs-pr-build-bot,
       sysinfo,
       lix-module,
+      nix-tree,
       ...
     }@inputs:
     let
@@ -67,7 +72,12 @@
             ./configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs' nixpkgs-pr-build-bot sysinfo;
+            inherit
+              nixpkgs'
+              nixpkgs-pr-build-bot
+              sysinfo
+              nix-tree
+              ;
           };
         };
       };

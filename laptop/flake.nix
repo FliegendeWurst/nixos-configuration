@@ -16,6 +16,10 @@
       url = "github:FliegendeWurst/sysinfo";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-tree = {
+      url = "github:utdemir/nix-tree";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +30,7 @@
       nixos-hardware,
       nix-index-database,
       sysinfo,
+      nix-tree,
       ...
     }@inputs:
     let
@@ -108,7 +113,7 @@
             nixos-hardware.nixosModules.framework-13-7040-amd
           ];
           specialArgs = {
-            inherit nixpkgs' sysinfo;
+            inherit nixpkgs' sysinfo nix-tree;
           };
         };
       };

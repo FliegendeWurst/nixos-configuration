@@ -4,6 +4,7 @@
   pkgs,
   nixpkgs',
   sysinfo,
+  nix-tree,
   ...
 }:
 
@@ -385,12 +386,12 @@ rec {
 
   environment.systemPackages = with pkgs; [
     sqlite-interactive
-    nix-tree
     duf
     ripgrep
     sysstat
     _7zz
 
     sysinfo.packages.x86_64-linux.sysinfo
+    nix-tree.packages.x86_64-linux.default
   ];
 }
