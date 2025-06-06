@@ -229,21 +229,7 @@ rec {
     12975
     25565
   ];
-  networking.firewall.allowedTCPPortRanges = [
-    # KDE Connect
-    {
-      from = 1714;
-      to = 1764;
-    }
-  ];
   networking.firewall.allowedUDPPorts = [ 12975 ];
-  networking.firewall.allowedUDPPortRanges = [
-    # KDE Connect
-    {
-      from = 1714;
-      to = 1764;
-    }
-  ];
   # Or disable the firewall altogether.
   #networking.firewall.enable = false;
 
@@ -411,6 +397,8 @@ rec {
     cert = "/etc/nixos/syncthing/cert.pem";
   };
 
+  programs.kdeconnect.enable = true;
+
   # full list: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/desktop-managers/plasma6.nix
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     baloo-widgets
@@ -551,7 +539,6 @@ rec {
     #kdePackages.kmag
     kdePackages.k3b
     kdePackages.kruler
-    kdePackages.kdeconnect-kde
     kdePackages.plasma-vault
     notepadqq
     skrooge
