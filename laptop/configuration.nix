@@ -63,6 +63,7 @@ rec {
     "Charlie Brown".pskRaw = "98aa71084a9bf5ca76feea0ccfd738459d3032116827cdd12fd063e6dd9ef45e";
     "WLAN-HXMPZB".pskRaw = "388eeaec0e32f4e95275c553ee4f1dcf6e03c8c2e26676266c01dbe540d6573a";
     "WLAN-676951".pskRaw = "a74b46a551b3d487ad9f070d383c9b5512e2bc49ce4b330cebeb6f052236933d";
+    "Belvedere".pskRaw = "145212fc6bf6dbcb925e761c072281d7086cbb9e3c89e04514a3d8dd193c5a67";
     eduroam.auth = ''
       key_mgmt=WPA-EAP
       pairwise=CCMP TKIP
