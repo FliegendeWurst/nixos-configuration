@@ -306,8 +306,8 @@
 
     virtualHosts = {
       "trilium-notes.eu" = {
-        forceSSL = false;
-        globalRedirect = "https://github.com/TriliumNext/Notes";
+        enableSSL = false;
+        globalRedirect = "github.com/TriliumNext/Notes";
         redirectCode = 302;
       };
 
