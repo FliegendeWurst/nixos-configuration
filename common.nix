@@ -35,17 +35,6 @@ rec {
   nixpkgs.config.showDerivationWarnings = if nitpicks then [ "maintainerless" ] else null;
   nixpkgs.overlays = [
     (final: prev: {
-      openscad-unstable = prev.openscad-unstable.overrideAttrs (old: {
-        version = "2025-05-15";
-        src = final.fetchFromGitHub {
-          owner = "openscad";
-          repo = "openscad";
-          rev = "168b3ec9905cb541a80099ef2848d3bdfe280ac8";
-          hash = "sha256-nv0V2tp1itkfqyUXGkrGtP1Hu+onZdYzmGNCilbQWHo=";
-          fetchSubmodules = true;
-        };
-        doCheck = false;
-      });
       libbgcode = prev.libbgcode.overrideAttrs (old: {
         version = "2025-02-19";
         src = final.fetchFromGitHub {
@@ -169,8 +158,7 @@ rec {
   ];
   nix.settings.auto-optimise-store = false;
 
-  # TODO: re-enable when it works with no root flake.nix
-  # system.rebuild.enableNg = true;
+  system.rebuild.enableNg = true;
 
   documentation.nixos.enable = false;
   environment.etc.issue.source = "/dev/null";
