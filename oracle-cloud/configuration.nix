@@ -18,8 +18,8 @@
       url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/master/nixos-mailserver-nixos-master.tar.gz";
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
       # release="nixos-23.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
-      # commit b4fbffe79c00f19be94b86b4144ff67541613659
-      sha256 = "0imxmdbx8z0hn0yvgrhazs0qx788a92w8hgysr1vlqfxwd4qc3gf";
+      # commit ?
+      sha256 = "0hs42w1x7286wkxm4myq470z172iwpx6kajsfjhjmwv3ni4g81kz";
     })
   ];
 
@@ -305,6 +305,12 @@
     clientMaxBodySize = "10000m";
 
     virtualHosts = {
+      "trilium-notes.eu" = {
+        forceSSL = false;
+        globalRedirect = "https://github.com/TriliumNext/Notes";
+        redirectCode = 302;
+      };
+
       "fliegendewurst.eu" = {
         forceSSL = true;
         enableACME = true;
@@ -400,6 +406,8 @@
     enable = true;
     fqdn = "mail.fliegendewurst.eu";
     domains = [ "fliegendewurst.eu" ];
+
+    stateVersion = 1;
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
