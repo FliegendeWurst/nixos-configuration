@@ -5,6 +5,7 @@
   nixpkgs',
   nixpkgs-pr-build-bot,
   sysinfo,
+  trilium-notes,
   ...
 }:
 
@@ -266,7 +267,7 @@ rec {
 
   # services.printing.enable = true;
   services.trilium-server.enable = true;
-  services.trilium-server.package = pkgs.trilium-next-server;
+  services.trilium-server.package = trilium-notes.packages.x86_64-linux.server;
   services.trilium-server.host = "0.0.0.0";
   services.trilium-server.port = 12783;
   services.boinc.enable = false;
@@ -518,7 +519,7 @@ rec {
     #tor-browser-bundle-bin
     #mathematica
     gparted
-    trilium-next-desktop
+    trilium-notes.packages.x86_64-linux.desktop
     qdirstat
     libreoffice-qt6-fresh
     qbittorrent

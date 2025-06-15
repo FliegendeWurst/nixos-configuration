@@ -23,6 +23,10 @@
       url = "github:utdemir/nix-tree";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    trilium-notes = {
+      url = "github:TriliumNext/Notes/v0.95.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -34,6 +38,7 @@
       sysinfo,
       lix-module,
       nix-tree,
+      trilium-notes,
       ...
     }@inputs:
     let
@@ -77,6 +82,7 @@
               nixpkgs-pr-build-bot
               sysinfo
               nix-tree
+              trilium-notes
               ;
           };
         };
