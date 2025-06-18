@@ -5,6 +5,7 @@
   nixpkgs',
   sysinfo,
   nix-tree,
+  trilium-notes,
   ...
 }:
 
@@ -372,6 +373,8 @@ rec {
     };
   };
 
+  services.trilium-server.package = trilium-notes.packages.x86_64-linux.server;
+
   environment.systemPackages = with pkgs; [
     sqlite-interactive
     duf
@@ -381,5 +384,7 @@ rec {
 
     sysinfo.packages.x86_64-linux.sysinfo
     nix-tree.packages.x86_64-linux.default
+
+    trilium-notes.packages.x86_64-linux.desktop
   ];
 }

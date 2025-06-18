@@ -256,12 +256,10 @@ rec {
     nvme-cli
     zola
     colorized-logs
-    # TODO(25.05): use regular version
-    # nixpkgs'.pkgs.jujutsu
+    jujutsu
     schedtool
     compsize
-    # TODO(25.05): use regular version
-    # nixpkgs'.pkgs.hydra-check
+    hydra-check
     e2fsprogs # filefrag
     moreutils # parallel
     evtest
@@ -326,7 +324,6 @@ rec {
     #tor-browser-bundle-bin
     #mathematica
     gparted
-    nixpkgs'.pkgs.trilium-next-desktop
     qdirstat
     #filelight
     libreoffice-qt-fresh
@@ -354,7 +351,7 @@ rec {
     skrooge
     inkscape
     element-desktop
-    #TODO(25.05) nixpkgs'.pkgs.cura-appimage
+    cura-appimage
 
     #xorg.xkbcomp
     #xorg.xrandr

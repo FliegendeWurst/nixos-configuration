@@ -20,6 +20,10 @@
       url = "github:utdemir/nix-tree";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    trilium-notes = {
+      url = "github:TriliumNext/Notes/v0.95.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,6 +35,7 @@
       nix-index-database,
       sysinfo,
       nix-tree,
+      trilium-notes,
       ...
     }@inputs:
     let
@@ -113,7 +118,12 @@
             nixos-hardware.nixosModules.framework-13-7040-amd
           ];
           specialArgs = {
-            inherit nixpkgs' sysinfo nix-tree;
+            inherit
+              nixpkgs'
+              sysinfo
+              nix-tree
+              trilium-notes
+              ;
           };
         };
       };
