@@ -80,6 +80,9 @@ rec {
     "WIFI@DB".auth = ''
       key_mgmt=NONE
     '';
+    "GPN-Open".auth = ''
+      key_mgmt=NONE
+    '';
   };
   networking.hostName = "framework";
   networking.firewall.allowedTCPPorts = [
