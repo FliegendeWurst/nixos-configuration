@@ -33,7 +33,7 @@ rec {
     ];
   };
   nixpkgs.config.checkMeta = nitpicks;
-  nixpkgs.config.showDerivationWarnings = if nitpicks then [ "maintainerless" ] else null;
+  # nixpkgs.config.showDerivationWarnings = if nitpicks then [ "maintainerless" ] else null;
   nixpkgs.overlays = [
     (final: prev: {
       libbgcode = prev.libbgcode.overrideAttrs (old: {
