@@ -355,6 +355,7 @@ rec {
     inkscape
     element-desktop
     cura-appimage
+    xournalpp
 
     #xorg.xkbcomp
     #xorg.xrandr
