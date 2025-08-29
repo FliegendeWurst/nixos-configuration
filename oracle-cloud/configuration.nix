@@ -407,7 +407,7 @@
     fqdn = "mail.fliegendewurst.eu";
     domains = [ "fliegendewurst.eu" ];
 
-    stateVersion = 1;
+    stateVersion = 2;
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
