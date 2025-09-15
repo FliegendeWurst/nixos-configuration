@@ -15,10 +15,6 @@
       url = "git+https://codeberg.org/FliegendeWurst/sysinfo.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-tree = {
       url = "github:utdemir/nix-tree";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +32,6 @@
       nur,
       nixpkgs-pr-build-bot,
       sysinfo,
-      lix-module,
       nix-tree,
       trilium-notes,
       ...
@@ -71,7 +66,6 @@
           system = "x86_64-linux";
           modules = [
             nur.modules.nixos.default
-            lix-module.nixosModules.default
 
             ../common.nix
             ./configuration.nix

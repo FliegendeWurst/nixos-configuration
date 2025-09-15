@@ -47,6 +47,7 @@ rec {
   ];
 
   nix.nrBuildUsers = 64;
+  nix.package = pkgs.lixPackageSets.stable.lix;
 
   boot.loader.systemd-boot.memtest86.enable = true;
   boot.kernelPackages = linuxPackages;
