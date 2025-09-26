@@ -198,11 +198,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748901165,
-        "narHash": "sha256-SctrxW5rVrROBLfh8p4kXfbF7NbJQDkse/Penu4PlEs=",
+        "lastModified": 1749022118,
+        "narHash": "sha256-7Qzmy1snKbxFBKoqUrfyxxmEB8rPxDdV7PQwRiAR01o=",
         "owner": "FliegendeWurst",
         "repo": "pnpm2nix-nzbr",
-        "rev": "cda68d63418896a58542f3310c1c757ae92b1f22",
+        "rev": "35f88a41d29839b3989f31871263451c8e092cb1",
         "type": "github"
       },
       "original": {
@@ -317,17 +317,17 @@
         "pnpm2nix": "pnpm2nix"
       },
       "locked": {
-        "lastModified": 1750019546,
-        "narHash": "sha256-XON0rRFKJQ92R3oYESwAMCShw1ld4IG9KLaejOS7ajo=",
+        "lastModified": 1758730820,
+        "narHash": "sha256-/HDMBB34DrfOgSuQTK1wKo3v6EhxqC/6WXcWMjL1dBQ=",
         "owner": "TriliumNext",
-        "repo": "Notes",
-        "rev": "b9ae226569379574723b9367d33d45bc868e110e",
+        "repo": "Trilium",
+        "rev": "27e6d1b00b53bcf1b9558fdc92da610460659dc6",
         "type": "github"
       },
       "original": {
         "owner": "TriliumNext",
-        "ref": "v0.95.0",
-        "repo": "Notes",
+        "ref": "v0.99.0",
+        "repo": "Trilium",
         "type": "github"
       }
     }

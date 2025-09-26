@@ -21,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     trilium-notes = {
-      url = "github:TriliumNext/Notes/v0.95.0";
+      url = "github:TriliumNext/Trilium/v0.99.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
