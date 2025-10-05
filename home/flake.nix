@@ -2,7 +2,7 @@
   description = "FliegendeWurst's NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,7 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     trilium-notes = {
-      url = "github:TriliumNext/Trilium/v0.99.0";
+      url = "github:TriliumNext/Trilium/v0.99.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
