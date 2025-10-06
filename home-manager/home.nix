@@ -148,7 +148,12 @@ assert hostname != "";
     serverAliveInterval = 10;
     serverAliveCountMax = 3;
     matchBlocks =
-      onFramework {
+      {
+        "u294555.your-storagebox.de" = {
+          extraOptions.PubkeyAuthentication = "no";
+        };
+      }
+      // onFramework {
         "github.com" = {
           identityFile = "~/.ssh/github_laptop";
         };
@@ -208,9 +213,6 @@ assert hostname != "";
         "e4d60918-db9d-4447-997a-70db8a246863.ka.bw-cloud-instance.org" = {
           identityFile = "~/.ssh/typicalc_pc";
           port = 22351;
-        };
-        "u294555.your-storagebox.de" = {
-          extraOptions.PubkeyAuthentication = "no";
         };
         # misc.
         "darwin-build-box.nix-community.org" = {
