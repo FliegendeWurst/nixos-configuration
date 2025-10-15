@@ -153,11 +153,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1758589230,
-        "narHash": "sha256-zMTCFGe8aVGTEr2RqUi/QzC1nOIQ0N1HRsbqB4f646k=",
+        "lastModified": 1760423683,
+        "narHash": "sha256-Tb+NYuJhWZieDZUxN6PgglB16yuqBYQeMJyYBGCXlt8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d1d883129b193f0b495d75c148c2c3a7d95789a0",
+        "rev": "a493e93b4a259cd9fea8073f89a7ed9b1c5a1da2",
         "type": "github"
       },
       "original": {
@@ -317,17 +317,17 @@
         "pnpm2nix": "pnpm2nix"
       },
       "locked": {
-        "lastModified": 1758730820,
-        "narHash": "sha256-/HDMBB34DrfOgSuQTK1wKo3v6EhxqC/6WXcWMjL1dBQ=",
+        "lastModified": 1759851493,
+        "narHash": "sha256-x8sYofYvnnOgAznfNC6D5/eHXyNa1WjGzKgbKAlvMvw=",
         "owner": "TriliumNext",
         "repo": "Trilium",
-        "rev": "27e6d1b00b53bcf1b9558fdc92da610460659dc6",
+        "rev": "31c8e96d7076d310809bb11e2aca641567c68329",
         "type": "github"
       },
       "original": {
         "owner": "TriliumNext",
-        "ref": "v0.99.0",
         "repo": "Trilium",
+        "rev": "31c8e96d7076d310809bb11e2aca641567c68329",
         "type": "github"
       }
     }
