@@ -61,6 +61,18 @@
     fsType = "vfat";
   };
 
+  fileSystems."/nix/var/nix/builds" = {
+    depends = [
+      # The mounts above have to be mounted in this given order
+      "/tmp"
+    ];
+    device = "/tmp";
+    fsType = "none";
+    options = [
+      "bind"
+    ];
+  };
+
   #fileSystems."/home/arne/.cache" =
   #  { device = "tmpfs";
   #    fsType = "tmpfs";
