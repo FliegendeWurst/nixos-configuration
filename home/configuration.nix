@@ -167,7 +167,7 @@ rec {
     };
     path = with pkgs; [
       procps
-      utillinux
+      util-linux
     ];
     wants = [ "nix-daemon.service" ];
     wantedBy = [ "multi-user.target" ];
@@ -255,7 +255,7 @@ rec {
 
   fonts.enableDefaultPackages = true;
   fonts.packages = with pkgs; [
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     liberation_ttf
     cozette
     font-awesome
@@ -303,11 +303,6 @@ rec {
     alsa.support32Bit = true;
   };
 
-  hardware.graphics.extraPackages = with pkgs; [
-    amdvlk
-    vaapiVdpau
-    libvdpau-va-gl
-  ];
   hardware.graphics.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
 
   users.users.arne = {
@@ -438,7 +433,7 @@ rec {
     ffmpeg_4
     unzip
     pandoc
-    poppler_utils
+    poppler-utils
     libnotify
     ddrescue
     nvme-cli
@@ -521,7 +516,7 @@ rec {
     qdirstat
     libreoffice-qt6-fresh
     qbittorrent
-    tdesktop
+    telegram-desktop
     signal-desktop
     alacritty
     kdePackages.filelight
@@ -539,7 +534,6 @@ rec {
     kdePackages.k3b
     kdePackages.kruler
     kdePackages.plasma-vault
-    notepadqq
     skrooge
     mpvPlus
     inkscape
