@@ -144,11 +144,13 @@ assert hostname != "";
 
   programs.ssh = {
     enable = true;
-    compression = true;
-    serverAliveInterval = 10;
-    serverAliveCountMax = 3;
     matchBlocks =
       {
+        "*" = {
+          compression = true;
+          serverAliveInterval = 10;
+          serverAliveCountMax = 3;
+        };
         "u294555.your-storagebox.de" = {
           extraOptions.PubkeyAuthentication = "no";
         };
@@ -235,28 +237,32 @@ assert hostname != "";
       };
   };
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      decorations = {
+        commit-decoration-style = "bold yellow box";
+        file-style = "bold yellow ul";
+        file-decoration-style = "none";
+      };
+      features = "line-numbers decorations";
+      whitespace-error-style = "22 reverse";
+    };
+  };
+
   programs.git = {
     enable = true;
-    aliases = {
-      "log-branches" = "log --all --graph --decorate --oneline --simplify-by-decoration";
-      "pfusch" = "push --force";
-      "staged" = "diff --staged";
-    };
-    delta = {
-      enable = true;
-      options = {
-        decorations = {
-          commit-decoration-style = "bold yellow box";
-          file-style = "bold yellow ul";
-          file-decoration-style = "none";
-        };
-        features = "line-numbers decorations";
-        whitespace-error-style = "22 reverse";
+    settings = {
+      user.email = "arne.keller@posteo.de";
+      user.name = "Arne Keller";
+
+      alias = {
+        "log-branches" = "log --all --graph --decorate --oneline --simplify-by-decoration";
+        "pfusch" = "push --force";
+        "staged" = "diff --staged";
       };
-    };
-    userEmail = "arne.keller@posteo.de";
-    userName = "Arne Keller";
-    extraConfig = {
+
       core = {
         quotepath = "off";
       };
