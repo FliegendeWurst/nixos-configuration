@@ -19,7 +19,7 @@
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
       # release="nixos-23.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
       # commit ?
-      sha256 = "0fkyk226fi2xal16cisb947v1zyzvv5vz3jahjm1m833qzdhv9yy";
+      sha256 = "1dvgzzzdl60k7cq067id01p40c3nqvfqw34m8gi7qhx3j6aw6knk";
     })
   ];
 
@@ -288,14 +288,6 @@
     requires = [ "network-online.target" ];
   };
 
-  services.tt-rss = {
-    enable = true;
-    selfUrlPath = "https://tt-rss.fliegendewurst.eu/";
-    sessionCookieLifetime = 365 * 24 * 60 * 60;
-    singleUserMode = true;
-    virtualHost = "tt-rss.fliegendewurst.eu";
-  };
-
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
@@ -306,7 +298,6 @@
 
     virtualHosts = {
       "trilium-notes.eu" = {
-        enableSSL = false;
         globalRedirect = "github.com/TriliumNext/Notes";
         redirectCode = 302;
       };
@@ -368,14 +359,6 @@
       };
       "mail.fliegendewurst.eu" = {
         enableACME = true;
-      };
-      "tt-rss.fliegendewurst.eu" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations."/" = {
-          basicAuthFile = "/var/nginx/tt-rss-auth";
-        };
       };
       "typicalc.fliegendewurst.eu" = {
         forceSSL = true;

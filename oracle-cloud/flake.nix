@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs-pinned";
     };
     reddit-image-grid = {
-      url = "github:FliegendeWurst/reddit-image-grid";
+      url = "git+https://codeberg.org/FliegendeWurst/reddit-image-grid.git";
       inputs.nixpkgs.follows = "nixpkgs-pinned";
     };
     wastebin = {
