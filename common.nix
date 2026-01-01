@@ -25,6 +25,7 @@ rec {
         "steam-unwrapped"
         "mathematica"
         "idea-ultimate"
+        "idea"
         "android-studio-stable"
         "sddm-theme-utah"
       ];
