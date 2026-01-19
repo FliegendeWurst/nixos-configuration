@@ -103,8 +103,6 @@ assert hostname != "";
     // onDesktop {
       # Move Firefox cache to /tmp.
       ".cache/mozilla/firefox/q7zjqact.default/cache2".source = mkOutOfStoreSymlink "/tmp/firefox-cache";
-      # Build cache. Gets stale if you do as much as look at the source code.
-      "src/Notes/.nx".source = mkOutOfStoreSymlink "/tmp/nx-cache";
       # Snapshots for Android Studio emulator RAM.
       ".cache/.android/avd/gradle-managed/dev36_google_apis_x86_64_Pixel_9.avd/snapshots".source = mkOutOfStoreSymlink "/tmp/android-emulator-36";
       ".cache/.android/avd/gradle-managed/dev35_aosp_atd_x86_64_Pixel_9.avd/snapshots".source = mkOutOfStoreSymlink "/tmp/android-emulator-35";
@@ -133,7 +131,6 @@ assert hostname != "";
   systemd.user.tmpfiles.rules = [
     "d /tmp/firefox-cache 700 arne users 0 -"
     "d /tmp/thumbnail-cache 700 arne users 0 -"
-    "d /tmp/nx-cache 700 arne users 0 -"
     "d /tmp/nixpkgs-review 700 arne users 0 -"
     "d /tmp/android-emulator-36 700 arne users 0 -"
     "d /tmp/android-emulator-35 700 arne users 0 -"
@@ -278,6 +275,7 @@ assert hostname != "";
     enable = true;
     package = pkgs.emptyDirectory;
     settings = {
+      ui.diff-editor = ":builtin";
       user = {
         email = "arne.keller@posteo.de";
         name = "FliegendeWurst";
@@ -322,6 +320,7 @@ assert hostname != "";
 
   programs.alacritty = {
     enable = true;
+    package = pkgs.emptyDirectory; # managed by NixOS
     settings = {
       colors = {
         bright = {
