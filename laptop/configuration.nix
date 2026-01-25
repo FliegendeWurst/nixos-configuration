@@ -149,7 +149,7 @@ rec {
 
   fonts.enableDefaultPackages = true;
   fonts.packages = with pkgs; [
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     liberation_ttf
     cozette
     font-awesome
@@ -254,7 +254,7 @@ rec {
     oxipng
     ffmpeg_4
     unzip
-    poppler_utils
+    poppler-utils
     libnotify
     ddrescue
     nvme-cli
@@ -332,7 +332,7 @@ rec {
     #filelight
     libreoffice-qt-fresh
     qbittorrent
-    tdesktop
+    telegram-desktop
     signal-desktop
     alacritty
     kdePackages.kwalletmanager
@@ -351,7 +351,7 @@ rec {
     kdePackages.plasma-vault
     kdePackages.ksshaskpass
     #ksshaskpass
-    notepadqq
+    #notepadqq
     skrooge
     inkscape
     element-desktop
