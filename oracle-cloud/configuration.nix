@@ -19,7 +19,7 @@
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
       # release="nixos-23.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
       # commit ?
-      sha256 = "1dvgzzzdl60k7cq067id01p40c3nqvfqw34m8gi7qhx3j6aw6knk";
+      sha256 = "0xfhmmz0dfmrhm6sj12iq8lxa17c4ksnj5hcmhljcazgar5bc7yx";
     })
   ];
 
@@ -402,7 +402,7 @@
       };
     };
 
-    certificateScheme = "acme";
+    x509.useACMEHost = "mail.fliegendewurst.eu";
   };
   services.dovecot2.sieve.extensions = [ "fileinto" ];
 
