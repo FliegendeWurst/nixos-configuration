@@ -15,11 +15,11 @@
 
     (builtins.fetchTarball {
       # Pick a release version you are interested in and set its hash, e.g.
-      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/master/nixos-mailserver-nixos-master.tar.gz";
+      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/main/nixos-mailserver-nixos-main.tar.gz";
       # To get the sha256 of the nixos-mailserver tarball, we can use the nix-prefetch-url command:
       # release="nixos-23.05"; nix-prefetch-url "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz" --unpack
       # commit ?
-      sha256 = "0xfhmmz0dfmrhm6sj12iq8lxa17c4ksnj5hcmhljcazgar5bc7yx";
+      sha256 = "0nklwnqyblz3k2aifba6b3nk69im9kds3hqvb4xfmml1qdvca5gv";
     })
   ];
 
@@ -394,7 +394,7 @@
 
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
-    loginAccounts = {
+    accounts = {
       "info@fliegendewurst.eu" = {
         hashedPasswordFile = "/var/dovecot2/info_at_fliegendewurst_eu";
         aliases = [ "@fliegendewurst.eu" ];
@@ -404,7 +404,6 @@
 
     x509.useACMEHost = "mail.fliegendewurst.eu";
   };
-  services.dovecot2.sieve.extensions = [ "fileinto" ];
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "2012gdwu@posteo.de";
