@@ -189,7 +189,7 @@ assert hostname != "";
           identityFile = "~/.ssh/kit_gitlab_pc";
         };
         "git.key-project.org" = {
-          identityFile = "~/.ssh/id_newkey2021";
+          identityFile = "~/.ssh/key_gitlab_pc";
         };
         "git.fliegendewurst.eu" = {
           identityFile = "~/.ssh/gitea_pc";
