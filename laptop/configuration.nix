@@ -205,8 +205,6 @@ rec {
   programs.tmux.terminal = "tmux-256color";
   programs.tmux.plugins = with pkgs.tmuxPlugins; [ pkgs.nur.repos.fliegendewurst.tmux-thumbs ];
 
-  programs.adb.enable = true;
-
   services.syncthing = {
     dataDir = "/home/arne";
     key = "/etc/nixos/syncthing/key.pem";
@@ -272,6 +270,8 @@ rec {
     ryzenadj
     wl-clipboard
     sysinfo.packages.x86_64-linux.sysinfo
+    iw
+    wirelesstools
 
     #nur.repos.fliegendewurst.ripgrep-all
     #nur.repos.fliegendewurst.map
@@ -290,7 +290,7 @@ rec {
     #jupyter
     vscodium
     #jetbrains.idea-ultimate
-    #TODO(25.05) androidStudioPackages.stable
+    #TODO(25.05) androidStudioPackages.stable android-tools
     clang
     #gnumake cmake
     llvmPackages.bintools
