@@ -233,6 +233,7 @@ rec {
   networking.firewall.allowedUDPPorts = [ 12975 ];
   # Or disable the firewall altogether.
   #networking.firewall.enable = false;
+  networking.resolvconf.enable = false;
 
   environment.etc = {
     "resolv.conf".text = ''
@@ -335,7 +336,6 @@ rec {
   programs.tmux.terminal = "tmux-256color";
   programs.tmux.plugins = with pkgs.tmuxPlugins; [ pkgs.nur.repos.fliegendewurst.tmux-thumbs ];
 
-  programs.adb.enable = true;
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark;
   # do not show unlock prompt on login
@@ -469,6 +469,7 @@ rec {
     vscodium
     jetbrains.idea
     androidStudioPackages.stable
+    android-tools # adb
     clang
     #gnumake cmake
     llvmPackages.bintools

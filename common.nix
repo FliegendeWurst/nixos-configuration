@@ -26,10 +26,10 @@ rec {
         "mathematica"
         "idea-ultimate"
         "idea"
-        "android-studio-stable"
+        "android-studio"
         "sddm-theme-utah"
       ];
-    strictDepsByDefault = config.system.nixos.release == "26.05";
+    strictDepsByDefault = config.system.nixos.release == "26.11";
     permittedInsecurePackages = [
     ];
   };
@@ -43,8 +43,6 @@ rec {
     "flakes"
   ];
   nix.settings.auto-optimise-store = false;
-
-  system.rebuild.enableNg = true;
 
   documentation.nixos.enable = false;
   environment.etc.issue.source = "/dev/null";
@@ -68,9 +66,7 @@ rec {
   };
 
   # disable coredumps
-  systemd.coredump.extraConfig = ''
-    Storage=none
-  '';
+  systemd.coredump.settings.Coredump.Storage = "none";
   security.pam.loginLimits = [
     {
       domain = "*";
