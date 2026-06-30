@@ -143,11 +143,11 @@
     },
     "nixpkgs-pinned": {
       "locked": {
-        "lastModified": 1764950072,
-        "narHash": "sha256-BmPWzogsG2GsXZtlT+MTcAWeDK5hkbGRZTeZNW42fwA=",
+        "lastModified": 1782723713,
+        "narHash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f61125a668a320878494449750330ca58b78c557",
+        "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
         "type": "github"
       },
       "original": {
@@ -186,11 +186,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765130500,
-        "narHash": "sha256-64GcXnCnHLW+gYiS+J+ncxJ1LBIxHJz2qny2cAbDxaE=",
+        "lastModified": 1782890188,
+        "narHash": "sha256-l51Zm2cay1XoBxrdTnfYd66lkK+FCb4JikGUa577IEg=",
         "owner": "FliegendeWurst",
         "repo": "pr-dashboard",
-        "rev": "bf2b34c41e73919b26dd973427e84c14cad3bd1e",
+        "rev": "ecf4e0587b114b6b6566a079851eb468ac524762",
         "type": "github"
       },
       "original": {
@@ -206,11 +206,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765130562,
-        "narHash": "sha256-K5ZY7kR5b25UENrJyAaC59u0W0y7PwQpIJpPWvQLQVM=",
+        "lastModified": 1782842936,
+        "narHash": "sha256-xMavALmuQxJCm0m6ZJsNSkkYgDLwYMBP7MjlgN5pups=",
         "ref": "refs/heads/master",
-        "rev": "ab2ce75a7e609954f589f0d9a7b15b8480e8de37",
-        "revCount": 13,
+        "rev": "799ffe1f9cd29582629bab9357b217ccc8a67287",
+        "revCount": 14,
         "type": "git",
         "url": "https://codeberg.org/FliegendeWurst/reddit-image-grid.git"
       },
@@ -258,11 +258,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765130598,
-        "narHash": "sha256-bT3jY5m/g6xM42sLkXR35PSzXK6MFGeHJDOBQmzQlNM=",
+        "lastModified": 1782842965,
+        "narHash": "sha256-FoVardXGdVPQBkDDUg1aa8ZFsSoEQF3P8GCY0YNq3dY=",
         "owner": "FliegendeWurst",
         "repo": "wastebin",
-        "rev": "eabbca65cd47d115abf85202405400495106eb94",
+        "rev": "ed25ae7b0a0e52c031d287359b460b46d13b3607",
         "type": "github"
       },
       "original": {

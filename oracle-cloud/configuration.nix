@@ -333,7 +333,7 @@
           proxyPass = "http://127.0.0.1:18120";
           # update-prs may be slow
           extraConfig = ''
-            proxy_read_timeout 3600;
+            proxy_read_timeout 36000;
           '';
         };
       };
