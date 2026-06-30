@@ -20,6 +20,10 @@
       url = "github:FliegendeWurst/wastebin/wip";
       inputs.nixpkgs.follows = "nixpkgs-pinned";
     };
+    nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -30,6 +34,7 @@
       pr-dashboard,
       reddit-image-grid,
       wastebin,
+      nixos-mailserver,
       ...
     }@inputs:
     {
@@ -38,11 +43,12 @@
           system = "aarch64-linux";
           modules = [
             nur.modules.nixos.default
+            nixos-mailserver.nixosModules.default
 
             ./configuration.nix
           ];
           specialArgs = {
-            inherit pr-dashboard reddit-image-grid wastebin;
+            inherit pr-dashboard reddit-image-grid wastebin nixos-mailserver;
           };
         };
       };
