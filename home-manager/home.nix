@@ -309,6 +309,8 @@ assert hostname != "";
       ">" = "playlist_prev";
       "Alt+UP" = "script-message RBS-upvote";
       "Alt+DOWN" = "script-message RBS-downvote";
+      "ALT+d" = "run rm $" + "{path}";
+      "ALT+g" = "run mv $" + "{path} ./g/";
     };
     config = {
       "profile" = "gpu-hq";
