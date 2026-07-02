@@ -22,7 +22,7 @@ alias b2='\nix-shell -k -j6 -I nixpkgs=/home/arne/nixpkgs-wt-2 -p'
 alias b2s='\nix-shell -j1 -I nixpkgs=/home/arne/nixpkgs-wt-2 -p'
 alias jl="jj log -T log_compact_fast --limit 10 --no-pager"
 alias music="mpv --no-video --script=~/.config/mpv/scripts-disabled/ratings-based-shuffle.lua ~/Music/1sec_silence.mp3"
-alias jsplit="JJ_EDITOR=gen-commit-message jj split"
+alias jsplit="jj metaedit --update-author-timestamp && JJ_EDITOR=gen-commit-message jj split"
 alias copy="wl-copy"
 alias nixpkgs-review-pr='nixpkgs-review pr --build-args "-j 2" --eval github --print-result'
 
