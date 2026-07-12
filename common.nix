@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  nixpkgs',
+  # nixpkgs',
   sysinfo,
   nix-tree,
   trilium-notes,
@@ -160,7 +160,7 @@ rec {
     "zsh-aliases.zsh".text =
       builtins.readFile ./sysroot/etc/zsh-aliases.zsh
       + ''
-        source "${nixpkgs'.pkgs.zsh-histdb}/share/zsh-histdb/sqlite-history.zsh"
+        source "${pkgs.zsh-histdb}/share/zsh-histdb/sqlite-history.zsh"
       '';
   };
 

@@ -72,7 +72,7 @@
           ];
           specialArgs = {
             inherit
-              nixpkgs'
+              # nixpkgs'
               nixpkgs-pr-build-bot
               sysinfo
               nix-tree

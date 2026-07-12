@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  nixpkgs',
+  # nixpkgs',
   nixpkgs-pr-build-bot,
   sysinfo,
   ...
