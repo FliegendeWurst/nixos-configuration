@@ -197,11 +197,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765363036,
-        "narHash": "sha256-vftf52wbu1qaz/UJgUlHOvd8JRaOHaYUQ9BgVOHjcQc=",
+        "lastModified": 1783926762,
+        "narHash": "sha256-CEBd3jsjw2ELBVpWrJTSc2c2/U09Uh4nDQ9hSbW6Fsc=",
         "ref": "refs/heads/master",
-        "rev": "8cfdc6bb29ae576aaa77915a67ca2acc203838f4",
-        "revCount": 13,
+        "rev": "a8686dcb40910bb1a3bb4943d9dafac121c4cdb8",
+        "revCount": 14,
         "type": "git",
         "url": "https://codeberg.org/FliegendeWurst/sysinfo.git"
       },
