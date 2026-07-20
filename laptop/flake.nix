@@ -119,7 +119,6 @@
           ];
           specialArgs = {
             inherit
-              nixpkgs'
               sysinfo
               nix-tree
               trilium-notes
