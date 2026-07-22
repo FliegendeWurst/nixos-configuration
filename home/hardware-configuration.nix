@@ -61,7 +61,7 @@
     fsType = "vfat";
   };
 
-  fileSystems."/nix/var/nix/builds" = {
+  fileSystems."/nix/var/nix/b" = {
     depends = [
       # The mounts above have to be mounted in this given order
       "/tmp"
