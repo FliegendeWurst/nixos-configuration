@@ -266,7 +266,7 @@ rec {
   virtualisation.docker.enableOnBoot = false;
   virtualisation.docker.logDriver = "journald";
 
-  # services.printing.enable = true;
+  services.printing.enable = true;
   services.trilium-server.enable = true;
   services.trilium-server.host = "0.0.0.0";
   services.trilium-server.port = 12783;
